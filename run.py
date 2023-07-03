@@ -21,10 +21,9 @@ EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
-CURRENT_USER = ''
 
 
-def select_options():
+def select_options(current_user):
     """
     Displays a list of options and prompts the user to select one.
 
@@ -45,7 +44,7 @@ def select_options():
                 if index == 0:
                     create_new_workout()
                 elif index == 1:
-                    view_all_workouts()
+                    view_all_workouts(current_user)
                 elif index == 2:
                     request_fitness_calculator()
                 elif index == 3:
@@ -58,8 +57,27 @@ def select_options():
     
     
 
-def view_all_workouts():
-    return True
+def view_all_workouts(current_user):
+        """
+    Retrieves data from a Google Sheets spreadsheet.
+
+    Parameters:
+        sheet_id (str): The ID of the Google Sheets spreadsheet.
+        sheet_name (str): The name of the sheet within the spreadsheet.
+
+    Returns:
+        list: A 2D list containing the data from the specified sheet.
+    """
+        all_workouts = WORKOUT_SHEET.get_all_values()
+
+        filtered_data = [row for row in all_workouts if row[0] == current_user]
+
+        for row in filtered_data:
+            workout_type, workout_time, workout_duration = row[1:4]
+            print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
+            print()  # Print an empty line between rows
+
+
 
 def create_new_workout():
     workout_type = input('What workout type did you do?')
@@ -67,6 +85,8 @@ def create_new_workout():
     validate_data(workout_type, workout_duration)
 
     update_workout_sheet(workout_type, workout_duration)
+
+
 
 
 def validate_data(type, duration):
@@ -116,23 +136,22 @@ def main():
     """
     Main Function to run code
     """
-    select_options()
 
+    choice = input("Choose 'login' or 'signup': ").lower()
+    current_user = ''
 
-    # choice = input("Choose 'login' or 'signup': ").lower()
-    # global CURRENT_USER
-
-    # if choice == 'login':
-    #    CURRENT_USER = login(df)
-    # elif choice == 'signup':
-    #     CURRENT_USER = signup(USERS_SHEET)
-    # else:
-    #     print("Invalid choice")
+    if choice == 'login':
+       current_user = login(df)
+    elif choice == 'signup':
+        current_user = signup(USERS_SHEET)
+    else:
+        print("Invalid choice")
 
     
-    # if CURRENT_USER:
-    #     fitness_calculator()
-    #     create_new_workout()
+    if current_user:
+        select_options(current_user)
+    else:
+        print('No current user')
 
 
 main()
