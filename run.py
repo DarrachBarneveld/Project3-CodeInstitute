@@ -3,17 +3,11 @@ import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
 from auth import login, signup
-import fitness_calculator
+from config import GOOGLE_SHEETS_SCOPE
 
-
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
 
 CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+SCOPED_CREDS = CREDS.with_scopes(GOOGLE_SHEETS_SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 SPREADSHEET = GSPREAD_CLIENT.open('WorkItOut')
@@ -28,6 +22,30 @@ df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
 CURRENT_USER = ''
 
+
+def select_options():
+    """
+    Displays a list of options and prompts the user to select one.
+
+    Returns:
+        str: The selected option.
+    """
+    options = ['Option 1', 'Option 2', 'Option 3']
+    
+    for i, option in enumerate(options):
+        print(f"{i+1}. {option}")
+    
+    while True:
+        choice = input("Enter the number corresponding to your choice: ")
+        try:
+            index = int(choice) - 1
+            if 0 <= index < len(options):
+                return options[index]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
+    
 
 def create_new_workout():
     workout_type = input('What workout type did you do?')
@@ -84,19 +102,22 @@ def main():
     """
     Main Function to run code
     """
-    choice = input("Choose 'login' or 'signup': ").lower()
-    global CURRENT_USER
+    select_options()
 
-    if choice == 'login':
-       CURRENT_USER = login(df)
-    elif choice == 'signup':
-        CURRENT_USER = signup(USERS_SHEET)
-    else:
-        print("Invalid choice")
+    # choice = input("Choose 'login' or 'signup': ").lower()
+    # global CURRENT_USER
+
+    # if choice == 'login':
+    #    CURRENT_USER = login(df)
+    # elif choice == 'signup':
+    #     CURRENT_USER = signup(USERS_SHEET)
+    # else:
+    #     print("Invalid choice")
 
     
-    if CURRENT_USER:
-        create_new_workout()
+    # if CURRENT_USER:
+    #     fitness_calculator()
+    #     create_new_workout()
 
 
 main()

@@ -1,4 +1,5 @@
 import requests
+from config import RAPID_API_HEADERS
 
 url = "https://fitness-calculator.p.rapidapi.com/idealweight"
 
@@ -16,14 +17,9 @@ def request_fitness_calculator(url=url, params=None , data=None):
         requests.Response: The response object from the API.
     """
 
-    headers = {
-	"X-RapidAPI-Key": "a974755664mshcf8324aff712072p1e666ajsn82d973f0b403",
-	"X-RapidAPI-Host": "fitness-calculator.p.rapidapi.com"
-    }
-
 
     try:
-        response = requests.get(url, headers=headers, params=params, timeout=10)
+        response = requests.get(url, headers=RAPID_API_HEADERS, params=params, timeout=10)
 
 
         response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
