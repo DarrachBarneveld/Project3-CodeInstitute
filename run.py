@@ -4,7 +4,8 @@ from google.oauth2.service_account import Credentials
 import pandas as pd
 from auth import login, signup
 from config import GOOGLE_SHEETS_SCOPE
-from fitness_calculator import request_fitness_calculator
+
+from fitness_calculator import bmi_calculator
 
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -32,12 +33,14 @@ def select_options(current_user):
     """
     options = ['Enter Workout', 'View Workouts', 'Check BMI', 'Recommended Macros', 'Recommended Daily Calories']
     
-    for i, option in enumerate(options):
-        print(f"{i+1}. {option}")
+  
     
 
     while True:
+        for i, option in enumerate(options):
+            print(f"{i+1}. {option}")
         choice = input("Enter the number corresponding to your choice: ")
+
         try:
             index = int(choice) - 1
             if 0 <= index < len(options):
@@ -46,9 +49,11 @@ def select_options(current_user):
                 elif index == 1:
                     view_all_workouts(current_user)
                 elif index == 2:
-                    request_fitness_calculator()
+                    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/bmi')
                 elif index == 3:
-                    request_fitness_calculator()
+                    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/macrocalculator')
+                elif index == 3:
+                    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/dailycalorie')
             else:
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
@@ -136,22 +141,23 @@ def main():
     """
     Main Function to run code
     """
+    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/bmi')
 
-    choice = input("Choose 'login' or 'signup': ").lower()
-    current_user = ''
+    # choice = input("Choose 'login' or 'signup': ").lower()
+    # current_user = ''
 
-    if choice == 'login':
-       current_user = login(df)
-    elif choice == 'signup':
-        current_user = signup(USERS_SHEET)
-    else:
-        print("Invalid choice")
+    # if choice == 'login':
+    #    current_user = login(df)
+    # elif choice == 'signup':
+    #     current_user = signup(USERS_SHEET)
+    # else:
+    #     print("Invalid choice")
 
     
-    if current_user:
-        select_options(current_user)
-    else:
-        print('No current user')
+    # if current_user:
+    #     select_options(current_user)
+    # else:
+    #     print('No current user')
 
 
 main()
