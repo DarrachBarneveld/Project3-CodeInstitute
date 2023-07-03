@@ -4,6 +4,7 @@ from google.oauth2.service_account import Credentials
 import pandas as pd
 from auth import login, signup
 from config import GOOGLE_SHEETS_SCOPE
+from fitness_calculator import request_fitness_calculator
 
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -30,22 +31,35 @@ def select_options():
     Returns:
         str: The selected option.
     """
-    options = ['Option 1', 'Option 2', 'Option 3']
+    options = ['Enter Workout', 'View Workouts', 'Check BMI', 'Recommended Macros', 'Recommended Daily Calories']
     
     for i, option in enumerate(options):
         print(f"{i+1}. {option}")
     
+
     while True:
         choice = input("Enter the number corresponding to your choice: ")
         try:
             index = int(choice) - 1
             if 0 <= index < len(options):
-                return options[index]
+                if index == 0:
+                    create_new_workout()
+                elif index == 1:
+                    view_all_workouts()
+                elif index == 2:
+                    request_fitness_calculator()
+                elif index == 3:
+                    request_fitness_calculator()
             else:
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid choice. Please enter a valid number.")
+
     
+    
+
+def view_all_workouts():
+    return True
 
 def create_new_workout():
     workout_type = input('What workout type did you do?')
@@ -103,6 +117,7 @@ def main():
     Main Function to run code
     """
     select_options()
+
 
     # choice = input("Choose 'login' or 'signup': ").lower()
     # global CURRENT_USER
