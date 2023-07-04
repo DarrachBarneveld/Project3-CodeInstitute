@@ -5,7 +5,7 @@ import pandas as pd
 from auth import login, signup
 from config import GOOGLE_SHEETS_SCOPE
 
-from fitness_calculator import bmi_calculator
+import fitness_calculator
 
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -31,7 +31,7 @@ def select_options(current_user):
     Returns:
         str: The selected option.
     """
-    options = ['Enter Workout', 'View Workouts', 'Check BMI', 'Recommended Macros', 'Recommended Daily Calories']
+    options = ['Enter Workout', 'View Workouts', 'Check BMI', 'Dieting Macros Calculator', 'Recommended Daily Calories']
     
   
     
@@ -49,7 +49,7 @@ def select_options(current_user):
                 elif index == 1:
                     view_all_workouts(current_user)
                 elif index == 2:
-                    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/bmi')
+                    bmi_calculator()
                 elif index == 3:
                     bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/macrocalculator')
                 elif index == 3:
@@ -141,7 +141,8 @@ def main():
     """
     Main Function to run code
     """
-    bmi_calculator(url='https://fitness-calculator.p.rapidapi.com/bmi')
+    # bmi_calculator()
+    fitness_calculator.daily_calories()
 
     # choice = input("Choose 'login' or 'signup': ").lower()
     # current_user = ''
