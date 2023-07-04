@@ -1,5 +1,7 @@
 """Module provides calles for manipulating dates and times"""
 from datetime import datetime
+import sys
+import time
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
@@ -19,10 +21,23 @@ USERS_SHEET = SPREADSHEET.get_worksheet(0)
 WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
 
 EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
+# pylint: disable=line-too-long
 CHOICE_OPTIONS = ['Enter Workout', 'View Workouts', 'Check BMI', 'Dieting Macros Calculator', 'Recommended Daily Calories']
 
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+
+
+# Credit author of animation
+def type_text(string):
+    """
+    Displays a string in a typed out animation by printing text periodically
+    """
+    for character in string:
+        time.sleep(.03)
+        sys.stdout.write(character)
+        sys.stdout.flush()
 
 
 def select_options(current_user):
@@ -137,19 +152,33 @@ def main():
     """
     Main Function to run code
     """
-    choice = input("Choose 'login' or 'signup': ").lower()
-    current_user = ''
 
-    if choice == 'login':
-        current_user = login(df)
-    elif choice == 'signup':
-        current_user = signup(USERS_SHEET)
-    else:
-        print("Invalid choice")   
-    if current_user:
-        select_options(current_user)
-    else:
-        print('No current user')
+    type_text('Welcome to WorkItOut!\n')
+    time.sleep(.5)
+    print('\n')
+    type_text('Track your workouts!\n')
+    time.sleep(.5)
+    print('\n')
+    type_text('Achieve your weight goals!\n')
+    time.sleep(.5)
+    print('\n')
+    type_text('Access recommended nutritional information!\n')
+    time.sleep(.5)
+
+
+    # choice = input("Choose 'login' or 'signup': ").lower()
+    # current_user = ''
+
+    # if choice == 'login':
+    #     current_user = login(df)
+    # elif choice == 'signup':
+    #     current_user = signup(USERS_SHEET)
+    # else:
+    #     print("Invalid choice")
+    # if current_user:
+    #     select_options(current_user)
+    # else:
+    #     print('No current user')
 
 
 main()
