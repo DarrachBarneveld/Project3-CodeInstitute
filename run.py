@@ -42,13 +42,15 @@ def select_options(current_user):
             index = int(choice) - 1
             if 0 <= index < len(options):
                 if index == 0:
-                    create_new_workout()
+                    create_new_workout(current_user)
                 elif index == 1:
                     view_all_workouts(current_user)
                 elif index == 2:
-                    fitness_calculator.bmi_calculator()
+                    response = fitness_calculator.bmi_calculator()
+                    print(response)
                 elif index == 3:
-                    fitness_calculator.dieting_macros()
+                   response = fitness_calculator.dieting_macros()
+                   print(response)
                 elif index == 4:
                    response =  fitness_calculator.daily_calories()
                    print(response)
@@ -82,12 +84,12 @@ def view_all_workouts(current_user):
 
 
 
-def create_new_workout():
+def create_new_workout(current_user):
     workout_type = input('What workout type did you do?')
     workout_duration = input('For how long did you workout in whole minutes?')
     validate_data(workout_type, workout_duration)
 
-    update_workout_sheet(workout_type, workout_duration)
+    update_workout_sheet(current_user,workout_type, workout_duration)
 
 
 
@@ -118,7 +120,7 @@ def validate_data(type, duration):
      
     return True
 
-def update_workout_sheet(type, duration):
+def update_workout_sheet(current_user, type, duration):
     """
     Update the Google Sheets Document if valid data
     
@@ -131,7 +133,7 @@ def update_workout_sheet(type, duration):
     current_time = datetime.now().time()
     time_string = current_time.strftime("%H:%M:%S")
 
-    workout_row = [CURRENT_USER, type, time_string, duration]
+    workout_row = [current_user, type, time_string, duration]
     WORKOUT_SHEET.append_row(workout_row)
 
 

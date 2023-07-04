@@ -157,40 +157,9 @@ def dieting_macros():
     Returns:
         requests.Response: The response object from the API in json format.
     """
+    age, weight, height, gender, activty_level =  define_base_inputs()
 
-  
-    valid_input_age = False
-    valid_input_weight = False
-    valid_input_height = False
-    valid_activity_level = False
-    valid_input_gender = False
     valid_input_goal = False
-
-    while not valid_input_age:
-        age = input('What is your current age: ')
-        if validate_number_in_range(number=age, min_value=10, max_value=100):
-            valid_input_age = True
-
-    while not valid_input_weight:
-        weight = input('What is your current weight in kg: ')
-        if validate_number_in_range(number=weight, min_value=40, max_value=160):
-            valid_input_weight = True
-
-    while not valid_input_height:
-        height = input('What is your current height in cm: ')
-        if validate_number_in_range(number=height, min_value=130, max_value=230):
-            valid_input_height = True
-
-    while not valid_activity_level:
-        activty_level = input('What is your activty level from 1 - 6: ')
-        if validate_number_in_range(number=activty_level, min_value=1, max_value=6):
-            valid_activity_level = True
-
-    while not valid_input_gender:
-        gender = input('Male or Female: ')
-        if validate_strings(input_string=gender, valid_strings=["female", "male"]):
-            valid_input_gender = True
-            
     options = ['Maintain weight', 'Mild Weight Loss', 'Weight Loss', 'Extreme Weight Loss', 'Mild Weight Gain', "Weight Gain", "Extreme Weight Gain"]
     goal = ''
 
@@ -228,15 +197,7 @@ def dieting_macros():
         except ValueError:
             print("Invalid choice. Please enter a valid number.")
 
-
-
-
-
-
-
     querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal,}
-    
-    print(querystring)
     try:
         response = requests.get('https://fitness-calculator.p.rapidapi.com/macrocalculator', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
         response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
