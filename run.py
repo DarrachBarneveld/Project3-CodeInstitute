@@ -5,9 +5,17 @@ import time
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
+import colorama
 import fitness_calculator
 from auth import login, signup
 from config import GOOGLE_SHEETS_SCOPE
+
+colorama.init()
+
+G = colorama.Fore.GREEN
+R = colorama.Fore.RED
+B = colorama.Fore.CYAN
+Y = colorama.Fore.YELLOW
 
 
 
@@ -26,6 +34,22 @@ CHOICE_OPTIONS = ['Enter Workout', 'View Workouts', 'Check BMI', 'Dieting Macros
 
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+
+
+def display_welcome():
+    """
+    Display ASCII welcome Log logo on the terminal.
+    """
+    print(G + ' _    _            _   _____ _   _____       _  ')
+    print(G + '| |  | |          | | |_   _| | |  _  |     | |  ')
+    print(G + '| |  | | ___  _ __| | __| | | |_| | | |_   _| |_ ')
+    print(B + "| |/\| |/ _ \| '__| |/ /| | | __| | | | | | | __|")
+    print(B + '\  /\  / (_) | |  |   <_| |_| |_\ \_/ / |_| | |_ ')
+    print(B + ' \/  \/ \___/|_|  |_|\_\___/ \__|\___/ \__,_|\__|')
+    print(' ')
+    print(R + '                             By Darrach Barneveld')
+    print(' ')
 
 
 
@@ -153,17 +177,18 @@ def main():
     Main Function to run code
     """
 
-    type_text('Welcome to WorkItOut!\n')
-    time.sleep(.5)
-    print('\n')
-    type_text('Track your workouts!\n')
-    time.sleep(.5)
-    print('\n')
-    type_text('Achieve your weight goals!\n')
-    time.sleep(.5)
-    print('\n')
-    type_text('Access recommended nutritional information!\n')
-    time.sleep(.5)
+    display_welcome()
+    # type_text('Welcome to WorkItOut!\n')
+    # time.sleep(.5)
+    # print('\n')
+    # type_text('Track your workouts!\n')
+    # time.sleep(.5)
+    # print('\n')
+    # type_text('Achieve your weight goals!\n')
+    # time.sleep(.5)
+    # print('\n')
+    # type_text('Access recommended nutritional information!\n')
+    # time.sleep(.5)
 
 
     # choice = input("Choose 'login' or 'signup': ").lower()
