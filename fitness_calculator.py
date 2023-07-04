@@ -43,6 +43,7 @@ def validate_number_in_range(number, min_value, max_value):
     except ValueError:
         print(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
 
+
 def bmi_calculator():
     """
     Sends a request to calculate BMI to a Fitness Calculator API and returns the response.
@@ -85,15 +86,14 @@ def bmi_calculator():
         return None
     
 
-def daily_calories():
+
+def define_base_inputs():
     """
-    Sends a daily calories request to a Fitness Calculator API and returns the response.
+    Defines and validates the base input ranges for API requests
 
     Returns:
-        requests.Response: The response object from the API in json format.
+        Returns validated value inputs for age, weight, height, level, gender in an array
     """
-
-  
     valid_input_age = False
     valid_input_weight = False
     valid_input_height = False
@@ -126,7 +126,18 @@ def daily_calories():
             valid_input_gender = True
 
     activty_level = 'level_' + activty_level
-    querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":"level_1"}
+    return [age, weight, height, gender, activty_level]
+
+
+def daily_calories():
+    """
+    Sends a daily calories request to a Fitness Calculator API and returns the response.
+
+    Returns:
+        requests.Response: The response object from the API in json format.
+    """
+    age, weight, height, gender, activty_level =  define_base_inputs()
+    querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level}
     
     try:
         response = requests.get('https://fitness-calculator.p.rapidapi.com/dailycalorie', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
@@ -135,6 +146,8 @@ def daily_calories():
     except requests.exceptions.RequestException as error:
         print(error)
         return None
+
+
 
 
 def dieting_macros():
