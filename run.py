@@ -142,7 +142,7 @@ def main():
     Main Function to run code
     """
     # bmi_calculator()
-    fitness_calculator.daily_calories()
+    fitness_calculator.dieting_macros()
 
     # choice = input("Choose 'login' or 'signup': ").lower()
     # current_user = ''
