@@ -1,7 +1,6 @@
 """Module provides calles for manipulating dates and times"""
 from datetime import datetime
 import sys
-import os
 import time
 import gspread
 from google.oauth2.service_account import Credentials
@@ -10,14 +9,14 @@ import colorama
 import fitness_calculator
 from auth import login, signup
 
-
-
 colorama.init()
 
 G = colorama.Fore.GREEN
 R = colorama.Fore.RED
 B = colorama.Fore.CYAN
 Y = colorama.Fore.YELLOW
+W = colorama.Fore.WHITE
+
 
 
 GOOGLE_SHEETS_SCOPE = [
@@ -40,6 +39,8 @@ EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
 # pylint: disable=line-too-long
 CHOICE_OPTIONS = ['Enter Workout', 'View Workouts', 'Check BMI', 'Dieting Macros Calculator', 'Recommended Daily Calories']
 
+INTRO_TEXT = ['Welcome to WorkItOut!\n', 'Track your workouts!\n', 'Achieve your weight goals!\n', 'Access recommended nutritional information!\n']
+
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
@@ -57,7 +58,7 @@ def display_welcome():
     print(B + ' \/  \/ \___/|_|  |_|\_\___/ \__|\___/ \__,_|\__|')
     print(' ')
     print(R + '                             By Darrach Barneveld')
-    print(' ')
+    print(W)
 
 
 
@@ -180,23 +181,22 @@ def update_workout_sheet(current_user, workout_type, duration):
     WORKOUT_SHEET.append_row(workout_row)
 
 
+
+def display_text(textArray):
+    for text in textArray:
+        type_text(text)
+        time.sleep(.5)
+        print('\n')
+
+
 def main():
     """
     Main Function to run code
     """
 
-    # display_welcome()
-    # type_text('Welcome to WorkItOut!\n')
-    # time.sleep(.5)
-    # print('\n')
-    # type_text('Track your workouts!\n')
-    # time.sleep(.5)
-    # print('\n')
-    # type_text('Achieve your weight goals!\n')
-    # time.sleep(.5)
-    # print('\n')
-    # type_text('Access recommended nutritional information!\n')
-    # time.sleep(.5)
+    display_welcome()
+    display_text(INTRO_TEXT)
+ 
 
 
     choice = input("Choose 'login' or 'signup': ").lower()
