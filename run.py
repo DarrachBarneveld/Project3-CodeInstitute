@@ -36,6 +36,7 @@ SPREADSHEET = GSPREAD_CLIENT.open('WorkItOut')
 USERS_SHEET = SPREADSHEET.get_worksheet(0)
 WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
 
+# pylint: disable=line-too-long
 EXERCISES = [[Y, 'Running'], [Y,'Swimming'], [Y,'Cycling'], [Y, 'Weights'], [Y, 'Sports'], [Y ,"Light"]]
 # pylint: disable=line-too-long
 CHOICE_OPTIONS = [[R, '1. Enter Workout'], [G, '2. View Workouts'], [B, '3. Check BMI'], [Y, '4. Dieting Macros Calculator'], [M,'5. Recommended Daily Calories']]
@@ -147,7 +148,6 @@ def create_new_workout(current_user):
         choice = input('What workout type did you do?')
         try:
             index = int(choice) - 1
-            print(index)
             if 0 <= int(choice) < len(EXERCISES):
                 workout_type = EXERCISES[index][1]
             else:
@@ -158,7 +158,6 @@ def create_new_workout(current_user):
     while not isinstance(workout_duration, int):
         input_duration = input('For how long did you workout in whole minutes?')
         workout_duration = validate_duration(input_duration)
-        print(workout_duration)
 
 
     update_workout_sheet(current_user,workout_type, workout_duration)
@@ -180,9 +179,8 @@ def validate_duration(duration):
             return int(duration)
         else:
             print('Duration must be between 1 and 240')
- 
     except ValueError:
-            print(f"{duration} is not a number")
+        print(f"{duration} is not a number")
 
 
 
