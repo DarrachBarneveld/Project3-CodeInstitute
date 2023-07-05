@@ -182,8 +182,15 @@ def update_workout_sheet(current_user, workout_type, duration):
 
 
 
-def display_text(textArray):
-    for text in textArray:
+def display_text(text_array):
+    """
+    Loops through an array of strings and prints them to the console in an animated manner
+    
+    Args:
+        text_array (Arr[str]): An array of strings
+    """
+       
+    for text in text_array:
         type_text(text)
         time.sleep(.5)
         print('\n')
@@ -196,7 +203,6 @@ def main():
 
     display_welcome()
     display_text(INTRO_TEXT)
- 
 
 
     choice = input("Choose 'login' or 'signup': ").lower()
