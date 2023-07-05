@@ -37,7 +37,7 @@ WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
 
 EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
 # pylint: disable=line-too-long
-CHOICE_OPTIONS = ['Enter Workout', 'View Workouts', 'Check BMI', 'Dieting Macros Calculator', 'Recommended Daily Calories']
+CHOICE_OPTIONS = ['1. Enter Workout', '2. View Workouts', '3. Check BMI', '4. Dieting Macros Calculator', '5. Recommended Daily Calories']
 
 INTRO_TEXT = ['Welcome to WorkItOut!\n', 'Track your workouts!\n', 'Achieve your weight goals!\n', 'Access recommended nutritional information!\n']
 
@@ -63,12 +63,16 @@ def display_welcome():
 
 
 # Credit author of animation
-def type_text(string):
+def type_text(string, speed=.03):
     """
     Displays a string in a typed out animation by printing text periodically
+    
+    Args:
+        string (str): The string to print to the console
+        speed (int): A number to configure speed of animation 
     """
     for character in string:
-        time.sleep(.03)
+        time.sleep(speed)
         sys.stdout.write(character)
         sys.stdout.flush()
 
@@ -84,8 +88,7 @@ def select_options(current_user):
         ValueError: If the choice is invalid or not within the choice amount.
     """
     while True:
-        for i, option in enumerate(CHOICE_OPTIONS):
-            print(f"{i+1}. {option}")
+        display_text(CHOICE_OPTIONS, .01)
         choice = input("Enter the number corresponding to your choice: ")
 
         try:
@@ -182,16 +185,17 @@ def update_workout_sheet(current_user, workout_type, duration):
 
 
 
-def display_text(text_array):
+def display_text(text_array, speed):
     """
     Loops through an array of strings and prints them to the console in an animated manner
     
     Args:
         text_array (Arr[str]): An array of strings
+        speed (int): A number to configure speed of animation 
     """
        
     for text in text_array:
-        type_text(text)
+        type_text(text, speed)
         time.sleep(.5)
         print('\n')
 
@@ -201,8 +205,8 @@ def main():
     Main Function to run code
     """
 
-    display_welcome()
-    display_text(INTRO_TEXT)
+    # display_welcome()
+    # display_text(INTRO_TEXT)
 
 
     choice = input("Choose 'login' or 'signup': ").lower()
