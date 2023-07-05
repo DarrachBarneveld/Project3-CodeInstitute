@@ -36,11 +36,11 @@ SPREADSHEET = GSPREAD_CLIENT.open('WorkItOut')
 USERS_SHEET = SPREADSHEET.get_worksheet(0)
 WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
 
-EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
+EXERCISES = [[Y, 'Running'], [Y,'Swimming'], [Y,'Cycling'], [Y, 'Weights'], [Y, 'Sports'], [Y ,"Light"]]
 # pylint: disable=line-too-long
 CHOICE_OPTIONS = [[R, '1. Enter Workout'], [G, '2. View Workouts'], [B, '3. Check BMI'], [Y, '4. Dieting Macros Calculator'], [M,'5. Recommended Daily Calories']]
 
-INTRO_TEXT = [[R, 'Welcome to WorkItOut!\n'], 'Track your workouts!\n', 'Achieve your weight goals!\n', 'Access recommended nutritional information!\n']
+INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
@@ -138,35 +138,52 @@ def create_new_workout(current_user):
     Args:
         current_user(str): The authenticated user email
     """
-    workout_type = input('What workout type did you do?')
-    workout_duration = input('For how long did you workout in whole minutes?')
-    validate_data(workout_type, workout_duration)
+
+    workout_type = ''
+    workout_duration = ''
+
+    while workout_type == '':
+        display_text(EXERCISES, .01)
+        choice = input('What workout type did you do?')
+        try:
+            index = int(choice) - 1
+            print(index)
+            if 0 <= int(choice) < len(EXERCISES):
+                workout_type = EXERCISES[index][1]
+            else:
+                print("Invalid choice. Please enter a valid number.") 
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
+
+    while not isinstance(workout_duration, int):
+        input_duration = input('For how long did you workout in whole minutes?')
+        workout_duration = validate_duration(input_duration)
+        print(workout_duration)
+
 
     update_workout_sheet(current_user,workout_type, workout_duration)
 
 
-def validate_data(workout_type, duration):
+def validate_duration(duration):
     """
     Check if a inputed string is a valid exercise. Check if the duration is a number
-    
+
     Args:
-        workout_type (str): The type of workout to search for.
         duration (str): The amount of time a user worked out for
-    
+
     Raises:
-        ValueError: If the search string is not found in the array.
+        ValueError: Raises the error that a number is not between 1 - 240
         ValueError: If the duration is not a number.
     """
     try:
-        if workout_type not in EXERCISES:
-            raise ValueError(f"{workout_type} does not exist in the array")
-        duration = int(duration)
-        if not 0 <= duration <= 240:
-            raise ValueError(f"{duration} is not a number")
-             
-    except ValueError as error:
-        print("Error:", str(error))
-    return True
+        if 0 <= int(duration) <= 240:
+            return int(duration)
+        else:
+            print('Duration must be between 1 and 240')
+ 
+    except ValueError:
+            print(f"{duration} is not a number")
+
 
 
 def update_workout_sheet(current_user, workout_type, duration):
@@ -198,7 +215,7 @@ def display_text(text_array, speed):
     for text in text_array:
         print(text[0])
         type_text(text[1], speed)
-        time.sleep(.5)
+        time.sleep(.1)
     print(W + '\n')
 
 
@@ -208,8 +225,7 @@ def main():
     """
 
     # display_welcome()
-    # display_text(INTRO_TEXT)
-
+    # display_text(INTRO_TEXT, .03)
 
     choice = input("Choose 'login' or 'signup': ").lower()
     current_user = ''
