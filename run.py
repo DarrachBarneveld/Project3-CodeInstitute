@@ -1,6 +1,7 @@
 """Module provides calles for manipulating dates and times"""
 from datetime import datetime
 import sys
+import os
 import time
 import gspread
 from google.oauth2.service_account import Credentials
@@ -8,7 +9,8 @@ import pandas as pd
 import colorama
 import fitness_calculator
 from auth import login, signup
-from config import GOOGLE_SHEETS_SCOPE
+
+
 
 colorama.init()
 
@@ -17,6 +19,12 @@ R = colorama.Fore.RED
 B = colorama.Fore.CYAN
 Y = colorama.Fore.YELLOW
 
+
+GOOGLE_SHEETS_SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
 
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -177,7 +185,7 @@ def main():
     Main Function to run code
     """
 
-    display_welcome()
+    # display_welcome()
     # type_text('Welcome to WorkItOut!\n')
     # time.sleep(.5)
     # print('\n')
@@ -191,19 +199,19 @@ def main():
     # time.sleep(.5)
 
 
-    # choice = input("Choose 'login' or 'signup': ").lower()
-    # current_user = ''
+    choice = input("Choose 'login' or 'signup': ").lower()
+    current_user = ''
 
-    # if choice == 'login':
-    #     current_user = login(df)
-    # elif choice == 'signup':
-    #     current_user = signup(USERS_SHEET)
-    # else:
-    #     print("Invalid choice")
-    # if current_user:
-    #     select_options(current_user)
-    # else:
-    #     print('No current user')
+    if choice == 'login':
+        current_user = login(df)
+    elif choice == 'signup':
+        current_user = signup(USERS_SHEET)
+    else:
+        print("Invalid choice")
+    if current_user:
+        select_options(current_user)
+    else:
+        print('No current user')
 
 
 main()

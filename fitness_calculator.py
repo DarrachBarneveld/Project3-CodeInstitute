@@ -1,5 +1,16 @@
+import os
+from dotenv import load_dotenv
 import requests
-from config import RAPID_API_HEADERS
+
+load_dotenv()
+
+print(os.getenv('RAPID_API_KEY'))
+
+RAPID_API_HEADERS = {
+ 	"X-RapidAPI-Key": os.getenv('RAPID_API_KEY'),
+ 	"X-RapidAPI-Host": os.getenv('RAPID_API_HOST')
+     }
+
 
 def validate_strings(input_string, valid_strings):
     """
