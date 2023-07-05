@@ -16,6 +16,7 @@ R = colorama.Fore.RED
 B = colorama.Fore.CYAN
 Y = colorama.Fore.YELLOW
 W = colorama.Fore.WHITE
+M = colorama.Fore.MAGENTA
 
 
 
@@ -37,9 +38,9 @@ WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
 
 EXERCISES = ['running', 'swimming', 'cycling', 'weights', 'sports']
 # pylint: disable=line-too-long
-CHOICE_OPTIONS = ['1. Enter Workout', '2. View Workouts', '3. Check BMI', '4. Dieting Macros Calculator', '5. Recommended Daily Calories']
+CHOICE_OPTIONS = [[R, '1. Enter Workout'], [G, '2. View Workouts'], [B, '3. Check BMI'], [Y, '4. Dieting Macros Calculator'], [M,'5. Recommended Daily Calories']]
 
-INTRO_TEXT = ['Welcome to WorkItOut!\n', 'Track your workouts!\n', 'Achieve your weight goals!\n', 'Access recommended nutritional information!\n']
+INTRO_TEXT = [[R, 'Welcome to WorkItOut!\n'], 'Track your workouts!\n', 'Achieve your weight goals!\n', 'Access recommended nutritional information!\n']
 
 sheet_data = USERS_SHEET.get_all_values()
 df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
@@ -193,11 +194,12 @@ def display_text(text_array, speed):
         text_array (Arr[str]): An array of strings
         speed (int): A number to configure speed of animation 
     """
-       
+    print('\n')
     for text in text_array:
-        type_text(text, speed)
+        print(text[0])
+        type_text(text[1], speed)
         time.sleep(.5)
-        print('\n')
+    print(W + '\n')
 
 
 def main():
