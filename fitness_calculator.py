@@ -9,6 +9,9 @@ RAPID_API_HEADERS = {
  	"X-RapidAPI-Host": os.getenv('RAPID_API_HOST')
      }
 
+# pylint: disable=line-too-long
+WEIGHT_GOAL_OPTIONS =  [['Maintain weight', 'maintain'], ['Mild Weight Loss', 'mildlose'], ['Weight Loss', 'weightlose'], ['Extreme Weight Loss', 'extremelose'], ['Mild Weight Gain', 'mildgain'], ["Weight Gain", 'weightgain'], ["Extreme Weight Gain", 'extremegain']]
+
 
 def validate_strings(input_string, valid_strings):
     """
@@ -134,7 +137,6 @@ def define_base_inputs():
         if validate_strings(input_string=gender, valid_strings=["female", "male"]):
             valid_input_gender = True
 
-    activty_level = 'level_' + activty_level
     return [age, weight, height, gender, activty_level]
 
 
@@ -146,6 +148,8 @@ def daily_calories():
         requests.Response: The response object from the API in json format.
     """
     age, weight, height, gender, activty_level =  define_base_inputs()
+    activty_level = 'level_' + activty_level
+
     querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level}
     
     try:
@@ -169,44 +173,27 @@ def dieting_macros():
     age, weight, height, gender, activty_level =  define_base_inputs()
 
     valid_input_goal = False
-    options = ['Maintain weight', 'Mild Weight Loss', 'Weight Loss', 'Extreme Weight Loss', 'Mild Weight Gain', "Weight Gain", "Extreme Weight Gain"]
+
     goal = ''
 
     while not valid_input_goal:
-        for i, option in enumerate(options):
-            print(f"{i+1}. {option}")
+        for i, option in enumerate(WEIGHT_GOAL_OPTIONS):
+            print(f"{i+1}. {option[0]}")
         choice = input("What are your goals? Enter the corrosponding number: ")
 
         try:
             index = int(choice) - 1
-            if 0 <= index < len(options):
-                if index == 0:
-                    goal = 'maintain'
-                    valid_input_goal = True
-                elif index == 1:
-                    goal = 'mildlose'
-                    valid_input_goal = True
-                elif index == 2:
-                    goal = 'weightlose'
-                    valid_input_goal = True
-                elif index == 3:
-                    goal = 'extremelose'
-                    valid_input_goal = True
-                elif index == 4:
-                    goal = 'mildgain'
-                    valid_input_goal = True
-                elif index == 5:
-                    goal = 'weightgain'
-                    valid_input_goal = True
-                elif index == 6:
-                    goal = 'extremegain'
-                    valid_input_goal = True
+            if 0 <= index < len(WEIGHT_GOAL_OPTIONS):
+                goal = WEIGHT_GOAL_OPTIONS[index][1]
+                valid_input_goal = True
             else:
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid choice. Please enter a valid number.")
 
-    querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal,}
+    print(goal)
+    querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal}
+
     try:
         response = requests.get('https://fitness-calculator.p.rapidapi.com/macrocalculator', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
         response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
