@@ -4,8 +4,6 @@ import requests
 
 load_dotenv()
 
-print(os.getenv('RAPID_API_KEY'))
-
 RAPID_API_HEADERS = {
  	"X-RapidAPI-Key": os.getenv('RAPID_API_KEY'),
  	"X-RapidAPI-Host": os.getenv('RAPID_API_HOST')

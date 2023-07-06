@@ -122,14 +122,19 @@ def view_all_workouts(current_user):
     Parameters:
         current_user(str): The authenticated user email
     """
-    all_workouts = WORKOUT_SHEET.get_all_values()
 
-    filtered_data = [row for row in all_workouts if row[0] == current_user]
+    try:
+        all_workouts = WORKOUT_SHEET.get_all_values()
 
-    for row in filtered_data:
-        workout_type, workout_time, workout_duration = row[1:4]
-        print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
-        print()  # Print an empty line between rows
+        filtered_data = [row for row in all_workouts if row[0] == current_user]
+
+        for row in filtered_data:
+            workout_type, workout_time, workout_duration = row[1:4]
+            print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
+            print()  # Print an empty line between rows
+    # pylint: pylint(broad-exception-caught)
+    except Exception as error:
+        print("An error occurred:", str(error))
 
 
 def create_new_workout(current_user):
@@ -177,8 +182,7 @@ def validate_duration(duration):
     try:
         if 0 <= int(duration) <= 240:
             return int(duration)
-        else:
-            print('Duration must be between 1 and 240')
+        print('Duration must be between 1 and 240')
     except ValueError:
         print(f"{duration} is not a number")
 
