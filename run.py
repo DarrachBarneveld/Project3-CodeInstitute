@@ -4,6 +4,7 @@ import sys
 import time
 import gspread
 from google.oauth2.service_account import Credentials
+from gspread.exceptions import APIError, SpreadsheetNotFound, WorksheetNotFound
 import pandas as pd
 import colorama
 import fitness_calculator
@@ -26,15 +27,52 @@ GOOGLE_SHEETS_SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
+USERS_SHEET = None
+WORKOUT_SHEET = None
+DF = None
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(GOOGLE_SHEETS_SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
-SPREADSHEET = GSPREAD_CLIENT.open('WorkItOut')
+def load_google_sheets():
+    """
+    Load Google Sheets using the gspread library.
 
-USERS_SHEET = SPREADSHEET.get_worksheet(0)
-WORKOUT_SHEET = SPREADSHEET.get_worksheet(1)
+    Raises:
+        gspread.exceptions.APIError: If an error occurs while accessing the Google Sheets API.
+        gspread.exceptions.SpreadsheetNotFound: If the specified spreadsheet is not found.
+        gspread.exceptions.WorksheetNotFound: If the default worksheet is not found.
+        Exception if generalised error
+    """
+    try:
+        # pylint: disable=pylint(global-statement)
+        global USERS_SHEET
+        global WORKOUT_SHEET
+        global DF
+
+        creds = Credentials.from_service_account_file('creds.json')
+        scoped_creds = creds.with_scopes(GOOGLE_SHEETS_SCOPE)
+        gspread_client = gspread.authorize(scoped_creds)
+
+        spreadsheet = gspread_client.open('WorkItOut ')
+        USERS_SHEET = spreadsheet.get_worksheet(0)
+        WORKOUT_SHEET = spreadsheet.get_worksheet(1)
+        sheet_data = USERS_SHEET.get_all_values()
+        DF = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+        print("Data accessed successfully.")
+
+    except APIError:
+        print("An API error occurred. Try again later!")
+
+    except SpreadsheetNotFound:
+        print("The spreadsheet was not found Try again later!")
+
+    except WorksheetNotFound:
+        print("The worksheet was not found. Try again later!")
+
+    # pylint: disable
+    except Exception as error:
+        print('An Error has occured, please try again later!', str(error))
+
 
 # pylint: disable=line-too-long
 EXERCISES = [[Y, 'Running'], [Y,'Swimming'], [Y,'Cycling'], [Y, 'Weights'], [Y, 'Sports'], [Y ,"Light"]]
@@ -43,8 +81,7 @@ CHOICE_OPTIONS = [[R, '1. Enter Workout'], [G, '2. View Workouts'], [B, '3. Chec
 
 INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 
-sheet_data = USERS_SHEET.get_all_values()
-df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
 
 
 
@@ -132,7 +169,8 @@ def view_all_workouts(current_user):
             workout_type, workout_time, workout_duration = row[1:4]
             print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
             print()  # Print an empty line between rows
-    # pylint: pylint(broad-exception-caught)
+
+    # pylint: disable
     except Exception as error:
         print("An error occurred:", str(error))
 
@@ -202,13 +240,13 @@ def update_workout_sheet(current_user, workout_type, duration):
 
     workout_row = [current_user, workout_type, time_string, duration]
     try:
-         WORKOUT_SHEET.append_row(workout_row)
-         print(Y + "Workout Added!")
-         print(W)
+        WORKOUT_SHEET.append_row(workout_row)
+        print(Y + "Workout Added!")
+        print(W)
 
+    # pylint: disable
     except Exception as error:
         print("An error occurred:", str(error))
-    
 
 
 
@@ -234,6 +272,7 @@ def main():
     """
     Main Function to run code
     """
+    load_google_sheets()
 
     # display_welcome()
     # display_text(INTRO_TEXT, .03)
@@ -242,7 +281,7 @@ def main():
     current_user = ''
 
     if choice == 'login':
-        current_user = login(df)
+        current_user = login(DF)
     elif choice == 'signup':
         current_user = signup(USERS_SHEET)
     else:
