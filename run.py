@@ -19,8 +19,6 @@ Y = colorama.Fore.YELLOW
 W = colorama.Fore.WHITE
 M = colorama.Fore.MAGENTA
 
-
-
 GOOGLE_SHEETS_SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -30,6 +28,7 @@ GOOGLE_SHEETS_SCOPE = [
 USERS_SHEET = None
 WORKOUT_SHEET = None
 DF = None
+
 
 
 def load_google_sheets():
@@ -62,16 +61,16 @@ def load_google_sheets():
         return spreadsheet
 
     except APIError as exc:
-        raise Exception('An API error occurred. Try again later!') from exc
+        raise APIError('An API error occurred. Try again later!') from exc
 
     except SpreadsheetNotFound as exc:
-        raise Exception("The spreadsheet was not found Try again later!") from exc
+        raise SpreadsheetNotFound("The spreadsheet was not found Try again later!") from exc
 
     except WorksheetNotFound as exc:
-        raise Exception("The worksheet was not found. Try again later!") from exc
+        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
     
-    # pylint: disable=pylint(broad-exception-caught)
     except Exception as exc:
+        # pylint: disable=pylint(broad-exception-raised)
         raise Exception("The worksheet was not found. Try again later!") from exc
 
 
