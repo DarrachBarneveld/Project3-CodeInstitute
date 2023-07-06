@@ -281,20 +281,31 @@ def main():
     # display_welcome()
     # display_text(INTRO_TEXT, .03)
 
-    try:
-        load_google_sheets()
-    except Exception as error:
-        print(error)
-        return
 
-    current_user = None
-    while current_user is None:
-        try:
-            current_user = authenticate_user(DF, USERS_SHEET)
-        except Exception as error:
-            print(error)
+    data = fitness_calculator.dieting_macros()
+
+    # print(data['calorie'])
+    # print(data['balanced'])
+    # print(data['lowfat'])
+    # print(data['lowcarbs'])
+    # print(data['highprotein'])
+
+    for key, value in data.items():
+        print(R + key.upper() + Y, "->", value)
+    # try:
+    #     load_google_sheets()
+    # except Exception as error:
+    #     print(error)
+    #     return
+
+    # current_user = None
+    # while current_user is None:
+    #     try:
+    #         current_user = authenticate_user(DF, USERS_SHEET)
+    #     except Exception as error:
+    #         print(error)
     
-    select_options(current_user)
+    # select_options(current_user)
  
 
 
