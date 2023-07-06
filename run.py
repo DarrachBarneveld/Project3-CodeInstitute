@@ -156,7 +156,7 @@ def create_new_workout(current_user):
             if 0 <= int(choice) < len(EXERCISES):
                 workout_type = EXERCISES[index][1]
             else:
-                print("Invalid choice. Please enter a valid number.") 
+                print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid choice. Please enter a valid number.")
 
@@ -201,7 +201,16 @@ def update_workout_sheet(current_user, workout_type, duration):
     time_string = current_time.strftime("%H:%M:%S")
 
     workout_row = [current_user, workout_type, time_string, duration]
-    WORKOUT_SHEET.append_row(workout_row)
+    try:
+         WORKOUT_SHEET.append_row(workout_row)
+         print(Y + "Workout Added!")
+         print(W)
+
+    except Exception as error:
+        print("An error occurred:", str(error))
+    
+
+
 
 
 
