@@ -8,7 +8,7 @@ from gspread.exceptions import APIError, SpreadsheetNotFound, WorksheetNotFound
 import pandas as pd
 import colorama
 import fitness_calculator
-from auth import login, signup
+from auth import authenticate_user
 
 colorama.init()
 
@@ -35,6 +35,9 @@ def load_google_sheets():
     """
     Load Google Sheets using the gspread library.
 
+     Returns:
+        spreedsheet: The google WorkItOut spreadsheet.
+
     Raises:
         gspread.exceptions.APIError: If an error occurs while accessing the Google Sheets API.
         gspread.exceptions.SpreadsheetNotFound: If the specified spreadsheet is not found.
@@ -51,7 +54,7 @@ def load_google_sheets():
         scoped_creds = creds.with_scopes(GOOGLE_SHEETS_SCOPE)
         gspread_client = gspread.authorize(scoped_creds)
 
-        spreadsheet = gspread_client.open('WorkItOut ')
+        spreadsheet = gspread_client.open('WorkItOut')
         USERS_SHEET = spreadsheet.get_worksheet(0)
         WORKOUT_SHEET = spreadsheet.get_worksheet(1)
         sheet_data = USERS_SHEET.get_all_values()
@@ -268,13 +271,15 @@ def display_text(text_array, speed):
     print(W + '\n')
 
 
+
+
 def main():
     """
     Main Function to run code
     """
 
-    display_welcome()
-    display_text(INTRO_TEXT, .03)
+    # display_welcome()
+    # display_text(INTRO_TEXT, .03)
 
     try:
         load_google_sheets()
@@ -283,15 +288,12 @@ def main():
         return
 
 
-    choice = input("Choose 'login' or 'signup': ").lower()
-    current_user = ''
-
-    if choice == 'login':
-        current_user = login(DF)
-    elif choice == 'signup':
-        current_user = signup(USERS_SHEET)
-    else:
-        print("Invalid choice")
+    try:
+        current_user = authenticate_user(DF, USERS_SHEET)
+    except Exception as error:
+        print(error)
+        return
+      
     if current_user:
         select_options(current_user)
     else:
