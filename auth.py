@@ -7,7 +7,6 @@ def login(dataframe):
     dataframe['Lastname'] = dataframe['Lastname'].str.lower()
     dataframe['Email'] = dataframe['Email'].str.lower()
 
-
     matched_users = dataframe[(dataframe['Firstname'] == first_name) & (dataframe['Lastname'] == last_name) & (dataframe['Email'] == email)]
 
     # Authenticate the user based on the match
@@ -15,9 +14,8 @@ def login(dataframe):
         print("Authentication successful")
         return email
 
-    else:
-        print("Authentication failed")
-        return False
+    print("Authentication failed")
+    return None
 
 
 def signup(sheet):
@@ -26,9 +24,14 @@ def signup(sheet):
     last_name = input("Enter your last name: ")
     email = input("Enter your email: ")
 
-    sheet.append_row([first_name, last_name, email])
-    print("Sign-up successful")
-    return email
+    try:
+        sheet.append_row([first_name, last_name, email])
+        print("Sign-up successful")
+        return email
+    # pylint: disable=pylint(broad-exception-caught)
+    except Exception as exc:
+        # pylint: disable=pylint(broad-exception-raised)
+        raise Exception("There was an error signing up. Please try again!") from exc
 
 
 def authenticate_user(dataframe, sheet):

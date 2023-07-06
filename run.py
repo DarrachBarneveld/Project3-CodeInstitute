@@ -287,17 +287,15 @@ def main():
         print(error)
         return
 
-
-    try:
-        current_user = authenticate_user(DF, USERS_SHEET)
-    except Exception as error:
-        print(error)
-        return
-      
-    if current_user:
-        select_options(current_user)
-    else:
-        print('No current user')
+    current_user = None
+    while current_user is None:
+        try:
+            current_user = authenticate_user(DF, USERS_SHEET)
+        except Exception as error:
+            print(error)
+    
+    select_options(current_user)
+ 
 
 
 main()
