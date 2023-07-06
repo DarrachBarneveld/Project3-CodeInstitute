@@ -59,19 +59,21 @@ def load_google_sheets():
         DF = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
         print("Data accessed successfully.")
+        return spreadsheet
 
-    except APIError:
-        print("An API error occurred. Try again later!")
+    except APIError as exc:
+        raise Exception('An API error occurred. Try again later!') from exc
 
-    except SpreadsheetNotFound:
-        print("The spreadsheet was not found Try again later!")
+    except SpreadsheetNotFound as exc:
+        raise Exception("The spreadsheet was not found Try again later!") from exc
 
-    except WorksheetNotFound:
-        print("The worksheet was not found. Try again later!")
+    except WorksheetNotFound as exc:
+        raise Exception("The worksheet was not found. Try again later!") from exc
+    
+    # pylint: disable=pylint(broad-exception-caught)
+    except Exception as exc:
+        raise Exception("The worksheet was not found. Try again later!") from exc
 
-    # pylint: disable
-    except Exception as error:
-        print('An Error has occured, please try again later!', str(error))
 
 
 # pylint: disable=line-too-long
@@ -170,7 +172,7 @@ def view_all_workouts(current_user):
             print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
             print()  # Print an empty line between rows
 
-    # pylint: disable
+    # pylint: disable=pylint(broad-exception-caught)
     except Exception as error:
         print("An error occurred:", str(error))
 
@@ -225,7 +227,6 @@ def validate_duration(duration):
         print(f"{duration} is not a number")
 
 
-
 def update_workout_sheet(current_user, workout_type, duration):
     """
     Update the Google Sheets Document if valid data
@@ -244,7 +245,7 @@ def update_workout_sheet(current_user, workout_type, duration):
         print(Y + "Workout Added!")
         print(W)
 
-    # pylint: disable
+    # pylint: disable=pylint(broad-exception-caught)
     except Exception as error:
         print("An error occurred:", str(error))
 
@@ -272,10 +273,16 @@ def main():
     """
     Main Function to run code
     """
-    load_google_sheets()
 
-    # display_welcome()
-    # display_text(INTRO_TEXT, .03)
+    display_welcome()
+    display_text(INTRO_TEXT, .03)
+
+    try:
+        load_google_sheets()
+    except Exception as error:
+        print(error)
+        return
+
 
     choice = input("Choose 'login' or 'signup': ").lower()
     current_user = ''
