@@ -96,8 +96,6 @@ def bmi_calculator():
     except requests.exceptions.RequestException as error:
         print(error)
         return None
-    
-
 
 def define_base_inputs():
     """

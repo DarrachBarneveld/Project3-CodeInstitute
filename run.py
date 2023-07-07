@@ -74,8 +74,10 @@ def load_google_sheets():
     except WorksheetNotFound as exc:
         raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
     
-    except Exception as exc:
-        raise Exception("The worksheet was not found. Try again later!") from exc
+    # except Exception as exc:
+    #     raise Exception("The worksheet was not found. Try again later!") from exc
+    
+    
       
     
 
@@ -147,7 +149,7 @@ def select_options(current_user):
                 elif index == 2:
                     data = fitness_calculator.bmi_calculator()
                     for key, value in data.items():
-                        print(R + key.upper() + Y, "->", value) 
+                        print(R + key.upper() + Y, "->", value)
                 elif index == 3:
                       data = fitness_calculator.dieting_macros()
                       format_macro_data(data)
