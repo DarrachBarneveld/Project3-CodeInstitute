@@ -71,7 +71,7 @@ def load_google_sheets():
 
     except WorksheetNotFound as exc:
         raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
-    
+      
     except Exception as exc:
         # pylint: disable=pylint(broad-exception-raised)
         raise Exception("The worksheet was not found. Try again later!") from exc
@@ -142,9 +142,12 @@ def select_options(current_user):
                 elif index == 1:
                     view_all_workouts(current_user)
                 elif index == 2:
-                    response = fitness_calculator.bmi_calculator()
+                    data = fitness_calculator.bmi_calculator()
+                    for key, value in data.items():
+                        print(R + key.upper() + Y, "->", value) 
                 elif index == 3:
-                     data = fitness_calculator.dieting_macros()
+                      data = fitness_calculator.dieting_macros()
+                      format_macro_data(data)
                 elif index == 4:
                     response = fitness_calculator.daily_calories()
                     print(response)
@@ -269,18 +272,13 @@ def display_text(text_array, speed):
     print(W + '\n')
 
 
-def main():
-    """
-    Main Function to run code
-    """
+sample_data = {'BMR': 1192.5, 'goals': {'maintain weight': 2057.0625, 'Mild weight loss': {'loss weight': '0.25 kg', 'calory': 1807.0625}, 'Weight loss': {'loss weight': '0.50 kg', 'calory': 1557.0625}, 'Extreme weight loss': {'loss weight': '1 kg', 'calory': 1057.0625}, 'Mild weight gain': {'gain weight': '0.25 kg', 'calory': 2307.0625}, 'Weight gain': {'gain weight': '0.50 kg', 'calory': 2557.0625}, 'Extreme weight gain': {'gain weight': '1 kg', 'calory': 3057.0625}}}
 
-    # display_welcome()
-    # display_text(INTRO_TEXT, .03)
 
-    data = fitness_calculator.dieting_macros()
 
-    # Display formatted coloured text function on nested data structure
-    for key, value in data.items():
+
+def format_macro_data(data):
+     for key, value in data.items():
         if isinstance(value, dict):
             result = " ".join([f"{n_key.upper()}: " f"{n_value}" for n_key, n_value in value.items()])
             result = result.split(" ")
@@ -296,12 +294,13 @@ def main():
         else:
             print(R + key.upper() + Y, "->", value)
 
-    # print(data['calorie'])
-    # print(data['balanced'])
-    # print(data['lowfat'])
-    # print(data['lowcarbs'])
-    # print(data['highprotein'])
+def main():
+    """
+    Main Function to run code
+    """
 
+    # display_welcome()
+    # display_text(INTRO_TEXT, .03)
     
     # try:
     #     load_google_sheets()
@@ -320,4 +319,4 @@ def main():
  
 
 
-main()
+# main()
