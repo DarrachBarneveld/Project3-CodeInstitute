@@ -149,8 +149,8 @@ def select_options(current_user):
                       data = fitness_calculator.dieting_macros()
                       format_macro_data(data)
                 elif index == 4:
-                    response = fitness_calculator.daily_calories()
-                    print(response)
+                    data = fitness_calculator.daily_calories()
+                    print(data)
             else:
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
@@ -275,8 +275,6 @@ def display_text(text_array, speed):
 sample_data = {'BMR': 1192.5, 'goals': {'maintain weight': 2057.0625, 'Mild weight loss': {'loss weight': '0.25 kg', 'calory': 1807.0625}, 'Weight loss': {'loss weight': '0.50 kg', 'calory': 1557.0625}, 'Extreme weight loss': {'loss weight': '1 kg', 'calory': 1057.0625}, 'Mild weight gain': {'gain weight': '0.25 kg', 'calory': 2307.0625}, 'Weight gain': {'gain weight': '0.50 kg', 'calory': 2557.0625}, 'Extreme weight gain': {'gain weight': '1 kg', 'calory': 3057.0625}}}
 
 
-
-
 def format_macro_data(data):
      for key, value in data.items():
         if isinstance(value, dict):
@@ -294,29 +292,28 @@ def format_macro_data(data):
         else:
             print(R + key.upper() + Y, "->", value)
 
+
 def main():
     """
     Main Function to run code
     """
 
-    # display_welcome()
-    # display_text(INTRO_TEXT, .03)
+    display_welcome()
+    display_text(INTRO_TEXT, .03)
+    try:
+        load_google_sheets()
+    except Exception as error:
+        print(error)
+        return
+
+    current_user = None
+    while current_user is None:
+        try:
+            current_user = authenticate_user(DF, USERS_SHEET)
+        except Exception as error:
+            print(error)
     
-    # try:
-    #     load_google_sheets()
-    # except Exception as error:
-    #     print(error)
-    #     return
-
-    # current_user = None
-    # while current_user is None:
-    #     try:
-    #         current_user = authenticate_user(DF, USERS_SHEET)
-    #     except Exception as error:
-    #         print(error)
-    
-    # select_options(current_user)
- 
+    select_options(current_user)
 
 
-# main()
+main()
