@@ -143,10 +143,8 @@ def select_options(current_user):
                     view_all_workouts(current_user)
                 elif index == 2:
                     response = fitness_calculator.bmi_calculator()
-                    print(response)
                 elif index == 3:
-                    response = fitness_calculator.dieting_macros()
-                    print(response)
+                     data = fitness_calculator.dieting_macros()
                 elif index == 4:
                     response = fitness_calculator.daily_calories()
                     print(response)
@@ -271,8 +269,6 @@ def display_text(text_array, speed):
     print(W + '\n')
 
 
-
-
 def main():
     """
     Main Function to run code
@@ -281,8 +277,24 @@ def main():
     # display_welcome()
     # display_text(INTRO_TEXT, .03)
 
-
     data = fitness_calculator.dieting_macros()
+
+    # Display formatted coloured text function on nested data structure
+    for key, value in data.items():
+        if isinstance(value, dict):
+            result = " ".join([f"{n_key.upper()}: " f"{n_value}" for n_key, n_value in value.items()])
+            result = result.split(" ")
+            modified_array = [[result[i], B if i % 2 == 0 else Y] for i in range(len(result))]
+            for index, subarray in enumerate(modified_array):
+                if index % 6 == 0:
+                    print()
+                if index == 0:
+                    print(R + f"{key.upper()}" + Y, "->", subarray[1] + subarray[0], end=" ")
+                else:
+                    print(subarray[1] + subarray[0], end=" ")
+                                    
+        else:
+            print(R + key.upper() + Y, "->", value)
 
     # print(data['calorie'])
     # print(data['balanced'])
@@ -290,8 +302,7 @@ def main():
     # print(data['lowcarbs'])
     # print(data['highprotein'])
 
-    for key, value in data.items():
-        print(R + key.upper() + Y, "->", value)
+    
     # try:
     #     load_google_sheets()
     # except Exception as error:
