@@ -35,7 +35,7 @@ def load_google_sheets():
     """
     Load Google Sheets using the gspread library.
 
-     Returns:
+    Returns:
         spreedsheet: The google WorkItOut spreadsheet.
 
     Raises:
@@ -62,6 +62,8 @@ def load_google_sheets():
 
         print("Data accessed successfully.")
         return spreadsheet
+    
+    
 
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
@@ -71,10 +73,11 @@ def load_google_sheets():
 
     except WorksheetNotFound as exc:
         raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
-      
+    
     except Exception as exc:
-        # pylint: disable=pylint(broad-exception-raised)
         raise Exception("The worksheet was not found. Try again later!") from exc
+      
+    
 
 
 
