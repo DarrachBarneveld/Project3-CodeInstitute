@@ -7,9 +7,9 @@ from google.oauth2.service_account import Credentials
 from gspread.exceptions import APIError, SpreadsheetNotFound, WorksheetNotFound
 import pandas as pd
 import colorama
+from tabulate import tabulate
 import fitness_calculator
 from auth import authenticate_user
-from tabulate import tabulate
 
 
 colorama.init()
@@ -293,12 +293,11 @@ def format_macro_data(data):
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)
 
-def format_daily_calorie(data):
-
-    print(f"Base Metabolic Rate = {data['BMR']}")
+def format_daily_calories(data):
+    print('\n')
+    print(f"Basal Metabolic Rate = {data['BMR']}")
     table_data = []
-    table_headers = [Y + "GOAL", 'WEIGHT LOSS', 'CALORIES']
-
+    table_headers = [Y + "GOAL", 'WEEKLY CHANGE', 'CALORIES']
     for key, value in data['goals'].items():
         if isinstance(value, dict):
                 table_data.append([W + key , list(value.values())[0], value['calory']])
@@ -307,6 +306,17 @@ def format_daily_calorie(data):
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)
 
+def format_bmi(data):
+    data = fitness_calculator.bmi_calculator()
+    table_data = []
+
+    table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
+    for key, value in data.items():
+        table_data.append(W + str(value))
+    
+    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
+    print(Y)
+    print(table)
 
 
 def main():
@@ -317,20 +327,6 @@ def main():
     # display_welcome()
     # display_text(INTRO_TEXT, .03)
 
-
-
-    data = fitness_calculator.daily_calories()
-    format_daily_calorie(data)
-
-    # print(data)
-
-  
-
-
-    # print(data)
-
-   
-    # print(tabulate(data))
     # try:
     #     load_google_sheets()
     # except Exception as error:
