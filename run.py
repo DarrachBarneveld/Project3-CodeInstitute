@@ -9,10 +9,12 @@ import pandas as pd
 import colorama
 import fitness_calculator
 from auth import authenticate_user
+from tabulate import tabulate
+
 
 colorama.init()
 
-G = colorama.Fore.GREEN
+G = colorama.Fore.LIGHTGREEN_EX
 R = colorama.Fore.RED
 B = colorama.Fore.CYAN
 Y = colorama.Fore.YELLOW
@@ -59,12 +61,9 @@ def load_google_sheets():
         WORKOUT_SHEET = spreadsheet.get_worksheet(1)
         sheet_data = USERS_SHEET.get_all_values()
         DF = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
-
-        print("Data accessed successfully.")
         return spreadsheet
     
     
-
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
 
@@ -77,17 +76,11 @@ def load_google_sheets():
     # except Exception as exc:
     #     raise Exception("The worksheet was not found. Try again later!") from exc
     
-    
-      
-    
-
-
-
 # pylint: disable=line-too-long
 EXERCISES = [[Y, 'Running'], [Y,'Swimming'], [Y,'Cycling'], [Y, 'Weights'], [Y, 'Sports'], [Y ,"Light"]]
 # pylint: disable=line-too-long
-CHOICE_OPTIONS = [[R, '1. Enter Workout'], [G, '2. View Workouts'], [B, '3. Check BMI'], [Y, '4. Dieting Macros Calculator'], [M,'5. Recommended Daily Calories']]
-
+CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories']]
+# pylint: disable=line-too-long
 INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 
 
@@ -136,6 +129,7 @@ def select_options(current_user):
         ValueError: If the choice is invalid or not within the choice amount.
     """
     while True:
+        print(W + 'What would you like to do?')
         display_text(CHOICE_OPTIONS, .01)
         choice = input("Enter the number corresponding to your choice: ")
 
@@ -157,9 +151,9 @@ def select_options(current_user):
                     data = fitness_calculator.daily_calories()
                     print(data)
             else:
-                print("Invalid choice. Please enter a valid number.")
+                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
-            print("Invalid choice. Please enter a valid number.")
+            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
 
 def view_all_workouts(current_user):
@@ -204,9 +198,9 @@ def create_new_workout(current_user):
             if 0 <= int(choice) < len(EXERCISES):
                 workout_type = EXERCISES[index][1]
             else:
-                print("Invalid choice. Please enter a valid number.")
+                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
-            print("Invalid choice. Please enter a valid number.")
+            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
     while not isinstance(workout_duration, int):
         input_duration = input('For how long did you workout in whole minutes?')
@@ -281,21 +275,38 @@ sample_data = {'BMR': 1192.5, 'goals': {'maintain weight': 2057.0625, 'Mild weig
 
 
 def format_macro_data(data):
-     for key, value in data.items():
+    table_data = []
+    table_headers = [Y + "DIET"]
+
+    for key, value in data.items():
         if isinstance(value, dict):
-            result = " ".join([f"{n_key.upper()}: " f"{n_value}" for n_key, n_value in value.items()])
-            result = result.split(" ")
-            modified_array = [[result[i], B if i % 2 == 0 else Y] for i in range(len(result))]
-            for index, subarray in enumerate(modified_array):
-                if index % 6 == 0:
-                    print()
-                if index == 0:
-                    print(R + f"{key.upper()}" + Y, "->", subarray[1] + subarray[0], end=" ")
-                else:
-                    print(subarray[1] + subarray[0], end=" ")
+            for nested_key, nested_value in value.items():
+                table_headers.append(nested_key.upper())
+            
+            # for nested_key, nested_value in value.items():
+            table_data.append([W + key.capitalize() ,value['protein'], value['fat'], value['carbs']])
+            
                                     
-        else:
-            print(R + key.upper() + Y, "->", value)
+        # else:
+        #     print(R + key.upper() + Y, "->", value)
+    print(Y)
+    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
+    print(table)
+
+def format_daily_calorie(data):
+
+    print(f"Base Metabolic Rate = {data['BMR']}")
+    table_data = []
+    table_headers = [Y + "GOAL", 'WEIGHT LOSS', 'CALORIES']
+
+    for key, value in data['goals'].items():
+        if isinstance(value, dict):
+                table_data.append([W + key , list(value.values())[0], value['calory']])
+            
+    print(Y)
+    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
+    print(table)
+
 
 
 def main():
@@ -303,22 +314,37 @@ def main():
     Main Function to run code
     """
 
-    display_welcome()
-    display_text(INTRO_TEXT, .03)
-    try:
-        load_google_sheets()
-    except Exception as error:
-        print(error)
-        return
+    # display_welcome()
+    # display_text(INTRO_TEXT, .03)
 
-    current_user = None
-    while current_user is None:
-        try:
-            current_user = authenticate_user(DF, USERS_SHEET)
-        except Exception as error:
-            print(error)
+
+
+    data = fitness_calculator.daily_calories()
+    format_daily_calorie(data)
+
+    # print(data)
+
+  
+
+
+    # print(data)
+
+   
+    # print(tabulate(data))
+    # try:
+    #     load_google_sheets()
+    # except Exception as error:
+    #     print(error)
+    #     return
+
+    # current_user = None
+    # while current_user is None:
+    #     try:
+    #         current_user = authenticate_user(DF, USERS_SHEET)
+    #     except Exception as error:
+    #         print(error)
     
-    select_options(current_user)
+    # select_options(current_user)
 
 
 main()

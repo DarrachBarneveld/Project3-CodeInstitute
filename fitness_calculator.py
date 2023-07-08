@@ -2,6 +2,15 @@ import os
 from dotenv import load_dotenv
 import requests
 
+import colorama
+
+colorama.init()
+
+R = colorama.Fore.RED
+W = colorama.Fore.WHITE
+
+
+
 load_dotenv()
 
 RAPID_API_HEADERS = {
@@ -185,9 +194,9 @@ def dieting_macros():
                 goal = WEIGHT_GOAL_OPTIONS[index][1]
                 valid_input_goal = True
             else:
-                print("Invalid choice. Please enter a valid number.")
+                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
-            print("Invalid choice. Please enter a valid number.")
+            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
     querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal}
 

@@ -1,4 +1,11 @@
 """This module provides functions for user authentication and authorization"""
+import os
+import colorama
+
+colorama.init()
+
+G = colorama.Fore.LIGHTGREEN_EX
+
 
 def login(dataframe):
     """
@@ -22,7 +29,9 @@ def login(dataframe):
     matched_users = dataframe[(dataframe['Firstname'] == first_name) & (dataframe['Lastname'] == last_name) & (dataframe['Email'] == email)]
     # Authenticate the user based on the match
     if len(matched_users) > 0:
-        print("Authentication successful")
+        # clear console screen
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        print(f"Authentication successful! Welcome back {G + first_name}\n")
         return email
 
     print("Authentication failed")
