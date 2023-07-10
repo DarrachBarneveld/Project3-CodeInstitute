@@ -1,7 +1,6 @@
 """This module provides functions for user authentication and authorization"""
-import os
 import colorama
-
+from ui import clear_screen
 colorama.init()
 
 G = colorama.Fore.LIGHTGREEN_EX
@@ -30,7 +29,7 @@ def login(dataframe):
     # Authenticate the user based on the match
     if len(matched_users) > 0:
         # clear console screen
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        clear_screen()
         print(f"Authentication successful! Welcome back {G + first_name}\n")
         return email
 

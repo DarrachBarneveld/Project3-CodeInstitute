@@ -1,7 +1,5 @@
 """Module provides calles for manipulating dates and times"""
 from datetime import datetime
-import sys
-import time
 import gspread
 from google.oauth2.service_account import Credentials
 from gspread.exceptions import APIError, SpreadsheetNotFound, WorksheetNotFound
@@ -10,6 +8,7 @@ import colorama
 from tabulate import tabulate
 import fitness_calculator
 from auth import authenticate_user
+import ui
 
 
 colorama.init()
@@ -85,39 +84,6 @@ INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,
 
 
 
-
-
-def display_welcome():
-    """
-    Display ASCII welcome Log logo on the terminal.
-    """
-    print(G + ' _    _            _   _____ _   _____       _  ')
-    print(G + '| |  | |          | | |_   _| | |  _  |     | |  ')
-    print(G + '| |  | | ___  _ __| | __| | | |_| | | |_   _| |_ ')
-    print(B + "| |/\| |/ _ \| '__| |/ /| | | __| | | | | | | __|")
-    print(B + '\  /\  / (_) | |  |   <_| |_| |_\ \_/ / |_| | |_ ')
-    print(B + ' \/  \/ \___/|_|  |_|\_\___/ \__|\___/ \__,_|\__|')
-    print(' ')
-    print(R + '                             By Darrach Barneveld')
-    print(W)
-
-
-
-# Credit author of animation
-def type_text(string, speed=.03):
-    """
-    Displays a string in a typed out animation by printing text periodically
-    
-    Args:
-        string (str): The string to print to the console
-        speed (int): A number to configure speed of animation 
-    """
-    for character in string:
-        time.sleep(speed)
-        sys.stdout.write(character)
-        sys.stdout.flush()
-
-
 def select_options(current_user):
     """
     Displays a list of options and prompts the user to select one. Selected prompt will run an assosicated function
@@ -130,7 +96,7 @@ def select_options(current_user):
     """
     while True:
         print(W + 'What would you like to do?')
-        display_text(CHOICE_OPTIONS, .01)
+        ui.display_text(CHOICE_OPTIONS, .01)
         choice = input("Enter the number corresponding to your choice: ")
 
         try:
@@ -148,7 +114,7 @@ def select_options(current_user):
                       format_macro_data(data)
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
-                    print(data)
+                    format_daily_calories(data)
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
@@ -185,18 +151,6 @@ def view_all_workouts(current_user):
         print("An error occurred:", str(error))
 
 
-def format_bmi(data):
-    data = fitness_calculator.bmi_calculator()
-    table_data = []
-
-    table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
-    for key, value in data.items():
-        table_data.append(W + str(value))
-    
-    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
-    print(Y)
-    print(table)
-
 def create_new_workout(current_user):
     """
     Create a new workout in google sheets document with user inputs and authenticated user so workouts are saved with user data
@@ -209,7 +163,7 @@ def create_new_workout(current_user):
     workout_duration = ''
 
     while workout_type == '':
-        display_text(EXERCISES, .01)
+        ui.display_text(EXERCISES, .01)
         print('What type of workout did you do? \n')
         choice = input('Enter the number corresponding to your choice: ')
         print('\n')
@@ -278,27 +232,6 @@ def update_workout_sheet(current_user, workout_type, duration):
         print("An error occurred:", str(error))
 
 
-
-
-
-def display_text(text_array, speed):
-    """
-    Loops through an array of strings and prints them to the console in an animated manner
-    
-    Args:
-        text_array (Arr[str]): An array of strings
-        speed (int): A number to configure speed of animation 
-    """
-    for text in text_array:
-        print(text[0])
-        type_text(text[1], speed)
-        time.sleep(.1)
-    print(W + '\n')
-
-
-sample_data = {'BMR': 1192.5, 'goals': {'maintain weight': 2057.0625, 'Mild weight loss': {'loss weight': '0.25 kg', 'calory': 1807.0625}, 'Weight loss': {'loss weight': '0.50 kg', 'calory': 1557.0625}, 'Extreme weight loss': {'loss weight': '1 kg', 'calory': 1057.0625}, 'Mild weight gain': {'gain weight': '0.25 kg', 'calory': 2307.0625}, 'Weight gain': {'gain weight': '0.50 kg', 'calory': 2557.0625}, 'Extreme weight gain': {'gain weight': '1 kg', 'calory': 3057.0625}}}
-
-
 def format_macro_data(data):
     table_data = []
     table_headers = [Y + "DIET"]
@@ -364,7 +297,7 @@ def main():
             current_user = authenticate_user(DF, USERS_SHEET)
         except Exception as error:
             print(error)
-    
+   
     select_options(current_user)
 
 
