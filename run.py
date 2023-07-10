@@ -167,16 +167,35 @@ def view_all_workouts(current_user):
         all_workouts = WORKOUT_SHEET.get_all_values()
 
         filtered_data = [row for row in all_workouts if row[0] == current_user]
+        table_data = []
+        table_headers = [Y + "WORKOUT", 'DATE', 'DURATION']
 
         for row in filtered_data:
-            workout_type, workout_time, workout_duration = row[1:4]
-            print("Type:", workout_type, "Time:", workout_time, "Duration:", workout_duration )
+            workout_type, workout_date, workout_duration = row[1:4]
+            table_data.append([W + str(workout_type), W + str(workout_date), W + str(workout_duration)])
+            
+            print("Type:", workout_type, "Date:", workout_date, "Duration:", workout_duration )
             print()  # Print an empty line between rows
-
+        
+        table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
+        print(Y)
+        print(table)
     # pylint: disable=pylint(broad-exception-caught)
     except Exception as error:
         print("An error occurred:", str(error))
 
+
+def format_bmi(data):
+    data = fitness_calculator.bmi_calculator()
+    table_data = []
+
+    table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
+    for key, value in data.items():
+        table_data.append(W + str(value))
+    
+    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
+    print(Y)
+    print(table)
 
 def create_new_workout(current_user):
     """
@@ -204,7 +223,7 @@ def create_new_workout(current_user):
             print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
     while not isinstance(workout_duration, int):
-        input_duration = input('For how long did you workout in whole minutes?: ')
+        input_duration = input('For how long did you workout in whole minutes? ')
         print('\n')
 
         workout_duration = validate_duration(input_duration)
@@ -242,10 +261,13 @@ def update_workout_sheet(current_user, workout_type, duration):
         type (str): The type of workout
         duration (str): The duration of the workout
     """
-    current_time = datetime.now().time()
-    time_string = current_time.strftime("%H:%M:%S")
 
-    workout_row = [current_user, workout_type, time_string, duration]
+    current_date = datetime.now().date()
+    date_string = current_date.strftime("%Y-%m-%d")
+
+
+
+    workout_row = [current_user, workout_type, date_string, duration]
     try:
         WORKOUT_SHEET.append_row(workout_row)
         print(Y + "Workout Added!")
