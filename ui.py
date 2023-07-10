@@ -1,7 +1,10 @@
+"""Module functions are for displaying info to terminal with a clean UI for the user"""
+
 import os
 import sys
 import time
 import colorama
+from tabulate import tabulate
 
 
 colorama.init()
@@ -56,5 +59,70 @@ def display_text(text_array, speed):
         time.sleep(.1)
     print(W + '\n')
 
+
 def clear_screen():
+    """
+    Clears terminal screen for fresh UI for user.
+    """
+
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+
+def format_macro_data(data):
+    """
+    Formats object data into a table. Prints the table to the terminal.
+    
+    Args:
+        data (obj): An object containing strings and nested objects
+    """
+
+    table_data = []
+    table_headers = [Y + "DIET"]
+
+    for key, value in data.items():
+        if isinstance(value, dict):
+            for nested_key, _ in value.items():
+                table_headers.append(nested_key.upper())
+            # for nested_key, nested_value in value.items():
+            table_data.append([W + key.capitalize() ,value['protein'], value['fat'], value['carbs']])
+    print(Y)
+    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
+    print(table)
+
+
+def format_daily_calories(data):
+    """
+    Formats object data into a table. Prints the table to the terminal.
+    
+    Args:
+        data (obj): An object containing strings and nested objects
+    """
+
+    print('\n')
+    print(f"Basal Metabolic Rate = {data['BMR']}")
+    table_data = []
+    table_headers = [Y + "GOAL", 'WEEKLY CHANGE', 'CALORIES']
+    for key, value in data['goals'].items():
+        if isinstance(value, dict):
+            table_data.append([W + key , list(value.values())[0], value['calory']])     
+    print(Y)
+    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
+    print(table)
+
+
+def format_bmi(data):
+    """
+    Formats object data into a table. Prints the table to the terminal.
+    
+    Args:
+        data (obj): An object containing key value pairs
+    """
+
+    table_data = []
+
+    table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
+    for _, value in data.items():
+        table_data.append(W + str(value))
+    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
+    print(Y)
+    print(table)

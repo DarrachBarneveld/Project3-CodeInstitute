@@ -108,13 +108,13 @@ def select_options(current_user):
                     view_all_workouts(current_user)
                 elif index == 2:
                     data = fitness_calculator.bmi_calculator()
-                    format_bmi(data)
+                    ui.format_bmi(data)
                 elif index == 3:
                       data = fitness_calculator.dieting_macros()
-                      format_macro_data(data)
+                      ui.format_macro_data(data)
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
-                    format_daily_calories(data)
+                    ui.format_daily_calories(data)
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
@@ -231,50 +231,6 @@ def update_workout_sheet(current_user, workout_type, duration):
     except Exception as error:
         print("An error occurred:", str(error))
 
-
-def format_macro_data(data):
-    table_data = []
-    table_headers = [Y + "DIET"]
-
-    for key, value in data.items():
-        if isinstance(value, dict):
-            for nested_key, nested_value in value.items():
-                table_headers.append(nested_key.upper())
-            
-            # for nested_key, nested_value in value.items():
-            table_data.append([W + key.capitalize() ,value['protein'], value['fat'], value['carbs']])
-            
-                                    
-        # else:
-        #     print(R + key.upper() + Y, "->", value)
-    print(Y)
-    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
-    print(table)
-
-def format_daily_calories(data):
-    print('\n')
-    print(f"Basal Metabolic Rate = {data['BMR']}")
-    table_data = []
-    table_headers = [Y + "GOAL", 'WEEKLY CHANGE', 'CALORIES']
-    for key, value in data['goals'].items():
-        if isinstance(value, dict):
-                table_data.append([W + key , list(value.values())[0], value['calory']])
-            
-    print(Y)
-    table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
-    print(table)
-
-def format_bmi(data):
-    data = fitness_calculator.bmi_calculator()
-    table_data = []
-
-    table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
-    for key, value in data.items():
-        table_data.append(W + str(value))
-    
-    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
-    print(Y)
-    print(table)
 
 
 def main():
