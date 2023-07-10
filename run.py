@@ -62,7 +62,6 @@ def load_google_sheets():
         DF = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
         return spreadsheet
     
-    
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
 
@@ -242,8 +241,8 @@ def main():
     Main Function to run code
     """
 
-    # display_welcome()
-    # display_text(INTRO_TEXT, .03)
+    ui.display_welcome()
+    ui.display_text(INTRO_TEXT, .03)
 
     try:
         load_google_sheets()

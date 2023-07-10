@@ -158,7 +158,7 @@ def daily_calories():
     activty_level = 'level_' + activty_level
 
     querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level}
-    
+
     try:
         response = requests.get('https://fitness-calculator.p.rapidapi.com/dailycalorie', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
         response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
@@ -202,8 +202,8 @@ def dieting_macros():
 
     try:
         response = requests.get('https://fitness-calculator.p.rapidapi.com/macrocalculator', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
-        return response.json().get('data') # Return data as a json object
+        response.raise_for_status()
+        return response.json().get('data')
     except requests.exceptions.RequestException as error:
         print(error)
         return None

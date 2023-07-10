@@ -1,31 +1,103 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# WorkItOut
 
-Welcome USER_NAME,
+(Developer: Darrach Barneveld)
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+![Mockup image](documentation/responsive.webp)
 
-## Reminders
+[WorkItOut Live Page](https://work-it-out-066ec18b52ea.herokuapp.com/)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## Table of Contents
 
-## Creating the Heroku app
+1. [Project Goals](#project-goals)
+   1. [Business Goals](#business-goals)
+   2. [User Goals](#user-goals)
+2. [UX](#UX)
+   1. [Target Audience](#target-audience)
+   2. [User Requirements and Expectations](#user-requirements-and-expectations)
+   3. [User Stories](#user-stories)
+   4. [Flow Chart](#flow-chart)
+3. [Design](#design)
+4. [Features](#features)
+   1. [Current Features](#current-features)
+   2. [Potential Features](#potential-features)
+5. [Testing](#testing)
+6. [Bugs](#Bugs)
+7. [Deployment](#deployment)
+8. [Credits](#credits)
+9. [Technologies Used](#credits)
+10. [Acknowledgements](#acknowledgements)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Project Goals
 
-1. `heroku/python`
-2. `heroku/nodejs`
+### Business Goals
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+### User Goals
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+[Back to Table of Contents](#table-of-contents)
 
-Connect your GitHub repository and deploy as normal.
+## UX
 
-## Constraints
+### Target Audience
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+### User Requirements and Expectations
 
------
-Happy coding!
+### User Stories
+
+#### Website/Business Owner:
+
+#### New Users:
+
+#### Existing Users:
+
+[Back to Table of Contents](#table-of-contents)
+
+## Design
+
+
+[Back to Table of Contents](#table-of-contents)
+
+## Features
+
+
+[Back to Table of Contents](#table-of-contents)
+
+## Testing
+
+### Testing user stories
+
+#### Website/Business Owner
+
+#### New Users:
+
+#### Existing Users:
+
+
+[Back to Table of Contents](#table-of-contents)
+
+## Bugs
+
+1. As of testing no bugs have been found. All bugs have been addressed via testing and consistant use of sites multiple features.
+
+[Back to Table of Contents](#table-of-contents)
+
+## Deployment
+
+The website was deployed using GitHub Pages:
+
+[Back to Table of Contents](#table-of-contents)
+
+## Credits
+
+### Code
+
+[Back to Table of Contents](#table-of-contents)
+
+
+## Technologies Used
+
+[Back to Table of Contents](#table-of-contents)
+
+
+## Acknowledgements
+
+[Back to Table of Contents](#table-of-contents)
