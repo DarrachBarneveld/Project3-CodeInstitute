@@ -77,7 +77,7 @@ def load_google_sheets():
     #     raise Exception("The worksheet was not found. Try again later!") from exc
     
 # pylint: disable=line-too-long
-EXERCISES = [[Y, 'Running'], [Y,'Swimming'], [Y,'Cycling'], [Y, 'Weights'], [Y, 'Sports'], [Y ,"Light"]]
+EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
 # pylint: disable=line-too-long
 CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories']]
 # pylint: disable=line-too-long
@@ -142,8 +142,7 @@ def select_options(current_user):
                     view_all_workouts(current_user)
                 elif index == 2:
                     data = fitness_calculator.bmi_calculator()
-                    for key, value in data.items():
-                        print(R + key.upper() + Y, "->", value)
+                    format_bmi(data)
                 elif index == 3:
                       data = fitness_calculator.dieting_macros()
                       format_macro_data(data)
@@ -192,7 +191,9 @@ def create_new_workout(current_user):
 
     while workout_type == '':
         display_text(EXERCISES, .01)
-        choice = input('What workout type did you do?')
+        print('What type of workout did you do? \n')
+        choice = input('Enter the number corresponding to your choice: ')
+        print('\n')
         try:
             index = int(choice) - 1
             if 0 <= int(choice) < len(EXERCISES):
@@ -203,8 +204,11 @@ def create_new_workout(current_user):
             print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
     while not isinstance(workout_duration, int):
-        input_duration = input('For how long did you workout in whole minutes?')
+        input_duration = input('For how long did you workout in whole minutes?: ')
+        print('\n')
+
         workout_duration = validate_duration(input_duration)
+        workout_type = workout_type.split('. ')[1]
 
 
     update_workout_sheet(current_user,workout_type, workout_duration)
@@ -263,7 +267,6 @@ def display_text(text_array, speed):
         text_array (Arr[str]): An array of strings
         speed (int): A number to configure speed of animation 
     """
-    print('\n')
     for text in text_array:
         print(text[0])
         type_text(text[1], speed)
@@ -327,20 +330,20 @@ def main():
     # display_welcome()
     # display_text(INTRO_TEXT, .03)
 
-    # try:
-    #     load_google_sheets()
-    # except Exception as error:
-    #     print(error)
-    #     return
+    try:
+        load_google_sheets()
+    except Exception as error:
+        print(error)
+        return
 
-    # current_user = None
-    # while current_user is None:
-    #     try:
-    #         current_user = authenticate_user(DF, USERS_SHEET)
-    #     except Exception as error:
-    #         print(error)
+    current_user = None
+    while current_user is None:
+        try:
+            current_user = authenticate_user(DF, USERS_SHEET)
+        except Exception as error:
+            print(error)
     
-    # select_options(current_user)
+    select_options(current_user)
 
 
 main()
