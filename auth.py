@@ -56,7 +56,9 @@ def signup(sheet):
 
     try:
         sheet.append_row([first_name, last_name, email])
-        print("Sign-up successful")
+        clear_screen()
+
+        print(f"Sign-up successful Welcome {G + first_name}\n")
         return email    # pylint: disable=pylint(broad-exception-caught)
     except Exception as exc:
         # pylint: disable=pylint(broad-exception-raised)
