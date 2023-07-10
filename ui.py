@@ -72,6 +72,7 @@ def back_to_home():
     """
     Allows user to hit enter to go back to home.
     """
+    print('\n')
     input("Press any key to continue...")
     clear_screen()
 
@@ -92,7 +93,10 @@ def format_macro_data(data):
     Args:
         data (obj): An object containing strings and nested objects
     """
+    clear_screen()
 
+    print(G)
+    type_text('Custom macro nutrient information', .03)
     table_data = []
     table_headers = [Y + "DIET"]
 
@@ -105,6 +109,7 @@ def format_macro_data(data):
     print(Y)
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)
+    back_to_home()
 
 
 def format_daily_calories(data):
@@ -115,7 +120,10 @@ def format_daily_calories(data):
         data (obj): An object containing strings and nested objects
     """
 
-    print('\n')
+    clear_screen()
+    print(G)
+    type_text('Recommended caloric intake', .03)
+
     print(f"Basal Metabolic Rate = {data['BMR']}")
     table_data = []
     table_headers = [Y + "GOAL", 'WEEKLY CHANGE', 'CALORIES']
@@ -125,6 +133,7 @@ def format_daily_calories(data):
     print(Y)
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)
+    back_to_home()
 
 
 def format_bmi(data):
@@ -135,6 +144,10 @@ def format_bmi(data):
         data (obj): An object containing key value pairs
     """
 
+    clear_screen()
+    print(G)
+    type_text('Your BMI Results', .03)
+
     table_data = []
 
     table_headers = [Y + "BMI", 'HEALTH', 'HEALTH RANGE']
@@ -143,3 +156,4 @@ def format_bmi(data):
     table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
     print(Y)
     print(table)
+    back_to_home()

@@ -133,11 +133,12 @@ def view_all_workouts(current_user):
 
     try:
         ui.clear_screen()
+        print(Y + 'Here are you workouts')
         all_workouts = WORKOUT_SHEET.get_all_values()
 
         filtered_data = [row for row in all_workouts if row[0] == current_user]
         table_data = []
-        table_headers = [Y + "WORKOUT", 'DATE', 'DURATION']
+        table_headers = ["WORKOUT", 'DATE', 'DURATION']
 
         for row in filtered_data:
             workout_type, workout_date, workout_duration = row[1:4]
@@ -226,6 +227,7 @@ def update_workout_sheet(current_user, workout_type, duration):
     workout_row = [current_user, workout_type, date_string, duration]
     try:
         WORKOUT_SHEET.append_row(workout_row)
+        ui.clear_screen()
         print(Y + "Workout Added!")
         print(W)
 
