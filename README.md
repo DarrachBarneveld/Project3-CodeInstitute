@@ -2,9 +2,11 @@
 
 (Developer: Darrach Barneveld)
 
-![Mockup image](documentation/responsive.webp)
+![Mockup image](documentation/images/hero-image.png)
 
 [WorkItOut Live Page](https://work-it-out-066ec18b52ea.herokuapp.com/)
+
+WorkItOut is an all-in-one fitness app that allows you to enter and track your workouts effortlessly. It also provides personalized nutritional information based on your diet goals, including your BMI, daily calorie intake, and recommended macros. Stay on top of your fitness journey with WorkItOut's intuitive features and achieve a healthier lifestyle with ease.
 
 ## Table of Contents
 
@@ -28,10 +30,20 @@
 10. [Acknowledgements](#acknowledgements)
 
 ## Project Goals
+The primary goal of WorkItOut is to provide an concise applicaion that allows users to easily enter and track their workouts. It also helps users develop a heavily life style by using a comprehensive nutrition database to offer customized nutritional information based on user and thier goals.
 
 ### Business Goals
+1. The primary business goal for the WorkItOut app is to attract a significant number of users who are interested in fitness and nutrition.
+2. Build a strong brand presence: Develop a strong brand identity for WorkItOut through consistent branding, engaging content, and positive user experiences.
+3. Gather user data for research and insights: Leverage the anonymized and aggregated user data to conduct research and gain valuable insights into fitness trends, user preferences, and behavior patterns.
+4. Expand the app's functionality and features: Continuously enhance and expand the app's capabilities to cater to the evolving needs of users.
 
 ### User Goals
+1. Users want to set specific fitness goals, such as weight loss, muscle gain, or improved endurance, and track their progress over time. 
+2. Users expect the app to have an intuitive and user-friendly interface that is easy to navigate and understand.
+3. Users want the ability to track their workout performance, frequency and durations.
+4. Users expect the ability to track dietary goals and get a better understanding of recommended nutritional information that is customised based on their current profile.
+5. Users expect the app to continually evolve and improve based on user feedback and emerging fitness trends
 
 [Back to Table of Contents](#table-of-contents)
 
