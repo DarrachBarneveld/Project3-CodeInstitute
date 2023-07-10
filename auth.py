@@ -1,9 +1,10 @@
 """This module provides functions for user authentication and authorization"""
 import colorama
-from ui import clear_screen
+from ui import clear_screen, display_error
 colorama.init()
 
 G = colorama.Fore.LIGHTGREEN_EX
+R = colorama.Fore.LIGHTGREEN_EX
 
 
 def login(dataframe):
@@ -17,9 +18,11 @@ def login(dataframe):
         str or None: The email address if the login is successful, or None if the login fails.
 
     """
+    print('\n')
     first_name = input("Enter your first name: ").lower()
     last_name = input("Enter your last name: ").lower()
     email = input("Enter your email: ").lower()
+
 
     dataframe['Firstname'] = dataframe['Firstname'].str.lower()
     dataframe['Lastname'] = dataframe['Lastname'].str.lower()
@@ -50,9 +53,11 @@ def signup(sheet):
     Raises:
         Exception: For any other unknown errors that may occur during the signup process.
     """
+    print('\n')
     first_name = input("Enter your first name: ")
     last_name = input("Enter your last name: ")
     email = input("Enter your email: ")
+
 
     try:
         sheet.append_row([first_name, last_name, email])
@@ -82,8 +87,7 @@ def authenticate_user(dataframe, sheet):
     while choice not in ["login", "signup"]:
         choice = input("Choose 'login' or 'signup': ").lower()
         if choice not in ["login", "signup"]:
-            print("Invalid choice. Please enter 'login' or 'signup'.")
-
+            display_error("Invalid choice. Please enter 'login' or 'signup'.")
     if choice == 'login':
         return login(dataframe)
     if choice == 'signup':

@@ -106,12 +106,14 @@ def select_options(current_user):
                     create_new_workout(current_user)
                 elif index == 1:
                     view_all_workouts(current_user)
+                    print('\n')
+                    ui.back_to_home()
                 elif index == 2:
                     data = fitness_calculator.bmi_calculator()
                     ui.format_bmi(data)
                 elif index == 3:
-                      data = fitness_calculator.dieting_macros()
-                      ui.format_macro_data(data)
+                    data = fitness_calculator.dieting_macros()
+                    ui.format_macro_data(data)
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
                     ui.format_daily_calories(data)
@@ -130,6 +132,7 @@ def view_all_workouts(current_user):
     """
 
     try:
+        ui.clear_screen()
         all_workouts = WORKOUT_SHEET.get_all_values()
 
         filtered_data = [row for row in all_workouts if row[0] == current_user]
@@ -139,9 +142,6 @@ def view_all_workouts(current_user):
         for row in filtered_data:
             workout_type, workout_date, workout_duration = row[1:4]
             table_data.append([W + str(workout_type), W + str(workout_date), W + str(workout_duration)])
-            
-            print("Type:", workout_type, "Date:", workout_date, "Duration:", workout_duration )
-            print()  # Print an empty line between rows
         
         table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
         print(Y)
@@ -161,6 +161,8 @@ def create_new_workout(current_user):
 
     workout_type = ''
     workout_duration = ''
+    ui.clear_screen()
+
 
     while workout_type == '':
         ui.display_text(EXERCISES, .01)

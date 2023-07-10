@@ -68,6 +68,23 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
 
+def back_to_home():
+    """
+    Allows user to hit enter to go back to home.
+    """
+    input("Press any key to continue...")
+    clear_screen()
+
+
+def display_error(string):
+    """
+    Displays an error message to the user.
+    """
+    print('\n')
+    print(R + string)
+    print(W + '\n')
+
+
 def format_macro_data(data):
     """
     Formats object data into a table. Prints the table to the terminal.
