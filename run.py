@@ -39,7 +39,7 @@ def load_google_sheets():
     Load Google Sheets using the gspread library.
 
     Returns:
-        spreedsheet: The google WorkItOut spreadsheet.
+        array: Google usersheet, workoutsheet and the pandas user Dataframe.
 
     Raises:
         gspread.exceptions.APIError: If an error occurs while accessing the Google Sheets API.
@@ -56,7 +56,8 @@ def load_google_sheets():
         spreadsheet = gspread_client.open('WorkItOut')
         user_sheet = spreadsheet.get_worksheet(0)
         workout_sheet = spreadsheet.get_worksheet(1)
-        dateframe = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+        user_sheet_data = user_sheet.get_all_values()
+        dateframe = pd.DataFrame(user_sheet_data[1:], columns=user_sheet_data[0])
         return [user_sheet, workout_sheet, dateframe]
 
     except APIError as exc:
@@ -245,7 +246,7 @@ def main():
         try:
             current_user = authenticate_user(dataframe, user_sheet)
         except Exception as error:
-            print(error) 
+            print(error)
     select_options(current_user, workout_sheet)
 
 

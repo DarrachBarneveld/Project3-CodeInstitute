@@ -110,28 +110,65 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 2. Customizable meal plans: Provide the option to create personalized meal plans based on dietary preferences, restrictions, and fitness goals. Offer suggestions for balanced meals and portion sizes.
 3. Nutritional tracking and logging: Allow users to log their daily food intake, track calories, macronutrients, and micronutrients, and view nutritional breakdowns for meals and snacks.
 
-### Testing user stories
-
-
-
-[Back to Table of Contents](#table-of-contents)
 
 ## Testing
 
-### Testing user stories
+### Website/Business Owner Stories
+- I want to test the applications ease of navigation to ensure that users can easily find the information
+1. Users can navigate back to the home page from data tables.
+2. Users are always redirected back to the selection screen when they have finished inputing a workout.
+3. The list of features is clear and presented well.
 
-#### Website/Business Owner
+- I want information to be presented clearly in an easy to understand format
+1. All data is formated onto a table with columns and rows.
 
-#### New Users:
+- I authentication to be easy and intuitive
+1. Users are prompted whether to login or signup.
+2. Each option has clear step by step instructions.
+3. Any errors are clearly displayed and prompting the user to try again.
 
-#### Existing Users:
+### New Users Stories
+- I want to immediately understand the application so I can make a quick decision as to whether or not to continue.
+1. The intro page clearly states the purpose of the application and the brand of the product
+
+- I want to be able to quickly navigate around the application and understand its features.
+1. Clear instruction on what options are available
+2. Simple commands to progress through the applications flow.
+
+- I want to be information to be displayed easily with customisable data.
+1. Users can updated current metrics for accurate customisable data
+2. Data is displayed in easy to read tables
+
+- I want the login/signup process to be simple and quick
+1. The login/signup procedure is a simple 3 step process
+2. The steps are broken down with prompts and error handling
+
+
+### Existing Users Stories
+
+- I want to easily be able to log into my account
+1. Users can easily log into there account with a simple 3 step process
+
+- I want to be able to view my log of workouts
+1. Users can view all thier workouts displayed in an easy to read table
+
+- I want to be able to change my current statistical information
+1. Users can update there current weight, height age and activity level
+
+- I want to be able to change my fitness goals
+1. Users can check different diet plans and weight loss journeys based on new input information
 
 
 [Back to Table of Contents](#table-of-contents)
 
 ## Bugs
 
-1. As of testing no bugs have been found. All bugs have been addressed via testing and consistant use of sites multiple features.
+| **Bug** | **Fix** |
+| ------- | ------- |
+| BUG| FIX|
+| BUG| FIX |
+| BUG | FIX |
+
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -203,9 +240,9 @@ Credit to [useriasminna](https://github.com/useriasminna/american_pizza_order_sy
 
 Credit to [Dr Angela Yu](https://www.udemy.com/course/100-days-of-code/) and 100 days of Python for a greater understanding of error handling in python.
 
-Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to indent and format code, document functions and modules and to follow python best practices.
+Credit to [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) for helping me to indent and format code, document functions and modules and to follow python best practices.
 
-Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to indent and format code, document functions and modules and to follow python best practices.
+Credit to [Thomas & Asclepius](https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address) for helping create a basic python email validator function.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -221,7 +258,7 @@ Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to i
 - [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)
 - [W3C Markup Validation Service](https://validator.w3.org/)
 - [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/)
-- [PEP8 Validator](http://ww1.pep8online.com/)
+- [Pylance Validator](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
 - [Lucid Chart](https://www.lucidchart.com/)
 - [Heroku](https://heroku.com/)
 
