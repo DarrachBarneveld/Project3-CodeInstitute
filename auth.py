@@ -1,6 +1,7 @@
 """This module provides functions for user authentication and authorization"""
 import colorama
 from ui import clear_screen, display_error
+import re
 colorama.init()
 
 G = colorama.Fore.LIGHTGREEN_EX
@@ -36,7 +37,7 @@ def login(dataframe):
         print(f"Authentication successful! Welcome back {G + first_name}\n")
         return email
 
-    print("Authentication failed")
+    display_error("Authentication failed")
     return None
 
 
@@ -54,9 +55,18 @@ def signup(sheet):
         Exception: For any other unknown errors that may occur during the signup process.
     """
     print('\n')
+
     first_name = input("Enter your first name: ")
+    while not is_alphabetic(first_name):
+        first_name = input("Enter your first name: ")
+
     last_name = input("Enter your last name: ")
+    while not is_alphabetic(last_name):
+        last_name = input("Enter your last name: ")
+
     email = input("Enter your email: ")
+    while not is_valid_email(email):
+        email = input("Enter your last name: ")
 
 
     try:
@@ -64,10 +74,45 @@ def signup(sheet):
         clear_screen()
 
         print(f"Sign-up successful Welcome {G + first_name}\n")
-        return email    # pylint: disable=pylint(broad-exception-caught)
+        return email
+
+    # pylint: disable=pylint(broad-exception-caught)
     except Exception as exc:
         # pylint: disable=pylint(broad-exception-raised)
         raise Exception("There was an error signing up. Please try again!") from exc
+
+
+def is_valid_email(email):
+    """
+    Check if the given email address is valid.
+
+    Args:
+        email (str): The email address to be validated.
+
+    Returns:
+        bool: True if the email is valid, False otherwise.
+    """
+
+    if re.match('[^@]+@[^@]+\.[^@]+', email):
+        return True
+    display_error("Please enter a valid email address")
+    return False
+
+
+def is_alphabetic(string):
+    """
+    Check if the given input string contains only alphabetic letters.
+
+    Args:
+        string (str): The input string to be validated.
+
+    Returns:
+        bool: True if the input contains only alphabetic letters, False otherwise.
+    """
+    if string.isalpha():
+        return True
+    display_error("Not a valid name. Must only contain alphabetic letters")
+    return False
 
 
 def authenticate_user(dataframe, sheet):
