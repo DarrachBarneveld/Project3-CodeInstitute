@@ -187,6 +187,14 @@ Steps to reproduce:
 
 ## Credits
 
+### Images
+
+- Background Image [Background Image](https://slidesdocs.com/background/sports-running-dynamic-powerpoint-background_8c2cfd71f0)
+
+### Favicon
+
+- Favicon Barbell Image [Flaticon](https://www.flaticon.com/free-icon/barbell_2936886?term=gym&page=1&position=15&origin=tag&related_id=2936886)
+
 
 ### Code
 Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for the typing animation and colours. By understanding his code I was able to implement a typing and colour scheme to my project. 
@@ -201,6 +209,7 @@ Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to i
 
 
 ## Technologies Used
+
 - [Git](https://git-scm.com/)
 - [GitHub](https://github.com/)
 - [VS Code](https://code.visualstudio.com/)
