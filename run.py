@@ -29,7 +29,7 @@ GOOGLE_SHEETS_SCOPE = [
 USERS_SHEET = None
 WORKOUT_SHEET = None
 DF = None
-    
+
 # pylint: disable=line-too-long
 EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
 # pylint: disable=line-too-long

@@ -1,8 +1,10 @@
 """This module provides functions for user authentication and authorization"""
+import re
 import colorama
 from ui import clear_screen, display_error
-import re
+
 colorama.init()
+
 
 G = colorama.Fore.LIGHTGREEN_EX
 R = colorama.Fore.LIGHTGREEN_EX
@@ -66,7 +68,17 @@ def signup(sheet):
 
     email = input("Enter your email: ")
     while not is_valid_email(email):
-        email = input("Enter your last name: ")
+        email = input("Enter your email: ")
+
+    all_users = sheet.get_all_values()
+    filtered_data = [row for row in all_users if row[2] == email]
+
+    while len(filtered_data) > 0:
+        print(filtered_data)
+        display_error('Email already in use')
+        email = input("Enter your email: ")
+        filtered_data = [row for row in all_users if row[2] == email]
+
 
 
     try:
