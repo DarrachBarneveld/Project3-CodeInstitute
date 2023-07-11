@@ -205,6 +205,8 @@ Credit to [Dr Angela Yu](https://www.udemy.com/course/100-days-of-code/) and 100
 
 Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to indent and format code, document functions and modules and to follow python best practices.
 
+Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to indent and format code, document functions and modules and to follow python best practices.
+
 [Back to Table of Contents](#table-of-contents)
 
 
