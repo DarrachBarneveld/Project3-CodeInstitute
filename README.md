@@ -115,48 +115,48 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 
 ### Website/Business Owner Stories
 - I want to test the applications ease of navigation to ensure that users can easily find the information
-1. Users can navigate back to the home page from data tables.
-2. Users are always redirected back to the selection screen when they have finished inputing a workout.
-3. The list of features is clear and presented well.
+   1. Users can navigate back to the home page from data tables.
+   2. Users are always redirected back to the selection screen when they have finished inputing a workout.
+   3. The list of features is clear and presented well.
 
 - I want information to be presented clearly in an easy to understand format
-1. All data is formated onto a table with columns and rows.
+   1. All data is formated onto a table with columns and rows.
 
 - I authentication to be easy and intuitive
-1. Users are prompted whether to login or signup.
-2. Each option has clear step by step instructions.
-3. Any errors are clearly displayed and prompting the user to try again.
+   1. Users are prompted whether to login or signup.
+   2. Each option has clear step by step instructions.
+   3. Any errors are clearly displayed and prompting the user to try again.
 
 ### New Users Stories
 - I want to immediately understand the application so I can make a quick decision as to whether or not to continue.
-1. The intro page clearly states the purpose of the application and the brand of the product
+   1. The intro page clearly states the purpose of the application and the brand of the product
 
 - I want to be able to quickly navigate around the application and understand its features.
-1. Clear instruction on what options are available
-2. Simple commands to progress through the applications flow.
+   1. Clear instruction on what options are available
+   2. Simple commands to progress through the applications flow.
 
 - I want to be information to be displayed easily with customisable data.
-1. Users can updated current metrics for accurate customisable data
-2. Data is displayed in easy to read tables
+   1. Users can updated current metrics for accurate customisable data
+   2. Data is displayed in easy to read tables
 
 - I want the login/signup process to be simple and quick
-1. The login/signup procedure is a simple 3 step process
-2. The steps are broken down with prompts and error handling
+   1. The login/signup procedure is a simple 3 step process
+   2. The steps are broken down with prompts and error handling
 
 
 ### Existing Users Stories
 
 - I want to easily be able to log into my account
-1. Users can easily log into there account with a simple 3 step process
+   1. Users can easily log into there account with a simple 3 step process
 
 - I want to be able to view my log of workouts
-1. Users can view all thier workouts displayed in an easy to read table
+   1. Users can view all thier workouts displayed in an easy to read table
 
 - I want to be able to change my current statistical information
-1. Users can update there current weight, height age and activity level
+   1. Users can update there current weight, height age and activity level
 
 - I want to be able to change my fitness goals
-1. Users can check different diet plans and weight loss journeys based on new input information
+   1. Users can check different diet plans and weight loss journeys based on new input information
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -165,9 +165,12 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 
 | **Bug** | **Fix** |
 | ------- | ------- |
-| BUG| FIX|
-| BUG| FIX |
-| BUG | FIX |
+| Login/Signup validation was not rerunning the input option when a invalid input was entered so vaulty data was stored| Added a while not loop that kept prompting the user for valid information if the validator did not return true|
+| Mutable global variables of google sheets and dataframes were at risk of corruption in associated functions| Created all instances of the the variables to be passed as parameters to necessary functions to avoid mutations |
+| Image urls not rendering correctly on deployment. Filepaths were not absolute. | Used the github repo url instead of file path names to render the background and favicon images |
+| Sensitive API keys were being exposed to the github repo against best practice. | Created a dotenv file to hide sensitive information and used the python-dotenv module to access the information. All config vars were added to heroku |
+| Multiple users could use the same email meaning validation was an issue and updating worksheets. | Created a function which check the validitiy of an email and check the current database to see if it was not already registered |
+| Sometimes the APIs were down and unable to display information which crashed the application. | Added a try and except block which caught the errors and displayed an error message to the user |
 
 
 [Back to Table of Contents](#table-of-contents)
