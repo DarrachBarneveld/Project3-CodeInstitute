@@ -158,6 +158,32 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 - I want to be able to change my fitness goals
    1. Users can check different diet plans and weight loss journeys based on new input information
 
+### Validation Python Code
+
+While writing the code in Visual Studio Code I used the linter [PyLance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) to guide me in the best practice of formating and also hints on functional writing.
+
+Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was the main resouce during the code validation process. The relevant code passes with overall success with occassional minor warnings.
+
+<details><summary>PEP8 Validation: run.py</summary>
+<!-- <img src="documentation/testing/run-py.png"> -->
+<!-- <ul><li></li></ul> -->
+</details>
+
+<details><summary>PEP Validatation: auth.py</summary>
+<!-- <img src="docs/testing/questions-py.png"> -->
+<!-- <ul><li></li></ul> -->
+</details>
+
+<details><summary>PEP Validatation: fitness_calculator.py</summary>
+<!-- <img src="docs/testing/colours-py.png"> -->
+<!-- <ul><li></li></ul> -->
+</details>
+
+<details><summary>PEP Validatation: ui.py</summary>
+<!-- <img src="docs/testing/database-py.png"> -->
+<!-- <ul><li></li></ul> -->
+</details>
+
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -238,6 +264,8 @@ Steps to reproduce:
 
 ### Code
 Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for the typing animation and colours. By understanding his code I was able to implement a typing and colour scheme to my project. 
+
+Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for his readme. This readme was used as a template on how correct display bugs and fixes in markup.
 
 Credit to [useriasminna](https://github.com/useriasminna/american_pizza_order_system) for the clearing console commands to give a fresh terminal screen to present user data.
 
