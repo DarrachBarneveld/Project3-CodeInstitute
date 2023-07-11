@@ -26,10 +26,6 @@ GOOGLE_SHEETS_SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-USERS_SHEET = None
-WORKOUT_SHEET = None
-DF = None
-
 # pylint: disable=line-too-long
 EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
 # pylint: disable=line-too-long
@@ -52,22 +48,17 @@ def load_google_sheets():
         Exception if generalised error
     """
     try:
-        # pylint: disable=pylint(global-statement)
-        global USERS_SHEET
-        global WORKOUT_SHEET
-        global DF
 
         creds = Credentials.from_service_account_file('creds.json')
         scoped_creds = creds.with_scopes(GOOGLE_SHEETS_SCOPE)
         gspread_client = gspread.authorize(scoped_creds)
 
         spreadsheet = gspread_client.open('WorkItOut')
-        USERS_SHEET = spreadsheet.get_worksheet(0)
-        WORKOUT_SHEET = spreadsheet.get_worksheet(1)
-        sheet_data = USERS_SHEET.get_all_values()
-        DF = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
-        return spreadsheet
-    
+        user_sheet = spreadsheet.get_worksheet(0)
+        workout_sheet = spreadsheet.get_worksheet(1)
+        dateframe = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+        return [user_sheet, workout_sheet, dateframe]
+
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
 
@@ -75,12 +66,13 @@ def load_google_sheets():
         raise SpreadsheetNotFound("The spreadsheet was not found Try again later!") from exc
 
     except WorksheetNotFound as exc:
-        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc   
-    # except Exception as exc:
-    #     raise Exception("The worksheet was not found. Try again later!") from exc
+        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
+
+    except Exception as exc:
+        raise Exception("The worksheet was not found. Try again later!") from exc
 
 
-def select_options(current_user):
+def select_options(current_user, workout_sheet):
     """
     Displays a list of options and prompts the user to select one. Selected prompt will run an assosicated function
 
@@ -100,9 +92,9 @@ def select_options(current_user):
             index = int(choice) - 1
             if 0 <= index < len(CHOICE_OPTIONS):
                 if index == 0:
-                    create_new_workout(current_user)
+                    create_new_workout(current_user, workout_sheet)
                 elif index == 1:
-                    view_all_workouts(current_user)
+                    view_all_workouts(current_user, workout_sheet)
                     print('\n')
                     ui.back_to_home()
                 elif index == 2:
@@ -120,7 +112,7 @@ def select_options(current_user):
             print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
 
-def view_all_workouts(current_user):
+def view_all_workouts(current_user, workout_sheet):
     """
     Retrieves data from a Google Sheets spreadsheet.
 
@@ -131,7 +123,7 @@ def view_all_workouts(current_user):
     try:
         ui.clear_screen()
         print(Y + 'Here are you workouts')
-        all_workouts = WORKOUT_SHEET.get_all_values()
+        all_workouts = workout_sheet.get_all_values()
 
         filtered_data = [row for row in all_workouts if row[0] == current_user]
         table_data = []
@@ -140,7 +132,7 @@ def view_all_workouts(current_user):
         for row in filtered_data:
             workout_type, workout_date, workout_duration = row[1:4]
             table_data.append([W + str(workout_type), W + str(workout_date), W + str(workout_duration)])
-        
+
         table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
         print(Y)
         print(table)
@@ -149,7 +141,7 @@ def view_all_workouts(current_user):
         print("An error occurred:", str(error))
 
 
-def create_new_workout(current_user):
+def create_new_workout(current_user, workout_sheet):
     """
     Create a new workout in google sheets document with user inputs and authenticated user so workouts are saved with user data
     
@@ -184,7 +176,7 @@ def create_new_workout(current_user):
         workout_type = workout_type.split('. ')[1]
 
 
-    update_workout_sheet(current_user,workout_type, workout_duration)
+    update_workout_sheet(current_user,workout_type, workout_duration, workout_sheet)
 
 
 def validate_duration(duration):
@@ -206,7 +198,7 @@ def validate_duration(duration):
         print(f"{duration} is not a number")
 
 
-def update_workout_sheet(current_user, workout_type, duration):
+def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
     """
     Update the Google Sheets Document if valid data
     
@@ -223,7 +215,7 @@ def update_workout_sheet(current_user, workout_type, duration):
 
     workout_row = [current_user, workout_type, date_string, duration]
     try:
-        WORKOUT_SHEET.append_row(workout_row)
+        workout_sheet.append_row(workout_row)
         ui.clear_screen()
         print(Y + "Workout Added!")
         print(W)
@@ -238,12 +230,12 @@ def main():
     """
     Main Function to run code
     """
-
+    ui.clear_screen()
     ui.display_welcome()
     ui.display_text(INTRO_TEXT, .03)
 
     try:
-        load_google_sheets()
+        user_sheet, workout_sheet, dataframe = load_google_sheets()
     except Exception as error:
         print(error)
         return
@@ -251,10 +243,10 @@ def main():
     current_user = None
     while current_user is None:
         try:
-            current_user = authenticate_user(DF, USERS_SHEET)
+            current_user = authenticate_user(dataframe, user_sheet)
         except Exception as error:
             print(error) 
-    select_options(current_user)
+    select_options(current_user, workout_sheet)
 
 
 main()
