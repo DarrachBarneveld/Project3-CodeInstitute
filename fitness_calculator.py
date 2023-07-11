@@ -9,6 +9,7 @@ colorama.init()
 
 R = colorama.Fore.RED
 W = colorama.Fore.WHITE
+G = colorama.Fore.LIGHTGREEN_EX
 
 
 
@@ -185,8 +186,10 @@ def dieting_macros():
     goal = ''
 
     while not valid_input_goal:
+        print('\n')
         for i, option in enumerate(WEIGHT_GOAL_OPTIONS):
-            print(f"{i+1}. {option[0]}")
+            print(G + f"{i+1}. {option[0]}")
+        print(W)
         choice = input("What are your goals? Enter the corrosponding number: ")
 
         try:
@@ -195,9 +198,9 @@ def dieting_macros():
                 goal = WEIGHT_GOAL_OPTIONS[index][1]
                 valid_input_goal = True
             else:
-                ui.display_error(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+                ui.display_error("Invalid choice. Please enter a valid number ")
         except ValueError:
-            ui.display_error(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+            ui.display_error("Invalid choice. Please enter a valid number.")
 
     querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal}
 

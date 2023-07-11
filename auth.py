@@ -80,7 +80,6 @@ def signup(sheet):
         filtered_data = [row for row in all_users if row[2] == email]
 
 
-
     try:
         sheet.append_row([first_name, last_name, email])
         clear_screen()
