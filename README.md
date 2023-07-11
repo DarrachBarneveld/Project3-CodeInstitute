@@ -85,9 +85,6 @@ The primary goal of WorkItOut is to provide an concise applicaion that allows us
 
 ## Design
 
-
-
-
 As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which that provided a palette of colors to be used in the text. The website incorporated prominent colors such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
 
 The intro hero banner was created using Ascii. The tool [Patrojk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) was used to convert text to a font in Ascii format so as to be printed to the terminal.
@@ -96,11 +93,25 @@ To present data in a clear and organized manner, the website utilized the [Tabul
 
 The combination of well-chosen colors and structured data tables enhanced the overall user experience and usability of the website.
 
-
-
 [Back to Table of Contents](#table-of-contents)
 
 ## Features
+
+### Current Features
+
+1. Enter workout details:  Users can input the type of exercise performed and the duration to accurately track their workouts.
+2. View all workouts: Users have access to a comprehensive view of their logged workouts, allowing them to review their workout history and monitor their progress.
+3. BMI calculator: Calculator that enables users to calculate their Body Mass Index as an indicator of their overall health and fitness level.
+4. Recommended calorie intake: Based on users' diet goals (weight loss, maintenance, or muscle gain), the application provides personalized recommendations for daily calorie intake to support their nutrition objectives.
+5. Recommended macros: Customized macronutrient ratios (protein, carbohydrates, and fats) based on users' weight, height, age, gender and activity level, helping them optimize their nutrition and meet their fitness goals.
+
+### Potential Features
+1. Workout plans: Offer pre-designed workout plans tailored to different fitness goals, such as weight loss, muscle gain, or overall fitness. Users can follow these plans for structured and guided training.
+2. Customizable meal plans: Provide the option to create personalized meal plans based on dietary preferences, restrictions, and fitness goals. Offer suggestions for balanced meals and portion sizes.
+3. Nutritional tracking and logging: Allow users to log their daily food intake, track calories, macronutrients, and micronutrients, and view nutritional breakdowns for meals and snacks.
+
+### Testing user stories
+
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -126,7 +137,51 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 
 ## Deployment
 
-The website was deployed using GitHub Pages:
+Code Institute Python Essentials Template for creating a terminal UI where the python code will generate its output to the user. 
+
+Steps to reproduce:
+
+1. Visit the [Code Institute Essentials Template](https://github.com/Code-Institute-Org/python-essentials-template) and select use this template.
+2. Select create a new repository.
+
+### Deploying on Heroku
+
+1. Create a Heroku account. 
+2. Sign up with a student account for credits. (optional)
+3. Once logged in select create new app.
+4. Select an app name and region.
+5. Select deployment method as connect to github.
+6. Find the repo containing the python code created with the CI template and connect it.
+7. Enable automatic deploys and select the main branch
+8. In the settings tab select reveal config vars. Input the required hidden variables.
+9. For this project a creds.json and RAPID_API_HOST, RAPID_API_KEY were created as config vars.
+10. Select nodejs and python as the buildpack.
+11. Deploy.
+
+### Fork The Repository
+
+1. Go to the GitHub repository
+2. Click on Fork button in the upper right-hand corner
+3. Edit the repository name and description if desired
+4. Click the green create fork button
+
+### Clone The Repository
+
+1. Go to the GitHub repository
+2. Locate the green Code button above the list of files and click it
+3. Select if you prefer to clone using HTTPS, SSH, or Github CLI and click the copy button to copy the URL to your clipboard
+4. Open Git Bash
+5. Change the current working directory to the one where you want the cloned directory
+6. Type git clone and paste the URL from the clipboard ($ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY)
+7. Press Enter to create your local clone.
+
+### Run The Repository Locally
+
+1. Go to the GitHub repository
+2. Locate the green Code button above the list of files and click it
+3. From the dropdown menu select download Zip.
+4. Download and open the zip file to run in an editor
+
 
 [Back to Table of Contents](#table-of-contents)
 
