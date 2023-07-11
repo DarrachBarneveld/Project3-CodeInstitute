@@ -255,8 +255,7 @@ def main():
         try:
             current_user = authenticate_user(DF, USERS_SHEET)
         except Exception as error:
-            print(error)
-   
+            print(error) 
     select_options(current_user)
 
 

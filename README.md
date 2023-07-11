@@ -187,12 +187,34 @@ Steps to reproduce:
 
 ## Credits
 
+
 ### Code
+Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for the typing animation and colours. By understanding his code I was able to implement a typing and colour scheme to my project. 
+
+Credit to [useriasminna](https://github.com/useriasminna/american_pizza_order_system) for the clearing console commands to give a fresh terminal screen to present user data.
+
+Credit to [Dr Angela Yu](https://www.udemy.com/course/100-days-of-code/) and 100 days of Python for a greater understanding of error handling in python.
+
+Credit to [Pylint](https://pylint.readthedocs.io/en/stable/) for helping me to indent and format code, document functions and modules and to follow python best practices.
 
 [Back to Table of Contents](#table-of-contents)
 
 
 ## Technologies Used
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/)
+- [VS Code](https://code.visualstudio.com/)
+- [Favicon.io - favicon generator](https://favicon.io/)
+- [Coolors - Theme generator](https://coolors.co/)
+- [Chat-GPT](https://chat.openai.com/)
+- [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)
+- [W3C Markup Validation Service](https://validator.w3.org/)
+- [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/)
+- [PEP8 Validator](http://ww1.pep8online.com/)
+- [Lucid Chart](https://www.lucidchart.com/)
+- [Heroku](https://heroku.com/)
+
+
 
 [Back to Table of Contents](#table-of-contents)
 
