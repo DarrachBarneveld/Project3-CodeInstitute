@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import requests
+import ui
 
 import colorama
 
@@ -39,8 +40,7 @@ def validate_strings(input_string, valid_strings):
         if input_string.lower() not in valid_strings:
             raise ValueError
     except ValueError:
-        print("Invalid input string")
-  
+        ui.display_error("Invalid input string")
 
 
 def validate_number_in_range(number, min_value, max_value):
@@ -62,7 +62,7 @@ def validate_number_in_range(number, min_value, max_value):
         if min_value <= input_value <= max_value:
             return True
     except ValueError:
-        print(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
+        ui.display_error(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
 
 
 def bmi_calculator():
@@ -118,6 +118,7 @@ def define_base_inputs():
     valid_input_height = False
     valid_activity_level = False
     valid_input_gender = False
+
 
     while not valid_input_age:
         age = input('What is your current age: ')
@@ -194,9 +195,9 @@ def dieting_macros():
                 goal = WEIGHT_GOAL_OPTIONS[index][1]
                 valid_input_goal = True
             else:
-                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+                ui.display_error(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
-            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+            ui.display_error(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
     querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal}
 
@@ -205,5 +206,5 @@ def dieting_macros():
         response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
-        print(error)
+        ui.display_error(error)
         return None

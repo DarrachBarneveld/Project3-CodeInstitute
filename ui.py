@@ -81,7 +81,6 @@ def display_error(string):
     """
     Displays an error message to the user.
     """
-    print('\n')
     print(R + string)
     print(W + '\n')
 

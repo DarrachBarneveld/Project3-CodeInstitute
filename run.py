@@ -29,7 +29,13 @@ GOOGLE_SHEETS_SCOPE = [
 USERS_SHEET = None
 WORKOUT_SHEET = None
 DF = None
-
+    
+# pylint: disable=line-too-long
+EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
+# pylint: disable=line-too-long
+CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories']]
+# pylint: disable=line-too-long
+INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 
 
 def load_google_sheets():
@@ -69,18 +75,9 @@ def load_google_sheets():
         raise SpreadsheetNotFound("The spreadsheet was not found Try again later!") from exc
 
     except WorksheetNotFound as exc:
-        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
-    
+        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc   
     # except Exception as exc:
     #     raise Exception("The worksheet was not found. Try again later!") from exc
-    
-# pylint: disable=line-too-long
-EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
-# pylint: disable=line-too-long
-CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories']]
-# pylint: disable=line-too-long
-INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
-
 
 
 def select_options(current_user):
@@ -97,6 +94,7 @@ def select_options(current_user):
         print(W + 'What would you like to do?')
         ui.display_text(CHOICE_OPTIONS, .01)
         choice = input("Enter the number corresponding to your choice: ")
+        ui.clear_screen()
 
         try:
             index = int(choice) - 1
