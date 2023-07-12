@@ -101,16 +101,14 @@ def select_options(current_user, spreadsheet):
                     data = fitness_calculator.bmi_calculator()
                     ui.format_bmi(data)
                 elif index == 3:
-
-                    user_data = get_current_user_data(current_user, spreadsheet.get_worksheet(0))
-                    ui.format_user_data(user_data)
+                    prompt_edit_current_metrics(current_user, spreadsheet.get_worksheet(0))
                     data = fitness_calculator.dieting_macros()
                     ui.format_macro_data(data)
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
                     ui.format_daily_calories(data)
                 elif index == 5:
-                    display_current_metrics(current_user, spreadsheet.get_worksheet(0))
+                    edit_current_metrics(current_user, spreadsheet.get_worksheet(0))
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
@@ -185,18 +183,46 @@ def create_new_workout(current_user, workout_sheet):
     update_workout_sheet(current_user,workout_type, workout_duration, workout_sheet)
 
 
-def get_current_user_data(current_user, user_sheet): 
+def get_current_user_data(current_user, user_sheet):
     all_users = user_sheet.get_all_values()
     user_data = [row for row in all_users if row[0] == current_user]
     return user_data[0]
 
 
 def display_current_metrics(current_user, user_sheet):
+    user_data = get_current_user_data(current_user, user_sheet)
+    ui.format_user_data(user_data)
+
+
+def prompt_edit_current_metrics(current_user, user_sheet):
+    display_current_metrics(current_user, user_sheet)
+    print(G)
+    ui.type_text('Data will be calculated using your current information', .01)
+    print('\n')
+
+    choice = input(W + 'Do you wish to update information? (Y) or (N):')
+
+    valid_input = False
+    while not valid_input:
+        choice = input(W + 'Do you wish to update information? (Y) or (N):')
+        if fitness_calculator.validate_strings(input_string=choice.lower(), valid_strings=["y", "n"]):
+            valid_input = True
+
+    if choice.lower() == 'y':
+        edit_current_metrics(current_user, user_sheet)
+        return
+        
+
+
+
+
+
+
+def edit_current_metrics(current_user, user_sheet):
     editable_data = ['Weight', 'Height', 'Age', "Gender", "Activty Level", "Go Back"]
 
+    display_current_metrics(current_user, user_sheet)
     user_data = get_current_user_data(current_user, user_sheet)
-
-    ui.format_user_data(user_data)
 
     for i, option in enumerate(editable_data):
         print(B + f"{i+1}. {option}")
@@ -217,7 +243,7 @@ def display_current_metrics(current_user, user_sheet):
             ui.display_error("Invalid choice. Please enter a valid number.")
 
 
-    update_user_metrics(edit_choice, user_data[0], user_sheet)
+    update_user_metrics(edit_choice, user_data, user_sheet)
 
 
 
