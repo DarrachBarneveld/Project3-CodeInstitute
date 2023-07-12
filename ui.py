@@ -32,6 +32,11 @@ def display_welcome():
     print(W)
 
 
+def logout():
+    print(R)
+    type_text('Logging out.....')
+    time.sleep(1)
+
 def type_text(string, speed=.03):
     """
     Displays a string in a typed out animation by printing text periodically

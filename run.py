@@ -29,7 +29,7 @@ GOOGLE_SHEETS_SCOPE = [
 # pylint: disable=line-too-long
 EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
 # pylint: disable=line-too-long
-CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories'], [B,'6. Edit Body Metrics']]
+CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories'], [B,'6. Edit Body Metrics'], [R, '7. Logout']]
 # pylint: disable=line-too-long
 INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 EDIT_DATA = [[G, '1. Weight'],[ G, '2. Height'], [ G, '3. Age'], [ G, '4. Gender'], [ G, '5. Activty Level'], [B, "6. Go Back"]]
@@ -117,6 +117,10 @@ def select_options(current_user, spreadsheet):
                     ui.format_daily_calories(data)
                 elif index == 5:
                     edit_current_metrics(current_user, spreadsheet)
+                elif index == 6:
+                    print(R)
+                    ui.logout()
+                    main()
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
@@ -354,7 +358,7 @@ def main():
             current_user = authenticate_user(dataframe, spreadsheet)
         except Exception as error:
             print(error)
-    
+
     select_options(current_user, spreadsheet)
 
 
