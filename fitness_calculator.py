@@ -183,7 +183,18 @@ def daily_calories():
         return None
 
 
-def dieting_macros():
+def define_user_data(user_data):
+    weight = user_data[3]
+    height = user_data[4]
+    age = user_data[5]
+    gender = user_data[6]
+    activity_level = user_data[7]
+
+    return [weight, height, age, gender, activity_level]
+
+
+
+def dieting_macros(user_data):
     """
     Sends a dieting macros request to a Fitness Calculator API and returns the response.
 
@@ -191,6 +202,8 @@ def dieting_macros():
         requests.Response: The response object from the API in json format.
     """
     valid_input_goal = False
+    
+    weight, height, age, gender, activty_level = define_user_data(user_data)
 
     goal = ''
 

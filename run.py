@@ -82,6 +82,8 @@ def select_options(current_user, spreadsheet):
     Raises:
         ValueError: If the choice is invalid or not within the choice amount.
     """
+
+    user_data = get_current_user_data(current_user, spreadsheet.get_worksheet(0))
     while True:
         print(W + 'What would you like to do?')
         ui.display_text(CHOICE_OPTIONS, .01)
@@ -102,7 +104,7 @@ def select_options(current_user, spreadsheet):
                     ui.format_bmi(data)
                 elif index == 3:
                     prompt_edit_current_metrics(current_user, spreadsheet)
-                    data = fitness_calculator.dieting_macros()
+                    data = fitness_calculator.dieting_macros(user_data)
                     ui.format_macro_data(data)
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
@@ -194,7 +196,8 @@ def display_current_metrics(current_user, user_sheet):
     ui.format_user_data(user_data)
 
 
-def prompt_edit_current_metrics(current_user, user_sheet):
+def prompt_edit_current_metrics(current_user, spreadsheet):
+    user_sheet = spreadsheet.get_worksheet(0)
     display_current_metrics(current_user, user_sheet)
     print(G)
     ui.type_text('Data will be calculated using your current information', .01)
@@ -207,7 +210,7 @@ def prompt_edit_current_metrics(current_user, user_sheet):
             valid_input = True
 
     if choice.lower() == 'y':
-        edit_current_metrics(current_user, user_sheet)
+        edit_current_metrics(current_user, spreadsheet)
         return
 
 
