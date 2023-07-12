@@ -110,6 +110,24 @@ def format_macro_data(data):
     print(table)
     back_to_home()
 
+def format_user_data(data):
+    """
+    Formats object data into a table. Prints the table to the terminal.
+    
+    Args:
+        data (obj): An object containing strings and nested objects
+    """
+
+    table_headers = ["WEIGHT", 'HEIGHT', 'AGE', 'GENDER', 'ACTIVITY_LEVEL']
+    table_data = [data[3], data[4], data[5], data[6].upper(), data[7]]
+    clear_screen()
+    print(G)
+    type_text('Your Current Metrics', .03)
+
+    print(W)
+    table = tabulate([table_data], table_headers, tablefmt="fancy_grid")
+    print(table)
+
 
 def format_daily_calories(data):
     """

@@ -29,7 +29,7 @@ GOOGLE_SHEETS_SCOPE = [
 # pylint: disable=line-too-long
 EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
 # pylint: disable=line-too-long
-CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories']]
+CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories'], [B,'6. Edit Body Metrics']]
 # pylint: disable=line-too-long
 INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
 
@@ -55,10 +55,9 @@ def load_google_sheets():
 
         spreadsheet = gspread_client.open('WorkItOut')
         user_sheet = spreadsheet.get_worksheet(0)
-        workout_sheet = spreadsheet.get_worksheet(1)
         user_sheet_data = user_sheet.get_all_values()
         dateframe = pd.DataFrame(user_sheet_data[1:], columns=user_sheet_data[0])
-        return [user_sheet, workout_sheet, dateframe]
+        return [spreadsheet, dateframe]
 
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
@@ -73,7 +72,7 @@ def load_google_sheets():
         raise Exception("The worksheet was not found. Try again later!") from exc
 
 
-def select_options(current_user, workout_sheet):
+def select_options(current_user, spreadsheet):
     """
     Displays a list of options and prompts the user to select one. Selected prompt will run an assosicated function
 
@@ -93,9 +92,9 @@ def select_options(current_user, workout_sheet):
             index = int(choice) - 1
             if 0 <= index < len(CHOICE_OPTIONS):
                 if index == 0:
-                    create_new_workout(current_user, workout_sheet)
+                    create_new_workout(current_user, spreadsheet.get_worksheet(1))
                 elif index == 1:
-                    view_all_workouts(current_user, workout_sheet)
+                    view_all_workouts(current_user, spreadsheet.get_worksheet(1))
                     print('\n')
                     ui.back_to_home()
                 elif index == 2:
@@ -107,6 +106,8 @@ def select_options(current_user, workout_sheet):
                 elif index == 4:
                     data = fitness_calculator.daily_calories()
                     ui.format_daily_calories(data)
+                elif index == 5:
+                    display_current_metrics(current_user, spreadsheet.get_worksheet(0))
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
         except ValueError:
@@ -180,6 +181,36 @@ def create_new_workout(current_user, workout_sheet):
     update_workout_sheet(current_user,workout_type, workout_duration, workout_sheet)
 
 
+
+def display_current_metrics(current_user, user_sheet):
+    editable_data = ['Weight', 'Height', 'Age', "Gender", "Activty Level"]
+
+    all_users = user_sheet.get_all_values()
+    user_data = [row for row in all_users if row[0] == current_user]
+
+    ui.format_user_data(user_data[0])
+
+    for i, option in enumerate(editable_data):
+        print(G + f"{i+1}. {option[0]}")
+
+    choice = input("What do you wish to edit? ")
+    try:
+            index = int(choice) - 1
+            if 0 <= index < len(editable_data):
+                edit = editable_data[index]
+                # update_user_metrics(current_user, user_sheet)
+            else:
+                ui.display_error("Invalid choice. Please enter a valid number ")
+    except ValueError:
+            ui.display_error("Invalid choice. Please enter a valid number.")
+
+    
+
+
+
+# def update_user_metrics(metric, current_user, user_sheet):
+
+
 def validate_duration(duration):
     """
     Check if a inputed string is a valid exercise. Check if the duration is a number
@@ -231,12 +262,12 @@ def main():
     """
     Main Function to run code
     """
-    ui.clear_screen()
-    ui.display_welcome()
-    ui.display_text(INTRO_TEXT, .03)
+    # ui.clear_screen()
+    # ui.display_welcome()
+    # ui.display_text(INTRO_TEXT, .03)
 
     try:
-        user_sheet, workout_sheet, dataframe = load_google_sheets()
+        spreadsheet, dataframe = load_google_sheets()
     except Exception as error:
         print(error)
         return
@@ -244,10 +275,10 @@ def main():
     current_user = None
     while current_user is None:
         try:
-            current_user = authenticate_user(dataframe, user_sheet)
+            current_user = authenticate_user(dataframe, spreadsheet.get_worksheet(0))
         except Exception as error:
             print(error)
-    select_options(current_user, workout_sheet)
+    select_options(current_user, spreadsheet)
 
 
 main()
