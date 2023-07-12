@@ -81,6 +81,11 @@ The primary goal of WorkItOut is to provide an concise applicaion that allows us
 3. As an existing user, I want the app to continuously improve based on user feedback.
 4. As an existing user, I want to be able to easily gain insight to my nutrition plan based on my current metrics.
 
+### Flow Chart
+The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This is a visual representation of the user flow through the application.
+
+![Flowchart](documentation/images/flowchart.png.png)
+
 [Back to Table of Contents](#table-of-contents)
 
 ## Design
