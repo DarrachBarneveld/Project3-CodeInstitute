@@ -66,7 +66,7 @@ def validate_number_in_range(number, min_value, max_value):
         ui.display_error(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
 
 
-def bmi_calculator():
+def bmi_calculator(user_data):
     """
     Sends a request to calculate BMI to a Fitness Calculator API and returns the response.
 
@@ -75,25 +75,7 @@ def bmi_calculator():
         requests.Response: The response object from the API in json format.
     """
 
-    valid_input_age = False
-    valid_input_weight = False
-    valid_input_height = False
-
-
-    while not valid_input_age:
-        age = input('What is your current age: ')
-        if validate_number_in_range(number=age, min_value=10, max_value=100):
-            valid_input_age = True
-
-    while not valid_input_weight:
-        weight = input('What is your current weight in kg: ')
-        if validate_number_in_range(number=weight, min_value=40, max_value=160):
-            valid_input_weight = True
-
-    while not valid_input_height:
-        height = input('What is your current height in cm: ')
-        if validate_number_in_range(number=height, min_value=130, max_value=230):
-            valid_input_height = True
+    weight, height, age, _, _ = define_user_data(user_data)
 
     querystring = {"age": age, "weight": weight, "height": height}
 
@@ -162,14 +144,14 @@ def define_base_inputs():
     return [age, weight, height, gender, activty_level]
 
 
-def daily_calories():
+def daily_calories(user_data):
     """
     Sends a daily calories request to a Fitness Calculator API and returns the response.
 
     Returns:
         requests.Response: The response object from the API in json format.
     """
-    age, weight, height, gender, activty_level =  define_base_inputs()
+    weight, height, age, gender, activty_level = define_user_data(user_data)
     activty_level = 'level_' + activty_level
 
     querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level}
@@ -202,7 +184,7 @@ def dieting_macros(user_data):
         requests.Response: The response object from the API in json format.
     """
     valid_input_goal = False
-    
+
     weight, height, age, gender, activty_level = define_user_data(user_data)
 
     goal = ''
