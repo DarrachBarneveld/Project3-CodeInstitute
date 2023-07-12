@@ -183,7 +183,7 @@ def create_new_workout(current_user, workout_sheet):
 
 
 def display_current_metrics(current_user, user_sheet):
-    editable_data = ['Weight', 'Height', 'Age', "Gender", "Activty Level"]
+    editable_data = ['Weight', 'Height', 'Age', "Gender", "Activty Level", "Go Back"]
 
     all_users = user_sheet.get_all_values()
     user_data = [row for row in all_users if row[0] == current_user]
@@ -191,24 +191,50 @@ def display_current_metrics(current_user, user_sheet):
     ui.format_user_data(user_data[0])
 
     for i, option in enumerate(editable_data):
-        print(G + f"{i+1}. {option[0]}")
+        print(B + f"{i+1}. {option}")
+    print(W)
 
-    choice = input("What do you wish to edit? ")
-    try:
+    edit_choice = ''
+
+    while edit_choice == '':
+        choice = input("What do you wish to edit? ")
+        try:
             index = int(choice) - 1
             if 0 <= index < len(editable_data):
-                edit = editable_data[index]
+                edit_choice = editable_data[index]
                 # update_user_metrics(current_user, user_sheet)
             else:
                 ui.display_error("Invalid choice. Please enter a valid number ")
-    except ValueError:
+        except ValueError:
             ui.display_error("Invalid choice. Please enter a valid number.")
+
+
+    update_user_metrics(edit_choice, user_data[0], user_sheet)
+
+
+
+def update_user_metrics(metric, user_data, user_sheet):
+
+    all_values = user_sheet.get_all_values()
+    header_row = all_values[0]
+    email_column_index = header_row.index("Email")
+    metric_column_index = header_row.index(metric) + 1
+
+
+    row_index = None
+    for i, row in enumerate(all_values):
+        if row[email_column_index] == user_data[email_column_index]:
+            row_index = i + 1  # Add 1 to adjust for 0-based indexing
+            break
+
+    user_sheet.update_cell(row_index, metric_column_index, '100')
+
 
     
 
 
 
-# def update_user_metrics(metric, current_user, user_sheet):
+
 
 
 def validate_duration(duration):
