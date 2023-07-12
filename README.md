@@ -84,7 +84,7 @@ The primary goal of WorkItOut is to provide an concise applicaion that allows us
 ### Flow Chart
 The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This is a visual representation of the user flow through the application.
 
-![Flowchart](documentation/images/flowchart.png.png)
+![Flowchart](documentation/images/flowchart.png)
 
 [Back to Table of Contents](#table-of-contents)
 
