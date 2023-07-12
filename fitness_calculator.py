@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
+import colorama
 import requests
 import ui
 
-import colorama
 
 colorama.init()
 
@@ -190,8 +190,6 @@ def dieting_macros():
     Returns:
         requests.Response: The response object from the API in json format.
     """
-    age, weight, height, gender, activty_level =  define_base_inputs()
-
     valid_input_goal = False
 
     goal = ''
