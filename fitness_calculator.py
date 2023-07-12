@@ -5,6 +5,7 @@ import requests
 import ui
 
 
+
 colorama.init()
 
 R = colorama.Fore.RED
@@ -126,22 +127,6 @@ def validate_gender():
 
     return gender
 
-
-def define_base_inputs():
-    """
-    Defines and validates the base input ranges for API requests
-
-    Returns:
-        Returns validated value inputs for age, weight, height, level, gender in an array
-    """
-
-    age = validate_input('What is your current age? ', 10, 100)
-    weight = validate_input('What is your current weight in kg? ', 40, 160)
-    height = validate_input('What is your current height in cm? ', 130, 230)
-    activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
-    gender = validate_gender()
-
-    return [age, weight, height, gender, activty_level]
 
 
 def daily_calories(user_data):

@@ -83,7 +83,7 @@ def select_options(current_user, spreadsheet):
         ValueError: If the choice is invalid or not within the choice amount.
     """
 
-    
+
     while True:
         print(W + 'What would you like to do?')
         ui.display_text(CHOICE_OPTIONS, .01)
@@ -239,7 +239,6 @@ def edit_current_metrics(current_user, spreadsheet):
             index = int(choice) - 1
             if 0 <= index < len(editable_data):
                 edit_choice = editable_data[index]
-                # update_user_metrics(current_user, user_sheet)
             else:
                 ui.display_error("Invalid choice. Please enter a valid number ")
         except ValueError:
@@ -352,7 +351,7 @@ def main():
     current_user = None
     while current_user is None:
         try:
-            current_user = authenticate_user(dataframe, spreadsheet.get_worksheet(0))
+            current_user = authenticate_user(dataframe, spreadsheet)
         except Exception as error:
             print(error)
     select_options(current_user, spreadsheet)

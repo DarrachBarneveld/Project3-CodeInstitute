@@ -1,7 +1,8 @@
 """This module provides functions for user authentication and authorization"""
 import re
 import colorama
-from ui import clear_screen, display_error
+import ui 
+from fitness_calculator import validate_gender, validate_input
 
 colorama.init()
 
@@ -35,20 +36,20 @@ def login(dataframe):
     # Authenticate the user based on the match
     if len(matched_users) > 0:
         # clear console screen
-        clear_screen()
+        ui.clear_screen()
         print(f"Authentication successful! Welcome back {G + first_name}\n")
         return email
 
-    display_error("Authentication failed")
+    ui.display_error("Authentication failed")
     return None
 
 
-def signup(sheet):
+def signup(spreadsheet):
     """
     Signup function that appends a user's data as a row to a Google Sheet.
 
     Args:
-        sheet (object): The Google Sheet to append the row.
+        spreadsheet (object): The Google Sheet to append the row.
 
     Returns:
         str: A current user email.
@@ -57,6 +58,8 @@ def signup(sheet):
         Exception: For any other unknown errors that may occur during the signup process.
     """
     print('\n')
+
+    user_sheet = spreadsheet.get_worksheet(0)
 
     first_name = input("Enter your first name: ")
     while not is_alphabetic(first_name):
@@ -70,19 +73,23 @@ def signup(sheet):
     while not is_valid_email(email):
         email = input("Enter your email: ")
 
-    all_users = sheet.get_all_values()
+
+    # ADD DEFINE BASE INPUTS FUNCTIONS
+
+    all_users = user_sheet.get_all_values()
     filtered_data = [row for row in all_users if row[2] == email]
 
     while len(filtered_data) > 0:
         print(filtered_data)
-        display_error('Email already in use')
+        ui.display_error('Email already in use')
         email = input("Enter your email: ")
         filtered_data = [row for row in all_users if row[2] == email]
 
+    age, weight, height, gender, activty_level = define_base_inputs()
 
     try:
-        sheet.append_row([first_name, last_name, email])
-        clear_screen()
+        user_sheet.append_row([first_name, last_name, email, weight, age, height, gender, activty_level])
+        ui.clear_screen()
 
         print(f"Sign-up successful Welcome {G + first_name}\n")
         return email
@@ -91,6 +98,26 @@ def signup(sheet):
     except Exception as exc:
         # pylint: disable=pylint(broad-exception-raised)
         raise Exception("There was an error signing up. Please try again!") from exc
+
+def define_base_inputs():
+    """
+    Defines and validates the base input ranges for API requests
+
+    Returns:
+        Returns validated value inputs for age, weight, height, level, gender in an array
+    """
+
+    ui.clear_screen()
+
+    ui.type_text("Before we begin we need some information from you :)")
+
+    age = validate_input('What is your current age? ', 10, 100)
+    weight = validate_input('What is your current weight in kg? ', 40, 160)
+    height = validate_input('What is your current height in cm? ', 130, 230)
+    activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
+    gender = validate_gender()
+
+    return [age, weight, height, gender, activty_level]
 
 
 def is_valid_email(email):
@@ -126,7 +153,7 @@ def is_alphabetic(string):
     return False
 
 
-def authenticate_user(dataframe, sheet):
+def authenticate_user(dataframe, spreadsheet):
     """
     Prompt the user for a choice of 'login' or 'signup'.
 
@@ -147,5 +174,5 @@ def authenticate_user(dataframe, sheet):
     if choice == 'login':
         return login(dataframe)
     if choice == 'signup':
-        return signup(sheet)
+        return signup(spreadsheet)
     return None
