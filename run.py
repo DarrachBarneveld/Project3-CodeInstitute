@@ -235,7 +235,7 @@ def edit_current_metrics(current_user, spreadsheet):
         choice = input("What do you wish to edit? ")
         try:
             index = int(choice) - 1
-           
+
             if 0 <= index < len(EDIT_DATA):
                 edit_choice = EDIT_DATA[index][1].split(' ')[1]
             else:

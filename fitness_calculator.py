@@ -175,9 +175,9 @@ def dieting_macros(user_data):
     goal = ''
 
     while not valid_input_goal:
-        print('\n')
+        print(G)
         for i, option in enumerate(WEIGHT_GOAL_OPTIONS):
-            print(G + f"{i+1}. {option[0]}")
+            ui.type_text(f"{i+1}. {option[0]} \n", .01)
         print(W)
         choice = input("What are your goals? Enter the corrosponding number: ")
 
