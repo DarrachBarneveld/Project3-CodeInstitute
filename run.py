@@ -215,6 +215,22 @@ def display_current_metrics(current_user, user_sheet):
 
 def update_user_metrics(metric, user_data, user_sheet):
 
+    new_value = ''
+
+    if metric == 'Age':
+        new_value = fitness_calculator.validate_input('What is your current age? ', 10, 100)
+    elif metric == 'Weight':
+        new_value = fitness_calculator.validate_input('What is your current weight in kg? ', 40, 160)
+    elif metric == 'Height':
+        new_value = fitness_calculator.validate_input('What is your current height in cm? ', 130, 230)
+    elif metric == 'Activty Level':
+        new_value = fitness_calculator.validate_input('What is your activty level from 1 - 6? ', 1, 6)
+    elif metric == 'Gender':
+        new_value = fitness_calculator.validate_gender()
+
+    else:
+        ui.clear_screen()
+        return
 
     all_values = user_sheet.get_all_values()
     header_row = all_values[0]
@@ -228,7 +244,7 @@ def update_user_metrics(metric, user_data, user_sheet):
             row_index = i + 1  # Add 1 to adjust for 0-based indexing
             break
 
-    user_sheet.update_cell(row_index, metric_column_index)
+    user_sheet.update_cell(row_index, metric_column_index, new_value)
 
 
 

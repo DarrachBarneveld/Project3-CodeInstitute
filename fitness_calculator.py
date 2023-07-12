@@ -105,7 +105,6 @@ def bmi_calculator():
     except requests.exceptions.RequestException as error:
         print(error)
         return None
-    
 
 def validate_input(string, mini, maxi):
     """
@@ -119,7 +118,7 @@ def validate_input(string, mini, maxi):
     Returns:
     The validated input
     """
-    
+
     valid_input = False
 
     while not valid_input:
@@ -128,6 +127,23 @@ def validate_input(string, mini, maxi):
             valid_input = True
 
     return metric
+
+def validate_gender():
+    """
+    Validates if an input is a required gender
+
+    Returns:
+    The validated gender
+    """
+
+    valid_input_gender = False
+    while not valid_input_gender:
+        gender = input('Male or Female: ')
+        if validate_strings(input_string=gender, valid_strings=["female", "male"]):
+            valid_input_gender = True
+
+    return gender
+
 
 def define_base_inputs():
     """
@@ -141,11 +157,7 @@ def define_base_inputs():
     weight = validate_input('What is your current weight in kg? ', 40, 160)
     height = validate_input('What is your current height in cm? ', 130, 230)
     activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
-
-    while not valid_input_gender:
-        gender = input('Male or Female: ')
-        if validate_strings(input_string=gender, valid_strings=["female", "male"]):
-            valid_input_gender = True
+    gender = validate_gender()
 
     return [age, weight, height, gender, activty_level]
 
