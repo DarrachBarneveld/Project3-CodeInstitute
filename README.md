@@ -162,7 +162,7 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 
 While writing the code in Visual Studio Code I used the linter [PyLance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) to guide me in the best practice of formating and also hints on functional writing.
 
-Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was the main resouce during the code validation process. The relevant code passes with overall success with occassional minor warnings.
+Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to check PEP8 validation. This was used at the end of the projects completion to catch any remaining errors.
 
 <details><summary>PEP8 Validation: run.py</summary>
 <!-- <img src="documentation/testing/run-py.png"> -->
