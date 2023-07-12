@@ -70,7 +70,6 @@ def bmi_calculator():
     """
     Sends a request to calculate BMI to a Fitness Calculator API and returns the response.
 
-    Parameters:
 
     Returns:
         requests.Response: The response object from the API in json format.
@@ -108,21 +107,27 @@ def bmi_calculator():
         return None
     
 
-def validate_age():
+def validate_input(string, mini, maxi):
     """
     Validates the age of a user
 
+    Parameters:
+        string (str): The input string to display to user.
+        mini (int): The minimum allowed value.
+        maxi (int): The maximum allowed value.
+
     Returns:
-    The validated age
+    The validated input
     """
-    valid_input_age = False
+    
+    valid_input = False
 
-    while not valid_input_age:
-        age = input('What is your current age: ')
-        if validate_number_in_range(number=age, min_value=10, max_value=100):
-            valid_input_age = True
+    while not valid_input:
+        metric = input(string)
+        if validate_number_in_range(number=metric, min_value=mini, max_value=maxi):
+            valid_input = True
 
-    return age
+    return metric
 
 def define_base_inputs():
     """
@@ -131,28 +136,11 @@ def define_base_inputs():
     Returns:
         Returns validated value inputs for age, weight, height, level, gender in an array
     """
-    valid_input_weight = False
-    valid_input_height = False
-    valid_activity_level = False
-    valid_input_gender = False
 
-    age = validate_age()
-
-
-    while not valid_input_weight:
-        weight = input('What is your current weight in kg: ')
-        if validate_number_in_range(number=weight, min_value=40, max_value=160):
-            valid_input_weight = True
-
-    while not valid_input_height:
-        height = input('What is your current height in cm: ')
-        if validate_number_in_range(number=height, min_value=130, max_value=230):
-            valid_input_height = True
-
-    while not valid_activity_level:
-        activty_level = input('What is your activty level from 1 - 6: ')
-        if validate_number_in_range(number=activty_level, min_value=1, max_value=6):
-            valid_activity_level = True
+    age = validate_input('What is your current age? ', 10, 100)
+    weight = validate_input('What is your current weight in kg? ', 40, 160)
+    height = validate_input('What is your current height in cm? ', 130, 230)
+    activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
 
     while not valid_input_gender:
         gender = input('Male or Female: ')
