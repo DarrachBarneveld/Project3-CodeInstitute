@@ -14,7 +14,7 @@ W = colorama.Fore.WHITE
 
 def login(dataframe):
     """
-    Login function that verifies the username and name in a Pandas DataFrame.
+    Login function that verifies the email and password in a Pandas DataFrame.
 
     Args:
         dataframe (DataFrame): The DataFrame containing user data.
@@ -24,24 +24,22 @@ def login(dataframe):
 
     """
     print('\n')
-    first_name = input("Enter your first name: ").lower()
-    last_name = input("Enter your last name: ").lower()
     email = input("Enter your email: ").lower()
+    password = input("Enter your password: ")
 
+    database_password = dataframe['Password'].str.lower()
+    database_email = dataframe['Email'].str.lower()
 
-    dataframe['Firstname'] = dataframe['Firstname'].str.lower()
-    dataframe['Lastname'] = dataframe['Lastname'].str.lower()
-    dataframe['Email'] = dataframe['Email'].str.lower()
-    # pylint: disable=line-too-long
-    matched_users = dataframe[(dataframe['Firstname'] == first_name) & (dataframe['Lastname'] == last_name) & (dataframe['Email'] == email)]
+    matched_users = dataframe[(database_password == password) & (database_email == email)]
+
     # Authenticate the user based on the match
     if len(matched_users) > 0:
-        # clear console screen
+        first_name = matched_users['Firstname'].values[0]
         ui.clear_screen()
-        print(f"Authentication successful! Welcome back {G + first_name}\n")
+        print(f"Authentication successful! Welcome back {G + first_name.capitalize()}\n")
         return email
 
-    ui.display_error("Authentication failed")
+    ui.display_error("Authentication failed. Please Try again.")
     return None
 
 
