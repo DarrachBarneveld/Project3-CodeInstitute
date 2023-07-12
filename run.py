@@ -215,6 +215,7 @@ def display_current_metrics(current_user, user_sheet):
 
 def update_user_metrics(metric, user_data, user_sheet):
 
+
     all_values = user_sheet.get_all_values()
     header_row = all_values[0]
     email_column_index = header_row.index("Email")
@@ -227,10 +228,8 @@ def update_user_metrics(metric, user_data, user_sheet):
             row_index = i + 1  # Add 1 to adjust for 0-based indexing
             break
 
-    user_sheet.update_cell(row_index, metric_column_index, '100')
+    user_sheet.update_cell(row_index, metric_column_index)
 
-
-    
 
 
 

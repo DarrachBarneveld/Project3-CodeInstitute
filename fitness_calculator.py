@@ -106,6 +106,23 @@ def bmi_calculator():
     except requests.exceptions.RequestException as error:
         print(error)
         return None
+    
+
+def validate_age():
+    """
+    Validates the age of a user
+
+    Returns:
+    The validated age
+    """
+    valid_input_age = False
+
+    while not valid_input_age:
+        age = input('What is your current age: ')
+        if validate_number_in_range(number=age, min_value=10, max_value=100):
+            valid_input_age = True
+
+    return age
 
 def define_base_inputs():
     """
@@ -114,17 +131,13 @@ def define_base_inputs():
     Returns:
         Returns validated value inputs for age, weight, height, level, gender in an array
     """
-    valid_input_age = False
     valid_input_weight = False
     valid_input_height = False
     valid_activity_level = False
     valid_input_gender = False
 
+    age = validate_age()
 
-    while not valid_input_age:
-        age = input('What is your current age: ')
-        if validate_number_in_range(number=age, min_value=10, max_value=100):
-            valid_input_age = True
 
     while not valid_input_weight:
         weight = input('What is your current weight in kg: ')
@@ -168,8 +181,6 @@ def daily_calories():
     except requests.exceptions.RequestException as error:
         print(error)
         return None
-
-
 
 
 def dieting_macros():
