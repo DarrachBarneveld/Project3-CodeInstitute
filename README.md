@@ -275,6 +275,8 @@ Credit to [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-pytho
 
 Credit to [Thomas & Asclepius](https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address) for helping create a basic python email validator function.
 
+Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) documentation for a better understanding of gspread methods.
+
 [Back to Table of Contents](#table-of-contents)
 
 
@@ -293,6 +295,18 @@ Credit to [Thomas & Asclepius](https://stackoverflow.com/questions/8022530/how-t
 - [Lucid Chart](https://www.lucidchart.com/)
 - [Heroku](https://heroku.com/)
 
+### Modules Imported
+-[google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - Access to credientials in creds.json
+-[gspread](https://docs.gspread.org/en/v5.10.0/) - Linking and reading google spreadsheet
+-[os](https://docs.python.org/3/library/os.html) - To get access to the operating system
+-[time](https://docs.python.org/3/library/time.html) - Allowing sleep delays to terminal UI
+-[datetime](https://docs.python.org/3/library/datetime.html) - Formating dates for workouts
+-[tabulate](https://pypi.org/project/tabulate/) - Formating data into tables
+-[colorma](https://pypi.org/project/colorama/) - Adding colour to the terminal display
+-[pandas](https://pandas.pydata.org/docs/) - Easier configuration of data objects from csv
+-[re](https://docs.python.org/3/library/re.html) - Allowing reading of regex 
+-[sys](https://docs.python.org/3/library/sys.html) - Sleep characters in text animation
+-[dotenv](https://pypi.org/project/python-dotenv/) - Hidding and reading config variables
 
 
 [Back to Table of Contents](#table-of-contents)

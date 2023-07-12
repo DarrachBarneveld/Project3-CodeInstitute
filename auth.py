@@ -1,7 +1,7 @@
 """This module provides functions for user authentication and authorization"""
 import re
 import colorama
-import ui 
+import ui
 from fitness_calculator import validate_gender, validate_input
 
 colorama.init()

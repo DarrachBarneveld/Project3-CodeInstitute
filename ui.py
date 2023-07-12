@@ -33,6 +33,10 @@ def display_welcome():
 
 
 def logout():
+    """
+    UI display of logging a user out
+    """
+
     print(R)
     type_text('Logging out.....')
     time.sleep(1)
