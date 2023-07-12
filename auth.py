@@ -74,6 +74,10 @@ def signup(spreadsheet):
     while not is_valid_email(email):
         email = input("Enter your email: ")
 
+    password = input("Enter your password: ")
+    while not is_valid_password(password):
+        password = input("Enter your password: ")
+
 
     # ADD DEFINE BASE INPUTS FUNCTIONS
 
@@ -87,9 +91,10 @@ def signup(spreadsheet):
         filtered_data = [row for row in all_users if row[2] == email]
 
     age, weight, height, gender, activty_level = define_base_inputs()
+    user_data = [first_name, last_name, email, weight, height, age, gender, activty_level, password]
 
     try:
-        user_sheet.append_row([first_name, last_name, email, weight, height, age, gender, activty_level])
+        user_sheet.append_row(user_data)
         ui.clear_screen()
 
         print(f"Sign-up successful Welcome {G + first_name}\n")
@@ -137,6 +142,22 @@ def is_valid_email(email):
     if re.match('[^@]+@[^@]+\.[^@]+', email):
         return True
     ui.display_error("Please enter a valid email address")
+    return False
+
+
+def is_valid_password(password):
+    """
+    Check if the given password is valid.
+
+    Args:
+        password (str): The password to be validated.
+
+    Returns:
+        bool: True if the password is valid, False otherwise.
+    """
+    if len(password) >= 6:
+        return True
+    ui.display_error("Not a valid password. Password must be at least 6 characters long")
     return False
 
 
