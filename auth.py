@@ -9,6 +9,7 @@ colorama.init()
 
 G = colorama.Fore.LIGHTGREEN_EX
 R = colorama.Fore.LIGHTGREEN_EX
+W = colorama.Fore.WHITE
 
 
 def login(dataframe):
@@ -88,7 +89,7 @@ def signup(spreadsheet):
     age, weight, height, gender, activty_level = define_base_inputs()
 
     try:
-        user_sheet.append_row([first_name, last_name, email, weight, age, height, gender, activty_level])
+        user_sheet.append_row([first_name, last_name, email, weight, height, age, gender, activty_level])
         ui.clear_screen()
 
         print(f"Sign-up successful Welcome {G + first_name}\n")
@@ -109,7 +110,9 @@ def define_base_inputs():
 
     ui.clear_screen()
 
-    ui.type_text("Before we begin we need some information from you :)")
+    print(G)
+    ui.type_text("Before we begin we need some information from you :)", speed=.01)
+    print(W)
 
     age = validate_input('What is your current age? ', 10, 100)
     weight = validate_input('What is your current weight in kg? ', 40, 160)
@@ -117,7 +120,7 @@ def define_base_inputs():
     activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
     gender = validate_gender()
 
-    return [age, weight, height, gender, activty_level]
+    return [age, weight, height, gender.lower(), activty_level]
 
 
 def is_valid_email(email):
@@ -133,7 +136,7 @@ def is_valid_email(email):
 
     if re.match('[^@]+@[^@]+\.[^@]+', email):
         return True
-    display_error("Please enter a valid email address")
+    ui.display_error("Please enter a valid email address")
     return False
 
 
@@ -149,7 +152,7 @@ def is_alphabetic(string):
     """
     if string.isalpha():
         return True
-    display_error("Not a valid name. Must only contain alphabetic letters")
+    ui.display_error("Not a valid name. Must only contain alphabetic letters")
     return False
 
 
@@ -170,7 +173,7 @@ def authenticate_user(dataframe, spreadsheet):
     while choice not in ["login", "signup"]:
         choice = input("Choose 'login' or 'signup': ").lower()
         if choice not in ["login", "signup"]:
-            display_error("Invalid choice. Please enter 'login' or 'signup'.")
+            ui.display_error("Invalid choice. Please enter 'login' or 'signup'.")
     if choice == 'login':
         return login(dataframe)
     if choice == 'signup':

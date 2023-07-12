@@ -198,5 +198,5 @@ def dieting_macros(user_data):
         response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
-        ui.display_error(error)
+        ui.display_error(str(error))
         return None

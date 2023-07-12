@@ -136,9 +136,10 @@ def format_daily_calories(data):
     Args:
         data (obj): An object containing strings and nested objects
     """
-
     clear_screen()
     print(G)
+    print(f"this is data {data}")
+
     type_text('Recommended caloric intake', .03)
 
     print(f"Basal Metabolic Rate = {data['BMR']}")
@@ -146,7 +147,7 @@ def format_daily_calories(data):
     table_headers = [Y + "GOAL", 'WEEKLY CHANGE', 'CALORIES']
     for key, value in data['goals'].items():
         if isinstance(value, dict):
-            table_data.append([W + key , list(value.values())[0], value['calory']])     
+            table_data.append([W + key , list(value.values())[0], value['calory']])
     print(Y)
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)

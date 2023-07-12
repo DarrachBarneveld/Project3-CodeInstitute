@@ -192,7 +192,7 @@ def create_new_workout(current_user, workout_sheet):
 
 def get_current_user_data(current_user, user_sheet):
     all_users = user_sheet.get_all_values()
-    user_data = [row for row in all_users if row[0] == current_user]
+    user_data = [row for row in all_users if row[2] == current_user]
     return user_data[0]
 
 
@@ -354,6 +354,7 @@ def main():
             current_user = authenticate_user(dataframe, spreadsheet)
         except Exception as error:
             print(error)
+    
     select_options(current_user, spreadsheet)
 
 
