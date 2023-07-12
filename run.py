@@ -32,6 +32,7 @@ EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Wei
 CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories'], [B,'6. Edit Body Metrics']]
 # pylint: disable=line-too-long
 INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
+EDIT_DATA = [[G, '1. Weight'],[ G, '2. Height'], [ G, '3. Age'], [ G, '4. Gender'], [ G, '5. Activty Level'], [B, "6. Go Back"]]
 
 
 def load_google_sheets():
@@ -220,15 +221,12 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
 
 
 def edit_current_metrics(current_user, spreadsheet):
-    editable_data = ['Weight', 'Height', 'Age', "Gender", "Activty Level", "Go Back"]
-
     user_sheet = spreadsheet.get_worksheet(0)
 
     display_current_metrics(current_user, user_sheet)
     user_data = get_current_user_data(current_user, user_sheet)
 
-    for i, option in enumerate(editable_data):
-        print(B + f"{i+1}. {option}")
+    ui.display_text(EDIT_DATA, .01)
     print(W)
 
     edit_choice = ''
@@ -237,8 +235,9 @@ def edit_current_metrics(current_user, spreadsheet):
         choice = input("What do you wish to edit? ")
         try:
             index = int(choice) - 1
-            if 0 <= index < len(editable_data):
-                edit_choice = editable_data[index]
+           
+            if 0 <= index < len(EDIT_DATA):
+                edit_choice = EDIT_DATA[index][1].split(' ')[1]
             else:
                 ui.display_error("Invalid choice. Please enter a valid number ")
         except ValueError:
@@ -280,6 +279,7 @@ def update_user_metrics(metric, user_data, user_sheet):
             break
 
     user_sheet.update_cell(row_index, metric_column_index, new_value)
+    ui.clear_screen()
 
 
 
@@ -338,9 +338,9 @@ def main():
     """
     Main Function to run code
     """
-    ui.clear_screen()
-    ui.display_welcome()
-    ui.display_text(INTRO_TEXT, .03)
+    # ui.clear_screen()
+    # ui.display_welcome()
+    # ui.display_text(INTRO_TEXT, .03)
 
     try:
         spreadsheet, dataframe = load_google_sheets()
