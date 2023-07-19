@@ -83,7 +83,6 @@ def signup(spreadsheet):
     filtered_data = [row for row in all_users if row[2] == email]
 
     while len(filtered_data) > 0:
-        print(filtered_data)
         ui.display_error('Email already in use')
         email = input("Enter your email: ")
         filtered_data = [row for row in all_users if row[2] == email]
