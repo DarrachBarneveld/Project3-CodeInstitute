@@ -324,24 +324,6 @@ def update_user_metrics(metric, user_data, user_sheet):
     ui.clear_screen()
 
 
-def validate_duration(duration):
-    """
-    Check if a inputed string is a valid exercise. Check if the duration is a number
-
-    Args:
-        duration (str): The amount of time a user worked out for
-
-    Raises:
-        ValueError: Raises the error that a number is not between 1 - 240
-        ValueError: If the duration is not a number.
-    """
-    try:
-        if 0 <= int(duration) <= 240:
-            return int(duration)
-        print('Duration must be between 1 and 240')
-    except ValueError:
-        print(f"{duration} is not a number")
-
 
 def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
     """
