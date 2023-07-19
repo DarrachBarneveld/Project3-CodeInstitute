@@ -79,6 +79,7 @@ def select_options(current_user, spreadsheet):
 
     Parameters:
         current_user(str): The authenticated user email
+        spreadsheet(spreadsheet): The Google SpreadSheet to be updated
 
     Raises:
         ValueError: If the choice is invalid or not within the choice amount.
@@ -128,10 +129,11 @@ def select_options(current_user, spreadsheet):
 
 def view_all_workouts(current_user, workout_sheet):
     """
-    Retrieves data from a Google Sheets spreadsheet.
+    Retrieves workout data from a google sheet and displays to user
 
     Parameters:
         current_user(str): The authenticated user email
+        workout_sheet(sheet): The workout sheet to be updated
     """
 
     try:
@@ -162,6 +164,7 @@ def create_new_workout(current_user, workout_sheet):
     
     Args:
         current_user(str): The authenticated user email
+        workout_sheet(sheet): The sheet to be updated
     """
 
     workout_type = ''
@@ -195,17 +198,45 @@ def create_new_workout(current_user, workout_sheet):
 
 
 def get_current_user_data(current_user, user_sheet):
+    """
+    Create a new workout in google sheets document with user inputs and authenticated user so workouts are saved with user data
+    
+    Args:
+        current_user(str): The authenticated user email
+        user_sheet(sheet): The sheet to be updated
+
+    Returns:
+        The user data object
+    """
+
     all_users = user_sheet.get_all_values()
     user_data = [row for row in all_users if row[2] == current_user]
     return user_data[0]
 
 
 def display_current_metrics(current_user, user_sheet):
+    """
+    Displays the current user data in the terminal
+    
+    Args:
+        current_user(str): The authenticated user
+        user_sheet(sheet): The sheet that is searched
+
+    """
+
     user_data = get_current_user_data(current_user, user_sheet)
     ui.format_user_data(user_data)
 
 
 def prompt_edit_current_metrics(current_user, spreadsheet):
+    """
+    Displays a prompt for the user to update user data
+    
+    Args:
+        current_user(str): The authenticated user
+        spreadsheet(spreadsheet): The google sheets spreadsheet
+    """
+
     user_sheet = spreadsheet.get_worksheet(0)
     display_current_metrics(current_user, user_sheet)
     print(G)
@@ -221,6 +252,14 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
 
 
 def edit_current_metrics(current_user, spreadsheet):
+    """
+    Edits the current users profile in google sheets
+    
+    Args:
+        current_user(str): The authenticated user
+        spreadsheet(spreadsheet): The google sheets spreadsheet
+    """
+
     user_sheet = spreadsheet.get_worksheet(0)
 
     display_current_metrics(current_user, user_sheet)
@@ -252,6 +291,14 @@ def edit_current_metrics(current_user, spreadsheet):
 
 
 def update_user_metrics(metric, user_data, user_sheet):
+    """
+    Updates the current metric chosen for the user to and updates the user object in the 
+    
+    Args:
+        metric(str): The user object metric to be updated
+        user_data(str): The total user_data object to be updated
+        user_sheet(sheet): The google sheets user sheet to be updated
+    """
 
     new_value = ''
 
@@ -280,11 +327,6 @@ def update_user_metrics(metric, user_data, user_sheet):
 
     user_sheet.update_cell(row_index, metric_column_index, new_value)
     ui.clear_screen()
-
-
-
-
-
 
 
 def validate_duration(duration):
@@ -331,7 +373,6 @@ def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
  # pylint: disable=pylint(broad-exception-caught)
     except Exception as error:
         print("An error occurred:", str(error))
-
 
 
 def main():
