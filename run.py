@@ -118,7 +118,6 @@ def select_options(current_user, spreadsheet):
                 elif index == 5:
                     edit_current_metrics(current_user, spreadsheet)
                 elif index == 6:
-                    print(R)
                     ui.logout()
                     main()
             else:

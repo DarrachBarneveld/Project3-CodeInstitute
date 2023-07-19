@@ -90,11 +90,26 @@ The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This
 
 ## Design
 
+[Colour Theme](documentation/images/colour-theme.png)
 As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which that provided a palette of colors to be used in the text. The website incorporated prominent colors such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
 
+The general layout was as follows: 
+
+1. Red - Error Messages
+2. Green - Success Messages
+3. BLue - Styling UI
+4. Yellow - Command Messages
+5. White - Default Text
+
+[Intro Banner](documentation/images/ascii-banner.png)
 The intro hero banner was created using Ascii. The tool [Patrojk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) was used to convert text to a font in Ascii format so as to be printed to the terminal.
 
+
 To present data in a clear and organized manner, the website utilized the [Tabulate](https://pypi.org/project/tabulate/) library, which allowed for easy formatting and creation of tables that were easy to read and comprehend. 
+
+[Viewing Workouts](documentation/images/workouts.png)
+
+[Custom Macro Information](documentation/images/macros.png)
 
 The combination of well-chosen colors and structured data tables enhanced the overall user experience and usability of the website.
 
@@ -109,6 +124,8 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 3. BMI calculator: Calculator that enables users to calculate their Body Mass Index as an indicator of their overall health and fitness level.
 4. Recommended calorie intake: Based on users' diet goals (weight loss, maintenance, or muscle gain), the application provides personalized recommendations for daily calorie intake to support their nutrition objectives.
 5. Recommended macros: Customized macronutrient ratios (protein, carbohydrates, and fats) based on users' weight, height, age, gender and activity level, helping them optimize their nutrition and meet their fitness goals.
+6. Editing User Data: Users can update thier current data at any time for accurate custom calculations. 
+7. Users can log out at any time.
 
 ### Potential Features
 1. Workout plans: Offer pre-designed workout plans tailored to different fitness goals, such as weight loss, muscle gain, or overall fitness. Users can follow these plans for structured and guided training.
@@ -131,6 +148,9 @@ The combination of well-chosen colors and structured data tables enhanced the ov
    1. Users are prompted whether to login or signup.
    2. Each option has clear step by step instructions.
    3. Any errors are clearly displayed and prompting the user to try again.
+
+- I want to be able to logout of the application to avoid security issues
+   1. Users can log out at anytime from the main menu.
 
 ### New Users Stories
 - I want to immediately understand the application so I can make a quick decision as to whether or not to continue.
@@ -292,6 +312,7 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 - [VS Code](https://code.visualstudio.com/)
 - [Favicon.io - favicon generator](https://favicon.io/)
 - [Coolors - Theme generator](https://coolors.co/)
+- [RapidAPI - Fitness Calcultor](https://rapidapi.com/malaaddincelik/api/fitness-calculator/)
 - [Chat-GPT](https://chat.openai.com/)
 - [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)
 - [W3C Markup Validation Service](https://validator.w3.org/)
@@ -301,17 +322,17 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 - [Heroku](https://heroku.com/)
 
 ### Modules Imported
--[google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - Access to credientials in creds.json
--[gspread](https://docs.gspread.org/en/v5.10.0/) - Linking and reading google spreadsheet
--[os](https://docs.python.org/3/library/os.html) - To get access to the operating system
--[time](https://docs.python.org/3/library/time.html) - Allowing sleep delays to terminal UI
--[datetime](https://docs.python.org/3/library/datetime.html) - Formating dates for workouts
--[tabulate](https://pypi.org/project/tabulate/) - Formating data into tables
--[colorma](https://pypi.org/project/colorama/) - Adding colour to the terminal display
--[pandas](https://pandas.pydata.org/docs/) - Easier configuration of data objects from csv
--[re](https://docs.python.org/3/library/re.html) - Allowing reading of regex 
--[sys](https://docs.python.org/3/library/sys.html) - Sleep characters in text animation
--[dotenv](https://pypi.org/project/python-dotenv/) - Hidding and reading config variables
+- [google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - Access to credientials in creds.json
+- [gspread](https://docs.gspread.org/en/v5.10.0/) - Linking and reading google spreadsheet
+- [os](https://docs.python.org/3/library/os.html) - To get access to the operating system
+- [time](https://docs.python.org/3/library/time.html) - Allowing sleep delays to terminal UI
+- [datetime](https://docs.python.org/3/library/datetime.html) - Formating dates for workouts
+- [tabulate](https://pypi.org/project/tabulate/) - Formating data into tables
+- [colorma](https://pypi.org/project/colorama/) - Adding colour to the terminal display
+- [pandas](https://pandas.pydata.org/docs/) - Easier configuration of data objects from csv
+- [re](https://docs.python.org/3/library/re.html) - Allowing reading of regex 
+- [sys](https://docs.python.org/3/library/sys.html) - Sleep characters in text animation
+- [dotenv](https://pypi.org/project/python-dotenv/) - Hidding and reading config variables
 
 
 [Back to Table of Contents](#table-of-contents)
