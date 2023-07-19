@@ -1,10 +1,9 @@
+"""This module provides functions API fitness calculator calculations """
 import os
 from dotenv import load_dotenv
 import colorama
 import requests
 import ui
-
-
 
 colorama.init()
 
@@ -12,10 +11,9 @@ R = colorama.Fore.RED
 W = colorama.Fore.WHITE
 G = colorama.Fore.LIGHTGREEN_EX
 
-
-
 load_dotenv()
 
+# Retriving the API secret keys from config file
 RAPID_API_HEADERS = {
  	"X-RapidAPI-Key": os.getenv('RAPID_API_KEY'),
  	"X-RapidAPI-Host": os.getenv('RAPID_API_HOST')
@@ -67,6 +65,7 @@ def validate_number_in_range(number, min_value, max_value):
             return True
     except ValueError:
         ui.display_error(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
+    return False
 
 
 def bmi_calculator(user_data):
@@ -136,6 +135,12 @@ def daily_calories(user_data):
 
 
 def define_user_data(user_data):
+    """
+    Receives an array of user data and formats required data it for easy destructuring
+
+    Returns:
+        An array of necessary and malleable user data
+    """
     weight = user_data[3]
     height = user_data[4]
     age = user_data[5]

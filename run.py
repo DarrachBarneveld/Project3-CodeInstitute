@@ -338,9 +338,9 @@ def main():
     """
     Main Function to run code
     """
-    ui.clear_screen()
-    ui.display_welcome()
-    ui.display_text(INTRO_TEXT, .03)
+    # ui.clear_screen()
+    # ui.display_welcome()
+    # ui.display_text(INTRO_TEXT, .03)
 
     try:
         spreadsheet, dataframe = load_google_sheets()
