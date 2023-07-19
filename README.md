@@ -19,14 +19,29 @@ WorkItOut is an all-in-one fitness app that allows you to enter and track your w
    3. [User Stories](#user-stories)
    4. [Flow Chart](#flow-chart)
 3. [Design](#design)
+   1. [Colour Theme](#colour-theme)
+   2. [Banner](#banner)
+   3. [Options Menu](#options-menu)
+   4. [Data Formatting](#data-formatting)
 4. [Features](#features)
    1. [Current Features](#current-features)
    2. [Potential Features](#potential-features)
 5. [Testing](#testing)
+   1. [Website/Business Owner Stories](#websitebusiness-owner-stories)
+   2. [New Users Stories](#new-users-stories)
+   3. [Existing Users Stories](#existing-users-stories)
+   4. [Validation Python Code](#validation-python-code)
+   5. [Deployed Site]()
 6. [Bugs](#Bugs)
 7. [Deployment](#deployment)
+   1. [Deploying on Heroku](#deploying-on-heroku)
+   2. [Fork and Clone the Repository](#fork-the-repository)
 8. [Credits](#credits)
+   1. [Images](#images)
+   2. [Favicon](#favicon)
+   3. [Code](#code)
 9. [Technologies Used](#credits)
+   1. [Modules Imported](#modules-imported)
 10. [Acknowledgements](#acknowledgements)
 
 ## Project Goals
@@ -90,6 +105,8 @@ The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This
 
 ## Design
 
+
+### Colour Theme
 ![Colour Theme](documentation/images/colour-theme.png)
 As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which that provided a palette of colors to be used in the text. The website incorporated prominent colors such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
 
@@ -101,9 +118,17 @@ The general layout was as follows:
 4. Yellow - Command Messages
 5. White - Default Text
 
+
+### Banner
+
 ![Intro Banner](documentation/images/ascii-banner.png)
 The intro hero banner was created using Ascii. The tool [Patrojk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) was used to convert text to a font in Ascii format so as to be printed to the terminal.
 
+### Options Menu
+![Options Menu](documentation/images/options-menu.png)
+The main menu was clearly labelled with 7 different options to choose from. Users can easily enter in their choice by matching the corresponding number.
+
+### Data Formatting
 
 To present data in a clear and organized manner, the website utilized the [Tabulate](https://pypi.org/project/tabulate/) library, which allowed for easy formatting and creation of tables that were easy to read and comprehend. 
 
@@ -208,6 +233,10 @@ Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to chec
 <!-- <img src="docs/testing/database-py.png"> -->
 <!-- <ul><li></li></ul> -->
 </details>
+
+### Deployed Site
+
+The Deployed Site was testing using Google Lighthouse to ensure performance was ok on the broswer. Markup and CSS validation were used also however there performance was beyond the scope of this project as the Code Institute template was used.
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -340,5 +369,12 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 
 
 ## Acknowledgements
+
+Special thanks to all my fellow Code Institute students of April 2023 for their invaluable bug testing contributions. A special shoutout to Shane Donlon, Alan Bushell and my brother, Cuan Barneveld for thier suggestions for improvements. 
+
+I would also like to thank Beret Zorlu in helping me with my Readme format and allowing me to inspect his project on how to best layout certain functions and readme items.
+
+
+Your efforts have been immensely helpful in improving the application. Thank you all!
 
 [Back to Table of Contents](#table-of-contents)
