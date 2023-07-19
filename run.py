@@ -212,11 +212,8 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
     ui.type_text('Data will be calculated using your current information', .01)
     print('\n')
 
-    valid_input = False
-    while not valid_input:
-        choice = input(W + 'Do you wish to update information? (Y) or (N):')
-        if fitness_calculator.validate_strings(input_string=choice.lower(), valid_strings=["y", "n"]):
-            valid_input = True
+
+    choice =  fitness_calculator.validate_strings(input_string='Do you wish to update information? (Y) or (N):', valid_strings=["y", "n"])
 
     if choice.lower() == 'y':
         edit_current_metrics(current_user, spreadsheet)
@@ -267,7 +264,7 @@ def update_user_metrics(metric, user_data, user_sheet):
     elif metric == 'Activty Level':
         new_value = fitness_calculator.validate_input('What is your activty level from 1 - 6? ', 1, 6)
     elif metric == 'Gender':
-        new_value = fitness_calculator.validate_gender()
+        new_value = fitness_calculator.validate_strings(input_string='Male or Female: ', valid_strings=["female", "male"])
 
     all_values = user_sheet.get_all_values()
     header_row = all_values[0]

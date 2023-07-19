@@ -90,7 +90,7 @@ The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This
 
 ## Design
 
-[Colour Theme](documentation/images/colour-theme.png)
+![Colour Theme](documentation/images/colour-theme.png)
 As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which that provided a palette of colors to be used in the text. The website incorporated prominent colors such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
 
 The general layout was as follows: 
@@ -101,15 +101,15 @@ The general layout was as follows:
 4. Yellow - Command Messages
 5. White - Default Text
 
-[Intro Banner](documentation/images/ascii-banner.png)
+![Intro Banner](documentation/images/ascii-banner.png)
 The intro hero banner was created using Ascii. The tool [Patrojk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) was used to convert text to a font in Ascii format so as to be printed to the terminal.
 
 
 To present data in a clear and organized manner, the website utilized the [Tabulate](https://pypi.org/project/tabulate/) library, which allowed for easy formatting and creation of tables that were easy to read and comprehend. 
 
-[Viewing Workouts](documentation/images/workouts.png)
+![Viewing Workouts](documentation/images/workouts.png)
 
-[Custom Macro Information](documentation/images/macros.png)
+![Custom Macro Information](documentation/images/macros.png)
 
 The combination of well-chosen colors and structured data tables enhanced the overall user experience and usability of the website.
 
@@ -315,6 +315,7 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 - [RapidAPI - Fitness Calcultor](https://rapidapi.com/malaaddincelik/api/fitness-calculator/)
 - [Chat-GPT](https://chat.openai.com/)
 - [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)
+- [Code Institutes Pep8 Checker](https://pep8ci.herokuapp.com/)
 - [W3C Markup Validation Service](https://validator.w3.org/)
 - [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/)
 - [Pylance Validator](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)

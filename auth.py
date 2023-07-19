@@ -2,7 +2,7 @@
 import re
 import colorama
 import ui
-from fitness_calculator import validate_gender, validate_input
+from fitness_calculator import validate_strings, validate_input
 
 colorama.init()
 
@@ -121,7 +121,7 @@ def define_base_inputs():
     weight = validate_input('What is your current weight in kg? ', 40, 160)
     height = validate_input('What is your current height in cm? ', 130, 230)
     activty_level = validate_input('What is your activty level from 1 - 6? ', 1, 6)
-    gender = validate_gender()
+    gender = validate_strings(input_string='Male or Female: ', valid_strings=["female", "male"])
 
     return [age, weight, height, gender.lower(), activty_level]
 

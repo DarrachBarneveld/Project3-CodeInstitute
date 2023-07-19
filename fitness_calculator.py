@@ -30,19 +30,21 @@ def validate_strings(input_string, valid_strings):
     Checks if the input string is valid by verifying if it is present in the list of valid strings.
 
     Parameters:
-        input_string (str): The input string to check.
+        input_string (str): The input string for the question
         valid_strings (list): A list of valid strings to compare against.
 
     Raises:
-        ValueError: If the input string is not found in the list of valid strings.
+        Returns the validated choice
     """
-    try:
-        if input_string.lower() in valid_strings:
-            return True
-        if input_string.lower() not in valid_strings:
-            raise ValueError
-    except ValueError:
-        ui.display_error("Invalid input string")
+
+    choice = ''
+
+    while choice not in valid_strings:
+        choice = input(input_string).lower()
+        if choice not in valid_strings:
+            ui.display_error(f"Invalid choice. Please enter {valid_strings[0]} or {valid_strings[1]}.")
+
+    return choice
 
 
 def validate_number_in_range(number, min_value, max_value):
@@ -110,23 +112,6 @@ def validate_input(string, mini, maxi):
             valid_input = True
 
     return metric
-
-def validate_gender():
-    """
-    Validates if an input is a required gender
-
-    Returns:
-    The validated gender
-    """
-
-    valid_input_gender = False
-    while not valid_input_gender:
-        gender = input('Male or Female: ')
-        if validate_strings(input_string=gender, valid_strings=["female", "male"]):
-            valid_input_gender = True
-
-    return gender
-
 
 
 def daily_calories(user_data):
