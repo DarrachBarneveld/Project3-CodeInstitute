@@ -186,13 +186,8 @@ def create_new_workout(current_user, workout_sheet):
         except ValueError:
             print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
 
-    while not isinstance(workout_duration, int):
-        input_duration = input('For how long did you workout in whole minutes? ')
-        print('\n')
-
-        workout_duration = validate_duration(input_duration)
-        workout_type = workout_type.split('. ')[1]
-
+    workout_duration = fitness_calculator.validate_input('For how long did you workout in whole minutes? ', 1, 240)
+    workout_type = workout_type.split('. ')[1]
 
     update_workout_sheet(current_user,workout_type, workout_duration, workout_sheet)
 
