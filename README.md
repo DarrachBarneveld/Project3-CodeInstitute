@@ -31,7 +31,7 @@ WorkItOut is an all-in-one fitness app that allows you to enter and track your w
    2. [New Users Stories](#new-users-stories)
    3. [Existing Users Stories](#existing-users-stories)
    4. [Validation Python Code](#validation-python-code)
-   5. [Deployed Site]()
+   5. [Deployed Site](#deployed-site)
 6. [Bugs](#Bugs)
 7. [Deployment](#deployment)
    1. [Deploying on Heroku](#deploying-on-heroku)
@@ -215,29 +215,37 @@ While writing the code in Visual Studio Code I used the linter [PyLance](https:/
 Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to check PEP8 validation. This was used at the end of the projects completion to catch any remaining errors.
 
 <details><summary>PEP8 Validation: run.py</summary>
-<!-- <img src="documentation/testing/run-py.png"> -->
-<!-- <ul><li></li></ul> -->
+<img src="documentation/images/run-pep8.png">
+<ul><li>ASCII art creates linting errors. In order to resolve these errors the UI banner logo will have to be removed detracting from the experience of the application.</li></ul>
 </details>
 
 <details><summary>PEP Validatation: auth.py</summary>
-<!-- <img src="docs/testing/questions-py.png"> -->
-<!-- <ul><li></li></ul> -->
+<img src="documentation/images/auth-pep8.png">
 </details>
 
 <details><summary>PEP Validatation: fitness_calculator.py</summary>
-<!-- <img src="docs/testing/colours-py.png"> -->
-<!-- <ul><li></li></ul> -->
+<img src="documentation/images/fitness_calculator-pep8.png">
 </details>
 
 <details><summary>PEP Validatation: ui.py</summary>
-<!-- <img src="docs/testing/database-py.png"> -->
-<!-- <ul><li></li></ul> -->
+<img src="documentation/images/ui-pep8.png">
 </details>
 
 ### Deployed Site
 
 The Deployed Site was testing using Google Lighthouse to ensure performance was ok on the broswer. Markup and CSS validation were used also however there performance was beyond the scope of this project as the Code Institute template was used.
 
+<details><summary>Google Lighthouse Desktop</summary>
+<img src="documentation/images/lighthouse-desktop.png">
+</details>
+
+<details><summary>Google Lighthouse Mobile</summary>
+<img src="documentation/images/mobile.png">
+</details>
+
+
+[W3C Markup Score](https://validator.w3.org/nu/?doc=https%3A%2F%2Fwork-it-out-066ec18b52ea.herokuapp.com%2F)
+[W3C CSS Score](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fwork-it-out-066ec18b52ea.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -251,6 +259,7 @@ The Deployed Site was testing using Google Lighthouse to ensure performance was 
 | Sensitive API keys were being exposed to the github repo against best practice. | Created a dotenv file to hide sensitive information and used the python-dotenv module to access the information. All config vars were added to heroku |
 | Multiple users could use the same email meaning validation was an issue and updating worksheets. | Created a function which check the validitiy of an email and check the current database to see if it was not already registered |
 | Sometimes the APIs were down and unable to display information which crashed the application. | Added a try and except block which caught the errors and displayed an error message to the user |
+| Pep8 Errors on Ascii art due to invalid escape sequence. | In order to display the ascii art to provide a great UX I ahd to allow for this linting error to occur |
 
 
 [Back to Table of Contents](#table-of-contents)
