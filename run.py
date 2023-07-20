@@ -26,13 +26,22 @@ GOOGLE_SHEETS_SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-# pylint: disable=line-too-long
-EXERCISES = [[Y, '1. Running'], [Y,'2. Swimming'], [Y,'3. Cycling'], [Y, '4. Weights'], [Y, '5. Sports'], [Y ,"6. Light"], [Y ,"7. Other"]]
-# pylint: disable=line-too-long
-CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'], [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'], [G,'5. Recommended Daily Calories'], [B,'6. Edit Body Metrics'], [R, '7. Logout']]
-# pylint: disable=line-too-long
-INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'], [W,'Achieve your weight goals!\n'], [W, 'Access recommended nutritional information!\n']]
-EDIT_DATA = [[G, '1. Weight'],[ G, '2. Height'], [ G, '3. Age'], [ G, '4. Gender'], [ G, '5. Activty Level'], [B, "6. Go Back"]]
+EXERCISES = [[Y, '1. Running'], [Y, '2. Swimming'],
+             [Y, '3. Cycling'], [Y, '4. Weights'],
+             [Y, '5. Sports'], [Y, "6. Light"],
+             [Y, "7. Other"]]
+
+CHOICE_OPTIONS = [[G, '1. Enter Workout'], [G, '2. View Workouts'],
+                  [G, '3. Check BMI'], [G, '4. Dieting Macros Calculator'],
+                  [G, '5. Recommended Daily Calories'],
+                  [B, '6. Edit Body Metrics'], [R, '7. Logout']]
+
+INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'],
+              [W, 'Achieve your weight goals!\n'],
+              [W, 'Access recommended nutritional information!\n']]
+
+EDIT_DATA = [[G, '1. Weight'], [G, '2. Height'], [G, '3. Age'],
+             [G, '4. Gender'], [G, '5. Activty Level'], [B, "6. Go Back"]]
 
 
 def load_google_sheets():
@@ -43,9 +52,15 @@ def load_google_sheets():
         array: Google usersheet, workoutsheet and the pandas user Dataframe.
 
     Raises:
-        gspread.exceptions.APIError: If an error occurs while accessing the Google Sheets API.
-        gspread.exceptions.SpreadsheetNotFound: If the specified spreadsheet is not found.
-        gspread.exceptions.WorksheetNotFound: If the default worksheet is not found.
+        gspread.exceptions.APIError: If an error occurs while accessing the
+        Google Sheets API.
+
+        gspread.exceptions.SpreadsheetNotFound: If the specified spreadsheet
+        is not found.
+
+        gspread.exceptions.WorksheetNotFound: If the default worksheet
+        is not found.
+
         Exception if generalised error
     """
     try:
@@ -56,26 +71,28 @@ def load_google_sheets():
 
         spreadsheet = gspread_client.open('WorkItOut')
         user_sheet = spreadsheet.get_worksheet(0)
-        user_sheet_data = user_sheet.get_all_values()
-        dateframe = pd.DataFrame(user_sheet_data[1:], columns=user_sheet_data[0])
+        data = user_sheet.get_all_values()
+        dateframe = pd.DataFrame(data[1:], columns=data[0])
+
         return [spreadsheet, dateframe]
 
     except APIError as exc:
         raise APIError('An API error occurred. Try again later!') from exc
 
     except SpreadsheetNotFound as exc:
-        raise SpreadsheetNotFound("The spreadsheet was not found Try again later!") from exc
+        raise SpreadsheetNotFound("The spreadsheet was not found!") from exc
 
     except WorksheetNotFound as exc:
-        raise WorksheetNotFound("The worksheet was not found. Try again later!") from exc
+        raise WorksheetNotFound("The worksheet was not found!") from exc
 
     except Exception as exc:
-        raise Exception("The worksheet was not found. Try again later!") from exc
+        raise Exception("Error occurred. Try again later!") from exc
 
 
 def select_options(current_user, spreadsheet):
     """
-    Displays a list of options and prompts the user to select one. Selected prompt will run an assosicated function
+    Displays a list of options and prompts the user to select one.
+    Selected prompt will run an assosicated function
 
     Parameters:
         current_user(str): The authenticated user email
@@ -85,35 +102,35 @@ def select_options(current_user, spreadsheet):
         ValueError: If the choice is invalid or not within the choice amount.
     """
 
-
     while True:
         print(W + 'What would you like to do?')
         ui.display_text(CHOICE_OPTIONS, .01)
         choice = input("Enter the number corresponding to your choice: ")
         ui.clear_screen()
-
+        user_sheet = spreadsheet.get_worksheet(0)
+        work_sheet = spreadsheet.get_worksheet(1)
         try:
             index = int(choice) - 1
             if 0 <= index < len(CHOICE_OPTIONS):
                 if index == 0:
-                    create_new_workout(current_user, spreadsheet.get_worksheet(1))
+                    create_new_workout(current_user, work_sheet)
                 elif index == 1:
-                    view_all_workouts(current_user, spreadsheet.get_worksheet(1))
+                    view_all_workouts(current_user, work_sheet)
                     print('\n')
                     ui.back_to_home()
                 elif index == 2:
                     prompt_edit_current_metrics(current_user, spreadsheet)
-                    user_data = get_current_user_data(current_user, spreadsheet.get_worksheet(0))
+                    user_data = get_current_user_data(current_user, user_sheet)
                     data = fitness_calculator.bmi_calculator(user_data)
                     ui.format_bmi(data)
                 elif index == 3:
                     prompt_edit_current_metrics(current_user, spreadsheet)
-                    user_data = get_current_user_data(current_user, spreadsheet.get_worksheet(0))
+                    user_data = get_current_user_data(current_user, user_sheet)
                     data = fitness_calculator.dieting_macros(user_data)
                     ui.format_macro_data(data)
                 elif index == 4:
                     prompt_edit_current_metrics(current_user, spreadsheet)
-                    user_data = get_current_user_data(current_user, spreadsheet.get_worksheet(0))
+                    user_data = get_current_user_data(current_user, user_sheet)
                     data = fitness_calculator.daily_calories(user_data)
                     ui.format_daily_calories(data)
                 elif index == 5:
@@ -122,9 +139,11 @@ def select_options(current_user, spreadsheet):
                     ui.logout()
                     main()
             else:
-                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+                print(R + "\nInvalid choice. Please enter a valid number.")
+                print(W)
         except ValueError:
-            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+            print(R + "\nInvalid choice. Please enter a valid number.")
+            print(W)
 
 
 def view_all_workouts(current_user, workout_sheet):
@@ -147,7 +166,11 @@ def view_all_workouts(current_user, workout_sheet):
 
         for row in filtered_data:
             workout_type, workout_date, workout_duration = row[1:4]
-            table_data.append([W + str(workout_type), W + str(workout_date), W + str(workout_duration)])
+            table_data.append([
+                W + str(workout_type),
+                W + str(workout_date),
+                W + str(workout_duration)
+            ])
 
         table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
         print(Y)
@@ -157,11 +180,11 @@ def view_all_workouts(current_user, workout_sheet):
         print("An error occurred:", str(error))
 
 
-
 def create_new_workout(current_user, workout_sheet):
     """
-    Create a new workout in google sheets document with user inputs and authenticated user so workouts are saved with user data
-    
+    Create a new workout in google sheets document with user inputs and
+    authenticated user so workouts are saved with user data
+
     Args:
         current_user(str): The authenticated user email
         workout_sheet(sheet): The sheet to be updated
@@ -170,7 +193,6 @@ def create_new_workout(current_user, workout_sheet):
     workout_type = ''
     workout_duration = ''
     ui.clear_screen()
-
 
     while workout_type == '':
         ui.display_text(EXERCISES, .01)
@@ -182,20 +204,31 @@ def create_new_workout(current_user, workout_sheet):
             if 0 <= int(choice) < len(EXERCISES):
                 workout_type = EXERCISES[index][1]
             else:
-                print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+                print(R + "\nInvalid choice. Please enter a valid number.")
+                print(W)
         except ValueError:
-            print(R + "\nInvalid choice. Please enter a valid number.\n" + W )
+            print(R + "\nInvalid choice. Please enter a valid number.")
+            print(W)
 
-    workout_duration = fitness_calculator.validate_input('For how long did you workout in whole minutes? ', 1, 240)
+    workout_duration = fitness_calculator.validate_input(
+        'For how long did you workout in whole minutes? ', 1, 240
+        )
+
     workout_type = workout_type.split('. ')[1]
 
-    update_workout_sheet(current_user,workout_type, workout_duration, workout_sheet)
+    update_workout_sheet(
+        current_user,
+        workout_type,
+        workout_duration,
+        workout_sheet
+    )
 
 
 def get_current_user_data(current_user, user_sheet):
     """
-    Create a new workout in google sheets document with user inputs and authenticated user so workouts are saved with user data
-    
+    Create a new workout in google sheets document with user inputs and
+    authenticated user so workouts are saved with user data
+
     Args:
         current_user(str): The authenticated user email
         user_sheet(sheet): The sheet to be updated
@@ -212,7 +245,7 @@ def get_current_user_data(current_user, user_sheet):
 def display_current_metrics(current_user, user_sheet):
     """
     Displays the current user data in the terminal
-    
+
     Args:
         current_user(str): The authenticated user
         user_sheet(sheet): The sheet that is searched
@@ -226,7 +259,7 @@ def display_current_metrics(current_user, user_sheet):
 def prompt_edit_current_metrics(current_user, spreadsheet):
     """
     Displays a prompt for the user to update user data
-    
+
     Args:
         current_user(str): The authenticated user
         spreadsheet(spreadsheet): The google sheets spreadsheet
@@ -238,8 +271,9 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
     ui.type_text('Data will be calculated using your current information', .01)
     print('\n')
 
-
-    choice =  fitness_calculator.validate_strings(input_string='Do you wish to update information? (Y) or (N):', valid_strings=["y", "n"])
+    choice = fitness_calculator.validate_strings(
+        input_string='Do you wish to update information? (Y) or (N):',
+        valid=["y", "n"])
 
     if choice.lower() == 'y':
         edit_current_metrics(current_user, spreadsheet)
@@ -249,7 +283,7 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
 def edit_current_metrics(current_user, spreadsheet):
     """
     Edits the current users profile in google sheets
-    
+
     Args:
         current_user(str): The authenticated user
         spreadsheet(spreadsheet): The google sheets spreadsheet
@@ -273,7 +307,9 @@ def edit_current_metrics(current_user, spreadsheet):
             if 0 <= index < len(EDIT_DATA):
                 edit_choice = EDIT_DATA[index][1].split(' ')[1]
             else:
-                ui.display_error("Invalid choice. Please enter a valid number ")
+                ui.display_error(
+                    "Invalid choice. Please enter a valid number "
+                    )
         except ValueError:
             ui.display_error("Invalid choice. Please enter a valid number.")
 
@@ -284,11 +320,11 @@ def edit_current_metrics(current_user, spreadsheet):
     update_user_metrics(edit_choice, user_data, user_sheet)
 
 
-
 def update_user_metrics(metric, user_data, user_sheet):
     """
-    Updates the current metric chosen for the user to and updates the user object in the 
-    
+    Updates the current metric chosen for the user to and
+    updates the user object in the sheet
+
     Args:
         metric(str): The user object metric to be updated
         user_data(str): The total user_data object to be updated
@@ -298,21 +334,31 @@ def update_user_metrics(metric, user_data, user_sheet):
     new_value = ''
 
     if metric == 'Age':
-        new_value = fitness_calculator.validate_input('What is your current age? ', 10, 100)
+        new_value = fitness_calculator.validate_input(
+            'What is your current age? ', 10, 100
+            )
     elif metric == 'Weight':
-        new_value = fitness_calculator.validate_input('What is your current weight in kg? ', 40, 160)
+        new_value = fitness_calculator.validate_input(
+            'What is your current weight in kg? ',
+            40, 160)
     elif metric == 'Height':
-        new_value = fitness_calculator.validate_input('What is your current height in cm? ', 130, 230)
+        new_value = fitness_calculator.validate_input(
+            'What is your current height in cm? ',
+            130, 230)
     elif metric == 'Activty Level':
-        new_value = fitness_calculator.validate_input('What is your activty level from 1 - 6? ', 1, 6)
+        new_value = fitness_calculator.validate_input(
+            'What is your activty level from 1 - 6? ',
+            1, 6)
     elif metric == 'Gender':
-        new_value = fitness_calculator.validate_strings(input_string='Male or Female: ', valid_strings=["female", "male"])
+        new_value = fitness_calculator.validate_strings(
+            input_string='Male or Female: ',
+            valid=["female", "male"]
+            )
 
     all_values = user_sheet.get_all_values()
     header_row = all_values[0]
     email_column_index = header_row.index("Email")
     metric_column_index = header_row.index(metric) + 1
-
 
     row_index = None
     for i, row in enumerate(all_values):
@@ -324,11 +370,10 @@ def update_user_metrics(metric, user_data, user_sheet):
     ui.clear_screen()
 
 
-
 def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
     """
     Update the Google Sheets Document if valid data
-    
+
     Args:
         current_user (str): The authenticated user email
         type (str): The type of workout
@@ -338,8 +383,6 @@ def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
     current_date = datetime.now().date()
     date_string = current_date.strftime("%Y-%m-%d")
 
-
-
     workout_row = [current_user, workout_type, date_string, duration]
     try:
         workout_sheet.append_row(workout_row)
@@ -347,7 +390,7 @@ def update_workout_sheet(current_user, workout_type, duration, workout_sheet):
         print(Y + "Workout Added!")
         print(W)
 
- # pylint: disable=pylint(broad-exception-caught)
+    # pylint: disable=pylint(broad-exception-caught)
     except Exception as error:
         print("An error occurred:", str(error))
 

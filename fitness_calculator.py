@@ -15,21 +15,27 @@ load_dotenv()
 
 # Retriving the API secret keys from config file
 RAPID_API_HEADERS = {
- 	"X-RapidAPI-Key": os.getenv('RAPID_API_KEY'),
- 	"X-RapidAPI-Host": os.getenv('RAPID_API_HOST')
-     }
+    "X-RapidAPI-Key": os.getenv('RAPID_API_KEY'),
+    "X-RapidAPI-Host": os.getenv('RAPID_API_HOST')
+}
 
 # pylint: disable=line-too-long
-WEIGHT_GOAL_OPTIONS =  [['Maintain weight', 'maintain'], ['Mild Weight Loss', 'mildlose'], ['Weight Loss', 'weightlose'], ['Extreme Weight Loss', 'extremelose'], ['Mild Weight Gain', 'mildgain'], ["Weight Gain", 'weightgain'], ["Extreme Weight Gain", 'extremegain']]
+WEIGHT_GOAL_OPTIONS = [
+    ['Maintain weight', 'maintain'], ['Mild Weight Loss', 'mildlose'],
+    ['Weight Loss', 'weightlose'], ['Extreme Weight Loss', 'extremelose'],
+    ['Mild Weight Gain', 'mildgain'], ["Weight Gain", 'weightgain'],
+    ["Extreme Weight Gain", 'extremegain']
+    ]
 
 
-def validate_strings(input_string, valid_strings):
+def validate_strings(input_string, valid):
     """
-    Checks if the input string is valid by verifying if it is present in the list of valid strings.
+    Checks if the input string is valid by verifying if it is present
+    in the list of valid strings.
 
     Parameters:
         input_string (str): The input string for the question
-        valid_strings (list): A list of valid strings to compare against.
+        valid (list): A list of valid strings to compare against.
 
     Raises:
         Returns the validated choice
@@ -37,10 +43,12 @@ def validate_strings(input_string, valid_strings):
 
     choice = ''
 
-    while choice not in valid_strings:
+    while choice not in valid:
         choice = input(input_string).lower()
-        if choice not in valid_strings:
-            ui.display_error(f"Invalid choice. Please enter {valid_strings[0]} or {valid_strings[1]}.")
+        if choice not in valid:
+            ui.display_error(
+                f"Invalid choice. Please enter {valid[0]} or {valid[1]}."
+            )
 
     return choice
 
@@ -55,7 +63,8 @@ def validate_number_in_range(number, min_value, max_value):
         max_value (int or float): The maximum allowed value.
 
     Returns:
-        bool: True if the input value is a number and within the specified range, False otherwise.
+        bool: True if the input value is a number within the specified range
+        False otherwise.
     """
     try:
         input_value = int(number)
@@ -64,14 +73,18 @@ def validate_number_in_range(number, min_value, max_value):
         if min_value <= input_value <= max_value:
             return True
     except ValueError:
-        ui.display_error(f"Invalid integer. The number must be in the range of {min_value}-{max_value}.")
+        ui.display_error(
+            "Invalid integer. The number must be in the range of "
+            f" {min_value}-{max_value}."
+        )
+
     return False
 
 
 def bmi_calculator(user_data):
     """
-    Sends a request to calculate BMI to a Fitness Calculator API and returns the response.
-
+    Sends a request to calculate BMI to a Fitness Calculator API
+    and returns the response.
 
     Returns:
         requests.Response: The response object from the API in json format.
@@ -81,14 +94,18 @@ def bmi_calculator(user_data):
 
     querystring = {"age": age, "weight": weight, "height": height}
 
-
     try:
-        response = requests.get('https://fitness-calculator.p.rapidapi.com/bmi', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+        response = requests.get(
+            'https://fitness-calculator.p.rapidapi.com/bmi',
+            headers=RAPID_API_HEADERS,
+            params=querystring, timeout=10
+        )
+        response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
         print(error)
         return None
+
 
 def validate_input(string, mini, maxi):
     """
@@ -107,7 +124,11 @@ def validate_input(string, mini, maxi):
 
     while not valid_input:
         metric = input(string)
-        if validate_number_in_range(number=metric, min_value=mini, max_value=maxi):
+        if validate_number_in_range(
+            number=metric,
+            min_value=mini,
+            max_value=maxi
+        ):
             valid_input = True
 
     return metric
@@ -115,7 +136,8 @@ def validate_input(string, mini, maxi):
 
 def daily_calories(user_data):
     """
-    Sends a daily calories request to a Fitness Calculator API and returns the response.
+    Sends a daily calories request to a Fitness Calculator API
+    and returns the response.
 
     Returns:
         requests.Response: The response object from the API in json format.
@@ -123,11 +145,19 @@ def daily_calories(user_data):
     weight, height, age, gender, activty_level = define_user_data(user_data)
     activty_level = 'level_' + activty_level
 
-    querystring = {"age":age,"gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level}
+    querystring = {
+        "age": age, "gender": gender.lower(),
+        "height": height, "weight": weight,
+        "activitylevel": activty_level
+    }
 
     try:
-        response = requests.get('https://fitness-calculator.p.rapidapi.com/dailycalorie', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+        response = requests.get(
+            'https://fitness-calculator.p.rapidapi.com/dailycalorie',
+            headers=RAPID_API_HEADERS,
+            params=querystring, timeout=10
+            )
+        response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
         print(error)
@@ -136,7 +166,7 @@ def daily_calories(user_data):
 
 def define_user_data(user_data):
     """
-    Receives an array of user data and formats required data it for easy destructuring
+    Receives an array of user data and formats required data for destructuring
 
     Returns:
         An array of necessary and malleable user data
@@ -150,14 +180,15 @@ def define_user_data(user_data):
     return [weight, height, age, gender, activity_level]
 
 
-
 def dieting_macros(user_data):
     """
-    Sends a dieting macros request to a Fitness Calculator API and returns the response.
+    Sends a dieting macros request to a Fitness Calculator API
+    and returns the response.
 
     Returns:
         requests.Response: The response object from the API in json format.
     """
+
     valid_input_goal = False
 
     weight, height, age, gender, activty_level = define_user_data(user_data)
@@ -177,14 +208,23 @@ def dieting_macros(user_data):
                 goal = WEIGHT_GOAL_OPTIONS[index][1]
                 valid_input_goal = True
             else:
-                ui.display_error("Invalid choice. Please enter a valid number ")
+                ui.display_error(
+                    "Invalid choice. Please enter a valid number "
+                    )
         except ValueError:
             ui.display_error("Invalid choice. Please enter a valid number.")
 
-    querystring = {"age":age, "gender":gender.lower(),"height":height,"weight":weight,"activitylevel":activty_level, "goal":goal}
+    querystring = {
+        "age": age, "gender": gender.lower(),
+        "height": height, "weight": weight, "activitylevel":
+        activty_level, "goal": goal}
 
     try:
-        response = requests.get('https://fitness-calculator.p.rapidapi.com/macrocalculator', headers=RAPID_API_HEADERS, params=querystring, timeout=10)
+        response = requests.get(
+            'https://fitness-calculator.p.rapidapi.com/macrocalculator',
+            headers=RAPID_API_HEADERS,
+            params=querystring, timeout=10)
+
         response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
