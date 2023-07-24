@@ -1,4 +1,4 @@
-"""Module functions are for displaying info to terminal with a clean UI for the user"""
+"""Module functions for displaying info to terminal with a clean UI"""
 
 import os
 import sys

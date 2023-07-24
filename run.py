@@ -313,7 +313,6 @@ def edit_current_metrics(current_user, spreadsheet):
         except ValueError:
             ui.display_error("Invalid choice. Please enter a valid number.")
 
-
     if choice == '6':
         ui.clear_screen()
         select_options(current_user, spreadsheet)
@@ -371,7 +370,6 @@ def update_user_metrics(metric, user_data, user_sheet):
             row_index = i + 1  # Add 1 to adjust for 0-based indexing
             break
 
-    print(new_value + 'new value')
     user_sheet.update_cell(row_index, metric_column_index, new_value)
     ui.clear_screen()
 
@@ -405,9 +403,9 @@ def main():
     """
     Main Function to run code
     """
-    # ui.clear_screen()
-    # ui.display_welcome()
-    # ui.display_text(INTRO_TEXT, .03)
+    ui.clear_screen()
+    ui.display_welcome()
+    ui.display_text(INTRO_TEXT, .03)
 
     try:
         spreadsheet, dataframe = load_google_sheets()
