@@ -1,4 +1,4 @@
-"""Module provides calles for manipulating dates and times"""
+"""Module runs main app and fetches inputs and google sheets"""
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
