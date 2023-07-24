@@ -32,7 +32,7 @@ WorkItOut is an all-in-one fitness app that allows you to enter and track your w
    3. [Existing Users Stories](#existing-users-stories)
    4. [Validation Python Code](#validation-python-code)
    5. [Deployed Site](#deployed-site)
-6. [Bugs](#Bugs)
+6. [Bugs](#bugs)
 7. [Deployment](#deployment)
    1. [Deploying on Heroku](#deploying-on-heroku)
    2. [Fork and Clone the Repository](#fork-the-repository)
@@ -216,7 +216,7 @@ Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to chec
 
 <details><summary>PEP8 Validation: run.py</summary>
 <img src="documentation/images/run-pep8.png">
-<ul><li>ASCII art creates linting errors. In order to resolve these errors the UI banner logo will have to be removed detracting from the experience of the application.</li></ul>
+
 </details>
 
 <details><summary>PEP Validatation: auth.py</summary>
@@ -228,7 +228,8 @@ Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to chec
 </details>
 
 <details><summary>PEP Validatation: ui.py</summary>
-<img src="documentation/images/ui-pep8.png">
+<img src="documentation/images/ui-pep.png">
+<ul><li>ASCII art creates linting errors. In order to resolve these errors the UI banner logo will have to be removed detracting from the experience of the application.</li></ul>
 </details>
 
 ### Deployed Site
