@@ -113,7 +113,8 @@ def format_macro_data(data):
             for nested_key, _ in value.items():
                 table_headers.append(nested_key.upper())
             # for nested_key, nested_value in value.items():
-            table_data.append([W + key.capitalize() ,value['protein'], value['fat'], value['carbs']])
+            table_data.append([W + key.capitalize() ,value['protein'], value['fat'], 
+            value['carbs']])
     print(Y)
     table = tabulate(table_data, table_headers, tablefmt="fancy_grid")
     print(table)
@@ -146,9 +147,8 @@ def format_daily_calories(data):
         data (obj): An object containing strings and nested objects
     """
     clear_screen()
-    print(G)
-    print(f"this is data {data}")
 
+    print(G)
     type_text('Recommended caloric intake', .03)
 
     print(f"Basal Metabolic Rate = {data['BMR']}")

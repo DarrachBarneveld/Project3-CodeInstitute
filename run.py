@@ -40,8 +40,8 @@ INTRO_TEXT = [[W, 'Welcome to WorkItOut!\n'], [W, 'Track your workouts!\n'],
               [W, 'Achieve your weight goals!\n'],
               [W, 'Access recommended nutritional information!\n']]
 
-EDIT_DATA = [[G, '1. Weight'], [G, '2. Height'], [G, '3. Age'],
-             [G, '4. Gender'], [G, '5. Activty Level'], [B, "6. Go Back"]]
+EDIT_DATA = [[Y, '1. Weight'], [Y, '2. Height'], [Y, '3. Age'],
+             [Y, '4. Gender'], [Y, '5. Activity Level'], [R, "6. Go Back"]]
 
 
 def load_google_sheets():
@@ -201,7 +201,7 @@ def create_new_workout(current_user, workout_sheet):
         print('\n')
         try:
             index = int(choice) - 1
-            if 0 <= int(choice) < len(EXERCISES):
+            if 0 <= int(choice) <= len(EXERCISES):
                 workout_type = EXERCISES[index][1]
             else:
                 print(R + "\nInvalid choice. Please enter a valid number.")
@@ -269,7 +269,7 @@ def prompt_edit_current_metrics(current_user, spreadsheet):
     display_current_metrics(current_user, user_sheet)
     print(G)
     ui.type_text('Data will be calculated using your current information', .01)
-    print('\n')
+    print(W)
 
     choice = fitness_calculator.validate_strings(
         input_string='Do you wish to update information? (Y) or (N):',
@@ -313,9 +313,14 @@ def edit_current_metrics(current_user, spreadsheet):
         except ValueError:
             ui.display_error("Invalid choice. Please enter a valid number.")
 
-    if edit_choice == 'Go Back':
+
+    if choice == '6':
         ui.clear_screen()
         select_options(current_user, spreadsheet)
+        return
+
+    if edit_choice == 'Activity':
+        edit_choice = 'Activity Level'
 
     update_user_metrics(edit_choice, user_data, user_sheet)
 
@@ -345,9 +350,9 @@ def update_user_metrics(metric, user_data, user_sheet):
         new_value = fitness_calculator.validate_input(
             'What is your current height in cm? ',
             130, 230)
-    elif metric == 'Activty Level':
+    elif metric == 'Activity Level':
         new_value = fitness_calculator.validate_input(
-            'What is your activty level from 1 - 6? ',
+            'What is your activity level from 1 - 6? ',
             1, 6)
     elif metric == 'Gender':
         new_value = fitness_calculator.validate_strings(
@@ -366,6 +371,7 @@ def update_user_metrics(metric, user_data, user_sheet):
             row_index = i + 1  # Add 1 to adjust for 0-based indexing
             break
 
+    print(new_value + 'new value')
     user_sheet.update_cell(row_index, metric_column_index, new_value)
     ui.clear_screen()
 
@@ -399,9 +405,9 @@ def main():
     """
     Main Function to run code
     """
-    ui.clear_screen()
-    ui.display_welcome()
-    ui.display_text(INTRO_TEXT, .03)
+    # ui.clear_screen()
+    # ui.display_welcome()
+    # ui.display_text(INTRO_TEXT, .03)
 
     try:
         spreadsheet, dataframe = load_google_sheets()
