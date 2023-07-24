@@ -240,7 +240,7 @@ The Deployed Site was testing using Google Lighthouse to ensure performance was 
 </details>
 
 <details><summary>Google Lighthouse Mobile</summary>
-<img src="documentation/images/mobile.png">
+<img src="documentation/images/mobile-lighthouse.png">
 </details>
 
 

@@ -103,7 +103,7 @@ def bmi_calculator(user_data):
         response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
-        print(error)
+        ui.display_error(str(error))
         return None
 
 
@@ -160,7 +160,7 @@ def daily_calories(user_data):
         response.raise_for_status()
         return response.json().get('data')
     except requests.exceptions.RequestException as error:
-        print(error)
+        ui.display_error(str(error))
         return None
 
 
