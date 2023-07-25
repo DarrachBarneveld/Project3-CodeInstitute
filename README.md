@@ -6,7 +6,7 @@
 
 [WorkItOut Live Page](https://work-it-out-066ec18b52ea.herokuapp.com/)
 
-WorkItOut is an all-in-one fitness app that allows you to enter and track your workouts effortlessly. It also provides personalized nutritional information based on your diet goals, including your BMI, daily calorie intake, and recommended macros. Stay on top of your fitness journey with WorkItOut's intuitive features and achieve a healthier lifestyle with ease.
+WorkItOut is an all-in-one fitness app that allows you to enter and track your workouts effortlessly. It also provides personalised nutritional information based on your diet goals, including your BMI, daily calorie intake, and recommended macros. Stay on top of your fitness journey with WorkItOut's intuitive features and achieve a healthier lifestyle with ease.
 
 ## Table of Contents
 
@@ -45,12 +45,12 @@ WorkItOut is an all-in-one fitness app that allows you to enter and track your w
 10. [Acknowledgements](#acknowledgements)
 
 ## Project Goals
-The primary goal of WorkItOut is to provide an concise applicaion that allows users to easily enter and track their workouts. It also helps users develop a heavily life style by using a comprehensive nutrition database to offer customized nutritional information based on user and thier goals.
+The primary goal of WorkItOut is to provide a concise application that allows users to easily enter and track their workouts. It also helps users develop a healthy lifestyle by using a comprehensive nutrition database to offer customised nutritional information based on the user and their goals.
 
 ### Business Goals
 1. The primary business goal for the WorkItOut app is to attract a significant number of users who are interested in fitness and nutrition.
 2. Build a strong brand presence: Develop a strong brand identity for WorkItOut through consistent branding, engaging content, and positive user experiences.
-3. Gather user data for research and insights: Leverage the anonymized and aggregated user data to conduct research and gain valuable insights into fitness trends, user preferences, and behavior patterns.
+3. Gather user data for research and insights: Leverage the anonymized and aggregated user data to conduct research and gain valuable insights into fitness trends, user preferences, and behaviour patterns.
 4. Expand the app's functionality and features: Continuously enhance and expand the app's capabilities to cater to the evolving needs of users.
 
 ### User Goals
@@ -66,12 +66,12 @@ The primary goal of WorkItOut is to provide an concise applicaion that allows us
 
 ### Target Audience
 1. Individuals who are passionate about fitness, exercise, and maintaining an active lifestyle. 
-2. People who prioritize their health and well-being.
+2. People who prioritise their health and well-being.
 3. Individuals who aim to lose weight, build muscle, or transform their bodies.
 
 
 ### User Requirements and Expectations
-1. Users expect an intuitive and easy-to-navigate interface that allows them to quickly access and utilize the app's features.
+1. Users expect an intuitive and easy-to-navigate interface that allows them to quickly access and utilise the app's features.
 2. Users require the ability to enter and track their workouts
 3. Users require a log or history of their workouts for reference and progress tracking
 4. Users expect the app to offer tools for tracking their daily food intake, including calories, macronutrients, and other nutritional information.
@@ -108,7 +108,7 @@ The Flowchart created with [LucidChart](https://www.lucidchart.com/pages/). This
 
 ### Colour Theme
 ![Colour Theme](documentation/images/colour-theme.png)
-As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which that provided a palette of colors to be used in the text. The website incorporated prominent colors such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
+As this was a terminal-based project colours were crafted using [Colourma](https://pypi.org/project/colorama/) which provided a palette of colours to be used in the text. The website incorporated prominent colours such as red, blue, yellow, green, and white to create an engaging and visually appealing interface.
 
 The general layout was as follows: 
 
@@ -130,13 +130,13 @@ The main menu was clearly labelled with 7 different options to choose from. User
 
 ### Data Formatting
 
-To present data in a clear and organized manner, the website utilized the [Tabulate](https://pypi.org/project/tabulate/) library, which allowed for easy formatting and creation of tables that were easy to read and comprehend. 
+To present data in a clear and organised manner, the website utilised the [Tabulate](https://pypi.org/project/tabulate/) library, which allowed for easy formatting and creation of tables that were easy to read and comprehend. 
 
 ![Viewing Workouts](documentation/images/workouts.png)
 
 ![Custom Macro Information](documentation/images/macros.png)
 
-The combination of well-chosen colors and structured data tables enhanced the overall user experience and usability of the website.
+The combination of well-chosen colours and structured data tables enhanced the overall user experience and usability of the website.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -147,14 +147,14 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 1. Enter workout details:  Users can input the type of exercise performed and the duration to accurately track their workouts.
 2. View all workouts: Users have access to a comprehensive view of their logged workouts, allowing them to review their workout history and monitor their progress.
 3. BMI calculator: Calculator that enables users to calculate their Body Mass Index as an indicator of their overall health and fitness level.
-4. Recommended calorie intake: Based on users' diet goals (weight loss, maintenance, or muscle gain), the application provides personalized recommendations for daily calorie intake to support their nutrition objectives.
-5. Recommended macros: Customized macronutrient ratios (protein, carbohydrates, and fats) based on users' weight, height, age, gender and activity level, helping them optimize their nutrition and meet their fitness goals.
-6. Editing User Data: Users can update thier current data at any time for accurate custom calculations. 
+4. Recommended calorie intake: Based on users' diet goals (weight loss, maintenance, or muscle gain), the application provides personalised recommendations for daily calorie intake to support their nutrition objectives.
+5. Recommended macros: Customised macronutrient ratios (protein, carbohydrates, and fats) based on users' weight, height, age, gender and activity level, helping them optimise their nutrition and meet their fitness goals.
+6. Editing User Data: Users can update their current data at any time for accurate custom calculations. 
 7. Users can log out at any time.
 
 ### Potential Features
 1. Workout plans: Offer pre-designed workout plans tailored to different fitness goals, such as weight loss, muscle gain, or overall fitness. Users can follow these plans for structured and guided training.
-2. Customizable meal plans: Provide the option to create personalized meal plans based on dietary preferences, restrictions, and fitness goals. Offer suggestions for balanced meals and portion sizes.
+2. Customizable meal plans: Provide the option to create personalised meal plans based on dietary preferences, restrictions, and fitness goals. Offer suggestions for balanced meals and portion sizes.
 3. Nutritional tracking and logging: Allow users to log their daily food intake, track calories, macronutrients, and micronutrients, and view nutritional breakdowns for meals and snacks.
 
 
@@ -163,11 +163,11 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 ### Website/Business Owner Stories
 - I want to test the applications ease of navigation to ensure that users can easily find the information
    1. Users can navigate back to the home page from data tables.
-   2. Users are always redirected back to the selection screen when they have finished inputing a workout.
+   2. Users are always redirected back to the selection screen when they have finished inputting a workout.
    3. The list of features is clear and presented well.
 
 - I want information to be presented clearly in an easy to understand format
-   1. All data is formated onto a table with columns and rows.
+   1. All data is formatted onto a table with columns and rows.
 
 - I authentication to be easy and intuitive
    1. Users are prompted whether to login or signup.
@@ -175,7 +175,7 @@ The combination of well-chosen colors and structured data tables enhanced the ov
    3. Any errors are clearly displayed and prompting the user to try again.
 
 - I want to be able to logout of the application to avoid security issues
-   1. Users can log out at anytime from the main menu.
+   1. Users can log out at any time from the main menu.
 
 ### New Users Stories
 - I want to immediately understand the application so I can make a quick decision as to whether or not to continue.
@@ -185,7 +185,7 @@ The combination of well-chosen colors and structured data tables enhanced the ov
    1. Clear instruction on what options are available
    2. Simple commands to progress through the applications flow.
 
-- I want to be information to be displayed easily with customisable data.
+- I want information to be displayed easily with customisable data.
    1. Users can updated current metrics for accurate customisable data
    2. Data is displayed in easy to read tables
 
@@ -197,10 +197,10 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 ### Existing Users Stories
 
 - I want to easily be able to log into my account
-   1. Users can easily log into there account with a simple 3 step process
+   1. Users can easily log into their account with a simple 3 step process
 
 - I want to be able to view my log of workouts
-   1. Users can view all thier workouts displayed in an easy to read table
+   1. Users can view all their workouts displayed in an easy to read table
 
 - I want to be able to change my current statistical information
    1. Users can update there current weight, height age and activity level
@@ -210,31 +210,31 @@ The combination of well-chosen colors and structured data tables enhanced the ov
 
 ### Validation Python Code
 
-While writing the code in Visual Studio Code I used the linter [PyLance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) to guide me in the best practice of formating and also hints on functional writing.
+While writing the code in Visual Studio Code I used the linter [PyLance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) to guide me in the best practice of formatting and also hints on functional writing.
 
-Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to check PEP8 validation. This was used at the end of the projects completion to catch any remaining errors.
+Code Institute's [Python Linter](https://pep8ci.herokuapp.com/) was used to check PEP8 validation. This was used at the end of the project's completion to catch any remaining errors.
 
 <details><summary>PEP8 Validation: run.py</summary>
 <img src="documentation/images/run-pep8.png">
 
 </details>
 
-<details><summary>PEP Validatation: auth.py</summary>
+<details><summary>PEP Validation: auth.py</summary>
 <img src="documentation/images/auth-pep8.png">
 </details>
 
-<details><summary>PEP Validatation: fitness_calculator.py</summary>
+<details><summary>PEP Validation: fitness_calculator.py</summary>
 <img src="documentation/images/fitness_calculator-pep8.png">
 </details>
 
-<details><summary>PEP Validatation: ui.py</summary>
+<details><summary>PEP Validation: ui.py</summary>
 <img src="documentation/images/ui-pep.png">
 <ul><li>ASCII art creates linting errors. In order to resolve these errors the UI banner logo will have to be removed detracting from the experience of the application.</li></ul>
 </details>
 
 ### Deployed Site
 
-The Deployed Site was testing using Google Lighthouse to ensure performance was ok on the broswer. Markup and CSS validation were used also however there performance was beyond the scope of this project as the Code Institute template was used.
+The Deployed Site was testing using Google Lighthouse to ensure performance was ok on the browser. Markup and CSS validation were used also however their performance was beyond the scope of this project as the Code Institute template was used.
 
 <details><summary>Google Lighthouse Desktop</summary>
 <img src="documentation/images/lighthouse-desktop.png">
@@ -255,12 +255,12 @@ The Deployed Site was testing using Google Lighthouse to ensure performance was 
 | **Bug** | **Fix** |
 | ------- | ------- |
 | Login/Signup validation was not rerunning the input option when a invalid input was entered so vaulty data was stored| Added a while not loop that kept prompting the user for valid information if the validator did not return true|
-| Mutable global variables of google sheets and dataframes were at risk of corruption in associated functions| Created all instances of the the variables to be passed as parameters to necessary functions to avoid mutations |
-| Image urls not rendering correctly on deployment. Filepaths were not absolute. | Used the github repo url instead of file path names to render the background and favicon images |
+| Mutable global variables of google sheets and data frames were at risk of corruption in associated functions| Created all instances of the the variables to be passed as parameters to necessary functions to avoid mutations |
+| Image urls not rendering correctly on deployment. File Paths were not absolute. | Used the github repo url instead of file path names to render the background and favicon images |
 | Sensitive API keys were being exposed to the github repo against best practice. | Created a dotenv file to hide sensitive information and used the python-dotenv module to access the information. All config vars were added to heroku |
-| Multiple users could use the same email meaning validation was an issue and updating worksheets. | Created a function which check the validitiy of an email and check the current database to see if it was not already registered |
+| Multiple users could use the same email meaning validation was an issue and updating worksheets. | Created a function which check the validity of an email and check the current database to see if it was not already registered |
 | Sometimes the APIs were down and unable to display information which crashed the application. | Added a try and except block which caught the errors and displayed an error message to the user |
-| Pep8 Errors on Ascii art due to invalid escape sequence. | In order to display the ascii art to provide a great UX I ahd to allow for this linting error to occur |
+| Pep8 Errors on Ascii art due to invalid escape sequence. | In order to display the ascii art to provide a great UX I had to allow for this linting error to occur |
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -278,7 +278,7 @@ Steps to reproduce:
 
 1. Create a Heroku account. 
 2. Sign up with a student account for credits. (optional)
-3. Once logged in select create new app.
+3. Once logged in, select create a new app.
 4. Select an app name and region.
 5. Select deployment method as connect to github.
 6. Find the repo containing the python code created with the CI template and connect it.
@@ -329,7 +329,7 @@ Steps to reproduce:
 ### Code
 Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for the typing animation and colours. By understanding his code I was able to implement a typing and colour scheme to my project. 
 
-Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for his readme. This readme was used as a template on how correct display bugs and fixes in markup.
+Credit to [Berat Zorlu](https://github.com/beratzorlu/python-quiz) for his readme. This readme was used as a template on how to correctly display bugs and fixes in markup.
 
 Credit to [useriasminna](https://github.com/useriasminna/american_pizza_order_system) for the clearing console commands to give a fresh terminal screen to present user data.
 
@@ -362,17 +362,17 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 - [Heroku](https://heroku.com/)
 
 ### Modules Imported
-- [google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - Access to credientials in creds.json
+- [google.oauth2.service_account](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) - Access to credentials in creds.json
 - [gspread](https://docs.gspread.org/en/v5.10.0/) - Linking and reading google spreadsheet
 - [os](https://docs.python.org/3/library/os.html) - To get access to the operating system
 - [time](https://docs.python.org/3/library/time.html) - Allowing sleep delays to terminal UI
-- [datetime](https://docs.python.org/3/library/datetime.html) - Formating dates for workouts
-- [tabulate](https://pypi.org/project/tabulate/) - Formating data into tables
+- [datetime](https://docs.python.org/3/library/datetime.html) - Formatting dates for workouts
+- [tabulate](https://pypi.org/project/tabulate/) - Formatting data into tables
 - [colorma](https://pypi.org/project/colorama/) - Adding colour to the terminal display
 - [pandas](https://pandas.pydata.org/docs/) - Easier configuration of data objects from csv
 - [re](https://docs.python.org/3/library/re.html) - Allowing reading of regex 
 - [sys](https://docs.python.org/3/library/sys.html) - Sleep characters in text animation
-- [dotenv](https://pypi.org/project/python-dotenv/) - Hidding and reading config variables
+- [dotenv](https://pypi.org/project/python-dotenv/) - Hiding and reading config variables
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -380,7 +380,7 @@ Credit to [Gspread](https://docs.gspread.org/en/latest/user-guide.html) document
 
 ## Acknowledgements
 
-Special thanks to all my fellow Code Institute students of April 2023 for their invaluable bug testing contributions. A special shoutout to Shane Donlon, Alan Bushell and my brother, Cuan Barneveld for thier suggestions for improvements. 
+Special thanks to all my fellow Code Institute students of April 2023 for their invaluable bug testing contributions. A special shoutout to Shane Donlon, Alan Bushell and my brother, Cuan Barneveld for their suggestions for improvements. 
 
 I would also like to thank Beret Zorlu in helping me with my Readme format and allowing me to inspect his project on how to best layout certain functions and readme items.
 
