@@ -124,7 +124,6 @@ def validate_input(string, mini, maxi):
 
     while not valid_input:
         metric = input(string)
-        print(metric)
         if validate_number_in_range(
             number=metric,
             min_value=mini,
