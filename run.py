@@ -10,8 +10,9 @@ import fitness_calculator
 from auth import authenticate_user
 import ui
 
-
+# Creating the colorma colours for print statements
 colorama.init()
+
 
 G = colorama.Fore.LIGHTGREEN_EX
 R = colorama.Fore.RED
